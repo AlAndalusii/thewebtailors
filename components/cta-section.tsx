@@ -1,0 +1,188 @@
+"use client"
+
+import type React from "react"
+
+import { motion } from "framer-motion"
+import { Pacifico } from "next/font/google"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react"
+
+const pacifico = Pacifico({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-pacifico",
+})
+
+export default function CTASection() {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false)
+    }, 1500)
+  }
+
+  return (
+    <section id="contact" className="relative snap-section bg-[#030303] overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] to-rose-500/[0.05]" />
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10 py-16 md:py-24 min-h-screen max-h-screen flex flex-col">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
+              Get Your Website
+            </span>
+            <span
+              className={cn(
+                " ml-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300",
+                pacifico.className,
+              )}
+            >
+              Tailored Today
+            </span>
+          </h2>
+          <p className="text-white/60 max-w-2xl mx-auto">
+            Ready to transform your online presence? Let's start crafting your perfect website.
+          </p>
+        </motion.div>
+
+        <div className="scrollable-content flex-1 overflow-y-auto pr-2">
+          <div className="max-w-2xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative p-8 rounded-2xl overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl" />
+              <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="text-white/80 text-sm">
+                      Name
+                    </label>
+                    <Input
+                      id="name"
+                      placeholder="Your name"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-white/80 text-sm">
+                      Email
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Your email"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="phone" className="text-white/80 text-sm">
+                      Phone Number
+                    </label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="Your phone number"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="budget" className="text-white/80 text-sm">
+                      Estimated Budget
+                    </label>
+                    <Input
+                      id="budget"
+                      placeholder="Your estimated budget"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="availability" className="text-white/80 text-sm">
+                    Preferred Availability
+                  </label>
+                  <Input
+                    id="availability"
+                    placeholder="e.g., Weekdays after 3 PM, Monday mornings, etc."
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-white/80 text-sm">
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    placeholder="Tell us about your project"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 min-h-[120px]"
+                  />
+                </div>
+
+                <div className="text-center">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white rounded-full px-8 w-full md:w-auto"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-2">
+                        <svg
+                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Sending...
+                      </span>
+                    ) : (
+                      "Send Message"
+                    )}
+                  </Button>
+                  <p className="mt-4 text-white/50 text-sm">
+                    We aim to respond to all inquiries within 24-48 hours during business days.
+                  </p>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

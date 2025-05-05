@@ -9,8 +9,8 @@ const emailConfig = {
   port: 587,
   secure: false, 
   auth: {
-    user: 'zak@thewebtailors.com',
-    pass: process.env.EMAIL_PASSWORD || 'Leiden1492!',
+    user: process.env.USER_EMAIL || '',
+    pass: process.env.EMAIL_PASSWORD || '',
   },
   tls: {
     ciphers: 'SSLv3',
@@ -83,8 +83,21 @@ function storeSubmission(submission: any) {
 // Function to send email notification
 async function sendEmailNotification(submission: any) {
   try {
+    console.log('Email configuration:', { 
+      host: emailConfig.host,
+      port: emailConfig.port,
+      user: emailConfig.auth.user ? 'Present' : 'Missing',
+      pass: emailConfig.auth.pass ? 'Present' : 'Missing'
+    });
+    
     // Create reusable transporter
     const transporter = nodemailer.createTransport(emailConfig);
+    
+    // Verify connection
+    await transporter.verify().catch(error => {
+      console.error('Email verification error:', error);
+      throw error;
+    });
     
     // Format submission data for email
     const submissionDetails = Object.entries(submission)
@@ -99,8 +112,8 @@ async function sendEmailNotification(submission: any) {
     
     // Set up email data
     const mailOptions = {
-      from: emailConfig.auth.user,
-      to: emailConfig.auth.user, // Send to yourself
+      from: process.env.USER_EMAIL || '',
+      to: process.env.USER_EMAIL || '', // Send to yourself
       subject: `New Website Contact Form Submission - ${submission.name || 'Anonymous'}`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px;">

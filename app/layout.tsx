@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Poppins } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
+import { Toaster } from "sonner"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={cn("min-h-screen bg-[#030303] font-sans antialiased", poppins.variable)}>
         {children}
+        <Toaster position="top-center" theme="dark" richColors />
       </body>
     </html>
   )

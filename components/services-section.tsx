@@ -128,17 +128,44 @@ const ResultCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay }}
       viewport={{ once: true }}
-      className="relative p-6 rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-black/10 transition-all duration-500 border border-white/10 flex flex-col h-full"
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      className="relative rounded-xl overflow-hidden group h-full"
     >
-      <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-sm transition-opacity duration-500 group-hover:bg-white/[0.05]" />
+      {/* Background gradient that appears on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-rose-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 rounded-xl" />
       
-      <div className="relative">
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-rose-500/20 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110">
-          <Icon className="w-6 h-6 text-white" />
+      {/* Animated border */}
+      <div className="absolute inset-0 rounded-xl p-[1px] bg-transparent z-10">
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-500/20 via-rose-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 blur-sm" />
+        <div className="absolute inset-0 rounded-xl overflow-hidden">
+          <div className="h-full w-[200%] absolute -left-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+        </div>
+      </div>
+      
+      {/* Card content background */}
+      <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-sm border border-white/10 group-hover:border-white/20 transition-colors duration-300 rounded-xl z-0" />
+      
+      {/* Card content */}
+      <div className="relative z-20 p-7 flex flex-col h-full">
+        {/* Animated icon container */}
+        <div className="relative mb-5 w-14 h-14">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-rose-500/30 rounded-xl opacity-70 group-hover:opacity-100 blur-md group-hover:blur-lg transition-all duration-300 group-hover:scale-110" />
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-rose-500/30 rounded-xl transform group-hover:scale-110 transition-transform duration-300" />
+          <div className="relative h-full w-full rounded-xl bg-black/20 backdrop-blur-sm flex items-center justify-center">
+            <Icon className="w-7 h-7 text-white transform group-hover:scale-110 transition-transform duration-300" />
+          </div>
         </div>
         
-        <h4 className="text-lg font-semibold text-white mb-2">{title}</h4>
-        <p className="text-white/60 text-sm">{description}</p>
+        {/* Text content */}
+        <div>
+          <h4 className="text-xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90 group-hover:from-indigo-200 group-hover:to-white transition-colors duration-300">{title}</h4>
+          <p className="text-white/70 text-sm leading-relaxed">{description}</p>
+        </div>
+        
+        {/* Animated underline */}
+        <div className="mt-auto pt-5">
+          <div className="h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-indigo-500/60 to-rose-500/60 transition-all duration-300 rounded-full" />
+        </div>
       </div>
     </motion.div>
   )
@@ -328,25 +355,49 @@ export default function ServicesSection() {
 
         {/* Results-Driven Approach */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-20 relative"
         >
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-white mb-4">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300">
-                Results-Driven Approach
-              </span>
-            </h3>
-            <p className="text-white/70 max-w-3xl mx-auto text-lg">
+          {/* Background elements */}
+          <div className="absolute -top-10 left-1/4 w-72 h-72 bg-indigo-500/5 rounded-full filter blur-3xl" />
+          <div className="absolute -bottom-10 right-1/4 w-72 h-72 bg-rose-500/5 rounded-full filter blur-3xl" />
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16 relative z-10"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300 relative z-10">
+                  Results-Driven Approach
+                </span>
+                <div className="absolute -bottom-1.5 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500/70 to-rose-500/70 rounded-full"></div>
+              </h3>
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="text-white/70 max-w-3xl mx-auto text-lg leading-relaxed"
+            >
               We measure success not just in design aesthetics, but in tangible business outcomes.
               Every decision is made with your goals in mind.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
             <ResultCard
               icon={Zap}
               title="Increased Conversion Rates"

@@ -40,9 +40,9 @@ export default function LawFirmGalleryItem() {
       className="bg-gradient-to-br from-white/[0.03] to-white/[0.01] rounded-xl overflow-hidden border border-white/10 backdrop-blur-sm"
     >
       <div className="p-6">
-        <h3 className="text-xl text-white font-medium mb-2">Law Firm Website Redesign</h3>
+        <h3 className="text-xl text-white font-medium mb-2">Electrical Company Website Transformation</h3>
         <p className="text-white/60 text-sm mb-4">
-          Transforming an outdated legal website into a modern, client-focused digital presence with improved navigation and cleaner design.
+          Revitalizing an electrical services company website with modern design, improved user experience, and clear service presentation to attract more qualified leads.
         </p>
         <div className="flex justify-center gap-8 mb-2">
           <div className="flex items-center">
@@ -68,8 +68,8 @@ export default function LawFirmGalleryItem() {
         <div className="absolute inset-0 z-0">
           <div className="relative w-full h-full">
             <Image 
-              src="/before 2.png" 
-              alt="Before: Old Law Firm Website Design" 
+              src="/before 4.png" 
+              alt="Before: Old Electrical Company Website Design" 
               fill
               style={{ objectFit: 'contain', objectPosition: 'center' }}
               priority
@@ -89,8 +89,8 @@ export default function LawFirmGalleryItem() {
         >
           <div className="relative w-full h-full">
             <Image 
-              src="/After 2.png" 
-              alt="After: Modern Law Firm Website Design" 
+              src="/after 4.png" 
+              alt="After: Modern Electrical Company Website Design" 
               fill
               style={{ objectFit: 'contain', objectPosition: 'center' }}
               priority

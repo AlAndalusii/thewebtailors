@@ -46,7 +46,7 @@ export default function GallerySection() {
         {/* Gallery content without scrolling */}
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 gap-20">
-            {/* Law Firm Website Redesign */}
+            {/* Electrical Company Website Transformation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export default function GallerySection() {
               <div className="absolute -inset-2 bg-gradient-to-br from-indigo-500/10 to-rose-500/10 rounded-xl blur-lg opacity-20"></div>
               <div className="relative">
                 <h3 className="text-2xl text-white font-medium mb-3 inline-flex items-center">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Law Firm Website Redesign</span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Electrical Company Website Transformation</span>
                   <span className="ml-2 px-2 py-1 text-xs bg-gradient-to-r from-indigo-500/20 to-rose-500/20 rounded-full border border-white/10 text-white/80">Featured</span>
                 </h3>
                 <LawFirmGalleryItem />

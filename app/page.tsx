@@ -7,6 +7,7 @@ import FAQSection from "@/components/faq-section"
 import CTASection from "@/components/cta-section"
 import Footer from "@/components/footer"
 import Navigation from "@/components/navigation"
+import CallPopup from "@/components/call-popup"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <FAQSection />
       <CTASection />
       <Footer />
+      <CallPopup />
     </main>
   )
 }

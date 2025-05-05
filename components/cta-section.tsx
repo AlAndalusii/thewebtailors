@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
+import { toast } from "sonner"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -18,15 +19,67 @@ const pacifico = Pacifico({
 
 export default function CTASection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    budget: "",
+    availability: "",
+    message: ""
+  })
+  const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle input changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setFormStatus("idle")
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Send form data to API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        // Show success message
+        setFormStatus("success")
+        toast.success("Message sent successfully! We'll be in touch soon.")
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          budget: "",
+          availability: "",
+          message: ""
+        })
+      } else {
+        // Show error message
+        setFormStatus("error")
+        toast.error("Something went wrong. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      setFormStatus("error")
+      toast.error("Connection error. Please try again later.")
+    } finally {
       setIsSubmitting(false)
-    }, 1500)
+    }
   }
 
   return (
@@ -79,6 +132,9 @@ export default function CTASection() {
                       id="name"
                       placeholder="Your name"
                       className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="space-y-2">
@@ -90,6 +146,9 @@ export default function CTASection() {
                       type="email"
                       placeholder="Your email"
                       className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -104,6 +163,8 @@ export default function CTASection() {
                       type="tel"
                       placeholder="Your phone number"
                       className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                      value={formData.phone}
+                      onChange={handleChange}
                     />
                   </div>
                   <div className="space-y-2">
@@ -114,6 +175,8 @@ export default function CTASection() {
                       id="budget"
                       placeholder="Your estimated budget"
                       className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                      value={formData.budget}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -126,6 +189,8 @@ export default function CTASection() {
                     id="availability"
                     placeholder="e.g., Weekdays after 3 PM, Monday mornings, etc."
                     className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                    value={formData.availability}
+                    onChange={handleChange}
                   />
                 </div>
 
@@ -137,6 +202,9 @@ export default function CTASection() {
                     id="message"
                     placeholder="Tell us about your project"
                     className="bg-white/5 border-white/10 text-white placeholder:text-white/30 min-h-[120px]"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -144,7 +212,11 @@ export default function CTASection() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white rounded-full px-8 w-full md:w-auto"
+                    className={cn(
+                      "bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white rounded-full px-8 w-full md:w-auto",
+                      formStatus === "success" && "from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600",
+                      formStatus === "error" && "from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600"
+                    )}
                   >
                     {isSubmitting ? (
                       <span className="flex items-center gap-2">
@@ -170,6 +242,8 @@ export default function CTASection() {
                         </svg>
                         Sending...
                       </span>
+                    ) : formStatus === "success" ? (
+                      "Message Sent!"
                     ) : (
                       "Send Message"
                     )}

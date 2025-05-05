@@ -3,20 +3,59 @@ import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
 
-// Config for Outlook email transport
-const emailConfig = {
-  host: 'smtp-mail.outlook.com', 
-  port: 587,
-  secure: false, 
+// Define email config interface
+interface EmailConfig {
+  host: string;
+  port: number;
+  secure: boolean;
   auth: {
-    user: process.env.USER_EMAIL || '',
-    pass: process.env.EMAIL_PASSWORD || '',
+    user: string;
+    pass: string;
+  };
+  tls?: {
+    ciphers: string;
+    rejectUnauthorized: boolean;
+  };
+  debug?: boolean;
+}
+
+// Email configs to try
+const emailConfigs: EmailConfig[] = [
+  // Primary config for Outlook
+  {
+    host: 'smtp-mail.outlook.com', 
+    port: 587,
+    secure: false, 
+    auth: {
+      user: process.env.USER_EMAIL || '',
+      pass: process.env.EMAIL_PASSWORD || '',
+    },
+    tls: {
+      ciphers: 'SSLv3',
+      rejectUnauthorized: false
+    }
   },
-  tls: {
-    ciphers: 'SSLv3',
-    rejectUnauthorized: false
+  // Alternative without TLS options
+  {
+    host: 'smtp-mail.outlook.com', 
+    port: 587,
+    secure: false, 
+    auth: {
+      user: process.env.USER_EMAIL || '',
+      pass: process.env.EMAIL_PASSWORD || '',
+    }
+  },
+  // Office365 SMTP
+  {
+    host: 'smtp.office365.com', 
+    port: 587,
+    secure: false, 
+    auth: {
+      user: process.env.USER_EMAIL || '',
+      pass: process.env.EMAIL_PASSWORD || '',
+    }
   }
-};
+];
 
 // Directory to store submissions
 const dataDir = path.join(process.cwd(), 'data');
@@ -83,21 +122,16 @@ function storeSubmission(submission: any) {
 // Function to send email notification
 async function sendEmailNotification(submission: any) {
   try {
-    console.log('Email configuration:', { 
-      host: emailConfig.host,
-      port: emailConfig.port,
-      user: emailConfig.auth.user ? 'Present' : 'Missing',
-      pass: emailConfig.auth.pass ? 'Present' : 'Missing'
+    // Debug email configuration
+    console.log('Email credentials:', { 
+      user: process.env.USER_EMAIL ? 'Present' : 'Missing',
+      pass: process.env.EMAIL_PASSWORD ? 'Present' : 'Missing'
     });
     
-    // Create reusable transporter
-    const transporter = nodemailer.createTransport(emailConfig);
-    
-    // Verify connection
-    await transporter.verify().catch(error => {
-      console.error('Email verification error:', error);
-      throw error;
-    });
+    if (!process.env.USER_EMAIL || !process.env.EMAIL_PASSWORD) {
+      console.error('Missing email credentials: One or both of USER_EMAIL or EMAIL_PASSWORD environment variables are not set');
+      throw new Error('Missing email credentials');
+    }
     
     // Format submission data for email
     const submissionDetails = Object.entries(submission)
@@ -112,8 +146,8 @@ async function sendEmailNotification(submission: any) {
     
     // Set up email data
     const mailOptions = {
-      from: process.env.USER_EMAIL || '',
-      to: process.env.USER_EMAIL || '', // Send to yourself
+      from: process.env.USER_EMAIL,
+      to: process.env.USER_EMAIL, // Send to yourself
       subject: `New Website Contact Form Submission - ${submission.name || 'Anonymous'}`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px;">
@@ -129,9 +163,39 @@ async function sendEmailNotification(submission: any) {
       `,
     };
     
-    // Send email
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email notification sent:', info.messageId);
+    // Try each email configuration until one works
+    let sentSuccessfully = false;
+    let lastError = null;
+    
+    for (let i = 0; i < emailConfigs.length; i++) {
+      try {
+        console.log(`Trying email config ${i+1}/${emailConfigs.length}`);
+        const config = emailConfigs[i];
+        console.log(`Config details: host=${config.host}, port=${config.port}, tls=${!!config.tls}`);
+        
+        const transporter = nodemailer.createTransport(config);
+        
+        // Verify connection first
+        await transporter.verify();
+        console.log(`Email config ${i+1} verified successfully`);
+        
+        // Send email
+        const info = await transporter.sendMail(mailOptions);
+        console.log(`Email sent successfully with config ${i+1}. ID: ${info.messageId}`);
+        
+        sentSuccessfully = true;
+        break;
+      } catch (error) {
+        console.error(`Failed to send with config ${i+1}:`, error);
+        lastError = error;
+        // Continue to next configuration
+      }
+    }
+    
+    if (!sentSuccessfully) {
+      console.error('All email configurations failed:', lastError);
+      throw lastError;
+    }
     
     return true;
   } catch (error) {

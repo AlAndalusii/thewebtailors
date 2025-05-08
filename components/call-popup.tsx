@@ -2,37 +2,33 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from "react"
-import { X, Zap } from "lucide-react"
+import { X, Zap, MessageCircle } from "lucide-react"
 
 export default function CallPopup() {
-  // Start with isOpen set to false
+  // Track both if popup is open and if it has been manually closed
   const [isOpen, setIsOpen] = useState(false)
+  const [hasBeenClosed, setHasBeenClosed] = useState(false)
 
   useEffect(() => {
-    // Log to debug
-    console.log("CallPopup mounted, setting timer")
-    
     // Show popup after 2 seconds (reduced from 5 for faster testing)
     const timer = setTimeout(() => {
-      console.log("Timer completed, showing popup")
-      setIsOpen(true)
+      if (!hasBeenClosed) {
+        setIsOpen(true)
+      }
     }, 2000)
 
     return () => {
-      console.log("Cleanup timer")
       clearTimeout(timer)
     }
-  }, [])
+  }, [hasBeenClosed])
 
-  // Debug function to toggle popup manually
-  const togglePopup = () => {
-    console.log("Toggling popup, current state:", isOpen)
-    setIsOpen(prev => !prev)
+  const openPopup = () => {
+    setIsOpen(true)
   }
 
   const closePopup = () => {
-    console.log("Closing popup")
     setIsOpen(false)
+    setHasBeenClosed(true)
   }
 
   // For particle animation
@@ -45,17 +41,32 @@ export default function CallPopup() {
     delay: Math.random() * 2
   }))
 
-  console.log("Rendering CallPopup, isOpen:", isOpen)
-
   return (
     <>
-      {/* Debug button (hidden in production) */}
-      <button 
-        onClick={togglePopup}
-        className="fixed bottom-2 left-2 bg-black/50 text-white px-3 py-1 text-xs rounded-full z-50"
-      >
-        {isOpen ? 'Hide' : 'Show'} Popup
-      </button>
+      {/* Remove debug button in production */}
+      {process.env.NODE_ENV === 'development' && (
+        <button 
+          onClick={openPopup}
+          className="fixed bottom-2 left-2 bg-black/50 text-white px-3 py-1 text-xs rounded-full z-50"
+        >
+          {isOpen ? 'Hide' : 'Show'} Popup
+        </button>
+      )}
+
+      {/* Show small button to reopen popup when it has been closed */}
+      {hasBeenClosed && !isOpen && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 p-0.5 shadow-lg shadow-purple-900/30 z-40"
+          onClick={openPopup}
+          aria-label="Open popup"
+        >
+          <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+            <MessageCircle className="w-6 h-6 text-white" />
+          </div>
+        </motion.button>
+      )}
 
       <AnimatePresence>
         {isOpen && (
@@ -160,14 +171,15 @@ export default function CallPopup() {
               <div className="absolute inset-[1px] rounded-2xl overflow-hidden z-20 bg-black/80 backdrop-blur-xl">
                 <div className="w-full h-full relative p-6 flex flex-col items-center justify-center">
                   
-                  {/* Close button with glow */}
+                  {/* Improved close button with glow and larger touch target */}
                   <motion.button
-                    className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white/80 hover:text-white z-30"
+                    className="absolute top-2 right-2 w-10 h-10 rounded-full bg-gradient-to-r from-indigo-600/30 to-purple-600/30 flex items-center justify-center text-white z-30 border border-white/10 shadow-lg shadow-black/5 touch-manipulation"
                     onClick={closePopup}
-                    whileHover={{ scale: 1.2, backgroundColor: "rgba(255,255,255,0.15)" }}
+                    whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.15)" }}
                     whileTap={{ scale: 0.9 }}
+                    aria-label="Close popup"
                   >
-                    <X size={16} />
+                    <X size={18} />
                   </motion.button>
                   
                   {/* Icon with pulsing effect */}

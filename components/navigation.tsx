@@ -100,7 +100,7 @@ export default function Navigation() {
     <>
       <header className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4",
-        scrolled || !isHomePage ? "bg-black/50 backdrop-blur-md border-b border-white/10" : "bg-transparent"
+        scrolled || !isHomePage ? "bg-black/70 backdrop-blur-md border-b border-white/10" : "bg-black/30 backdrop-blur-sm"
       )}>
         <div className="container mx-auto flex items-center justify-between">
           <Link href="/">
@@ -153,10 +153,11 @@ export default function Navigation() {
             </ul>
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Enhanced for visibility */}
           <button
             onClick={() => setIsOpen(true)}
-            className="p-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white md:hidden"
+            className="p-3 rounded-full bg-gradient-to-r from-indigo-600/80 to-purple-600/80 text-white md:hidden shadow-lg shadow-black/20 backdrop-blur-md border border-white/20 active:scale-95 transition-all touch-manipulation"
+            aria-label="Open menu"
           >
             <Menu className="w-6 h-6" />
           </button>
@@ -166,32 +167,34 @@ export default function Navigation() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md md:hidden"
             >
-              <div className="relative h-full w-full flex flex-col items-center justify-center">
+              <div className="relative h-full w-full flex flex-col items-center justify-center p-6">
+                {/* Improved close button */}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="absolute top-6 right-6 p-2 rounded-full bg-white/10 text-white touch-manipulation"
+                  className="absolute top-6 right-6 p-3 rounded-full bg-gradient-to-r from-indigo-600/60 to-purple-600/60 text-white shadow-lg shadow-black/10 touch-manipulation"
                   aria-label="Close menu"
                 >
                   <X className="w-6 h-6" />
                 </button>
 
-                <nav>
-                  <ul className="flex flex-col gap-8 items-center">
+                <nav className="w-full max-w-md">
+                  <ul className="flex flex-col gap-6 items-center">
                     {navItems.map((item) => (
-                      <li key={item.href}>
+                      <li key={item.href} className="w-full">
                         {item.isExternal ? (
                           <Link
                             href={item.href}
                             className={cn(
-                              "text-2xl font-medium",
+                              "block text-2xl font-medium text-center py-3 px-6 rounded-xl transition-all",
                               isNavItemActive(item)
-                                ? "text-white bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300"
-                                : "text-white/60"
+                                ? "text-white bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border border-white/10"
+                                : "text-white/70 hover:text-white hover:bg-white/5"
                             )}
                             onClick={() => setIsOpen(false)}
                           >
@@ -201,10 +204,10 @@ export default function Navigation() {
                           <a
                             href={item.href}
                             className={cn(
-                              "text-2xl font-medium",
+                              "block text-2xl font-medium text-center py-3 px-6 rounded-xl transition-all",
                               isNavItemActive(item)
-                                ? "text-white bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300"
-                                : "text-white/60"
+                                ? "text-white bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border border-white/10"
+                                : "text-white/70 hover:text-white hover:bg-white/5"
                             )}
                             onClick={(e) => {
                               handleNavClick(e, item)

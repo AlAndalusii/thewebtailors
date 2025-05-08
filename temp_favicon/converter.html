@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Favicon Converter</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.5;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .preview {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 8px 16px;
+      background: #818CF8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #6B7CFF;
+    }
+    canvas {
+      background-color: transparent;
+      border: 1px dashed #ccc;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TheWebTailors Favicon Generator</h1>
+    
+    <div class="preview">
+      <h3>SVG Preview</h3>
+      <svg width="64" height="64" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Gradient background effect -->
+        <circle cx="16" cy="16" r="16" fill="url(#gradient)" />
+        
+        <!-- Letter T -->
+        <path d="M9 10H23V13H18V22H14V13H9V10Z" fill="white"/>
+        
+        <!-- Gradient definition -->
+        <defs>
+          <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#818CF8" />
+            <stop offset="1" stop-color="#FB7185" />
+          </linearGradient>
+        </defs>
+      </svg>
+      
+      <h3>ICO Preview (Multiple Sizes)</h3>
+      <canvas id="canvas16" width="16" height="16"></canvas>
+      <canvas id="canvas32" width="32" height="32"></canvas>
+      <canvas id="canvas64" width="64" height="64"></canvas>
+      
+      <div class="buttons">
+        <button id="downloadPng">Download PNG</button>
+        <button id="downloadIco">Download ICO</button>
+      </div>
+    </div>
+    
+    <div>
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Preview the favicon above</li>
+        <li>Click "Download ICO" to get the favicon.ico file</li>
+        <li>Place the downloaded file in your project's public directory</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    // SVG to Canvas conversion
+    const svgString = document.querySelector('svg').outerHTML;
+    const img = new Image();
+    img.src = 'data:image/svg+xml;base64,' + btoa(svgString);
+    
+    img.onload = function() {
+      // Draw on different size canvases
+      const sizes = [16, 32, 64];
+      sizes.forEach(size => {
+        const canvas = document.getElementById(`canvas${size}`);
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, size, size);
+      });
+    };
+
+    // Download as PNG
+    document.getElementById('downloadPng').addEventListener('click', function() {
+      const canvas = document.getElementById('canvas32');
+      const dataURL = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = dataURL;
+      a.download = 'favicon.png';
+      a.click();
+    });
+
+    // For ICO download, we provide instructions since browser-based ICO generation is limited
+    document.getElementById('downloadIco').addEventListener('click', function() {
+      alert('To create an ICO file, download the PNG and convert it using an online converter like favicon.io or convertio.co');
+      document.getElementById('downloadPng').click();
+    });
+  </script>
+</body>
+</html> 

@@ -92,9 +92,9 @@ export default function CTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
               Get Your Website
             </span>
@@ -107,45 +107,45 @@ export default function CTASection() {
               Tailored Today
             </span>
           </h2>
-          <p className="text-white/60 max-w-2xl mx-auto">
+          <p className="text-white/60 text-sm sm:text-base max-w-2xl mx-auto px-4">
             Ready to transform your online presence? Let's start crafting your perfect website.
           </p>
         </motion.div>
 
-        <div className="scrollable-content flex-1 overflow-y-auto pr-2">
-          <div className="max-w-2xl mx-auto">
+        <div className="scrollable-content flex-1 overflow-y-auto pr-0 sm:pr-2">
+          <div className="max-w-2xl mx-auto px-4 sm:px-0">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="relative p-8 rounded-2xl overflow-hidden"
+              className="relative p-4 sm:p-8 rounded-2xl overflow-hidden"
             >
               <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl" />
-              <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-white/80 text-sm">
+              <form onSubmit={handleSubmit} className="relative z-10 space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                  <div className="space-y-1 sm:space-y-2">
+                    <label htmlFor="name" className="text-white/80 text-xs sm:text-sm">
                       Name
                     </label>
                     <Input
                       id="name"
                       placeholder="Your name"
-                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30 text-sm"
                       value={formData.name}
                       onChange={handleChange}
                       required
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-white/80 text-sm">
+                  <div className="space-y-1 sm:space-y-2">
+                    <label htmlFor="email" className="text-white/80 text-xs sm:text-sm">
                       Email
                     </label>
                     <Input
                       id="email"
                       type="email"
                       placeholder="Your email"
-                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30 text-sm"
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -153,67 +153,67 @@ export default function CTASection() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="phone" className="text-white/80 text-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                  <div className="space-y-1 sm:space-y-2">
+                    <label htmlFor="phone" className="text-white/80 text-xs sm:text-sm">
                       Phone Number
                     </label>
                     <Input
                       id="phone"
                       type="tel"
                       placeholder="Your phone number"
-                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30 text-sm"
                       value={formData.phone}
                       onChange={handleChange}
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="budget" className="text-white/80 text-sm">
+                  <div className="space-y-1 sm:space-y-2">
+                    <label htmlFor="budget" className="text-white/80 text-xs sm:text-sm">
                       Estimated Budget
                     </label>
                     <Input
                       id="budget"
                       placeholder="Your estimated budget"
-                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30 text-sm"
                       value={formData.budget}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="availability" className="text-white/80 text-sm">
+                <div className="space-y-1 sm:space-y-2">
+                  <label htmlFor="availability" className="text-white/80 text-xs sm:text-sm">
                     Preferred Availability
                   </label>
                   <Input
                     id="availability"
                     placeholder="e.g., Weekdays after 3 PM, Monday mornings, etc."
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 text-sm"
                     value={formData.availability}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-white/80 text-sm">
+                <div className="space-y-1 sm:space-y-2">
+                  <label htmlFor="message" className="text-white/80 text-xs sm:text-sm">
                     Message
                   </label>
                   <Textarea
                     id="message"
                     placeholder="Tell us about your project"
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 min-h-[120px]"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 min-h-[100px] sm:min-h-[120px] text-sm"
                     value={formData.message}
                     onChange={handleChange}
                     required
                   />
                 </div>
 
-                <div className="text-center">
+                <div className="text-center pt-2">
                   <Button
                     type="submit"
                     disabled={isSubmitting}
                     className={cn(
-                      "bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white rounded-full px-8 w-full md:w-auto",
+                      "bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white rounded-full px-6 sm:px-8 py-5 sm:py-6 w-full text-sm sm:text-base",
                       formStatus === "success" && "from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600",
                       formStatus === "error" && "from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600"
                     )}

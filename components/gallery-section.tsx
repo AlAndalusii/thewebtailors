@@ -23,9 +23,9 @@ export default function GallerySection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
               Before & After
             </span>
@@ -38,14 +38,14 @@ export default function GallerySection() {
               Gallery
             </span>
           </h2>
-          <p className="text-white/60 max-w-2xl mx-auto mb-12">
+          <p className="text-white/60 text-sm sm:text-base max-w-2xl mx-auto mb-8 md:mb-12 px-4">
             See the dramatic transformations we create for our clients. Slide to reveal the difference.
           </p>
         </motion.div>
 
         {/* Gallery content without scrolling */}
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 gap-20">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4">
+          <div className="grid grid-cols-1 gap-12 md:gap-20">
             {/* Electrical Company Website Transformation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -56,9 +56,9 @@ export default function GallerySection() {
             >
               <div className="absolute -inset-2 bg-gradient-to-br from-indigo-500/10 to-rose-500/10 rounded-xl blur-lg opacity-20"></div>
               <div className="relative">
-                <h3 className="text-2xl text-white font-medium mb-3 inline-flex items-center">
+                <h3 className="text-xl sm:text-2xl text-white font-medium mb-2 md:mb-3 inline-flex flex-wrap items-center gap-2">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Electrical Company Website Transformation</span>
-                  <span className="ml-2 px-2 py-1 text-xs bg-gradient-to-r from-indigo-500/20 to-rose-500/20 rounded-full border border-white/10 text-white/80">Featured</span>
+                  <span className="px-2 py-1 text-xs bg-gradient-to-r from-indigo-500/20 to-rose-500/20 rounded-full border border-white/10 text-white/80">Featured</span>
                 </h3>
                 <LawFirmGalleryItem />
               </div>
@@ -74,9 +74,9 @@ export default function GallerySection() {
             >
               <div className="absolute -inset-2 bg-gradient-to-br from-indigo-500/10 to-rose-500/10 rounded-xl blur-lg opacity-20"></div>
               <div className="relative">
-                <h3 className="text-2xl text-white font-medium mb-3 inline-flex items-center">
+                <h3 className="text-xl sm:text-2xl text-white font-medium mb-2 md:mb-3 inline-flex flex-wrap items-center gap-2">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Corporate Website Refresh</span>
-                  <span className="ml-2 px-2 py-1 text-xs bg-gradient-to-r from-indigo-500/20 to-rose-500/20 rounded-full border border-white/10 text-white/80">Featured</span>
+                  <span className="px-2 py-1 text-xs bg-gradient-to-r from-indigo-500/20 to-rose-500/20 rounded-full border border-white/10 text-white/80">Featured</span>
                 </h3>
                 <CorporateWebsiteGalleryItem />
               </div>

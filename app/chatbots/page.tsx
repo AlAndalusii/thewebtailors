@@ -6,6 +6,7 @@ import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import CalendlyModal from "@/components/calendly-modal"
+import ChatbotPremiumPopup from "@/components/chatbot-premium-popup"
 
 // Animation variants
 const fadeIn = {
@@ -51,6 +52,9 @@ export default function ChatbotsPage() {
       
       {/* Calendly Modal */}
       <CalendlyModal isOpen={isCalendlyOpen} onClose={closeCalendly} />
+      
+      {/* Premium Popup */}
+      <ChatbotPremiumPopup onBookDemo={openCalendly} />
       
       {/* Hero Section */}
       <section className="min-h-screen relative flex items-center pt-32 pb-20">

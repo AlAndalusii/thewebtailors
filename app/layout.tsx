@@ -15,7 +15,13 @@ export const metadata: Metadata = {
   title: "TheWebTailors - Tailored Web Design for the Modern Brand",
   description:
     "Premium web design services that transform outdated websites into elegant, future-forward digital experiences.",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+  }
 }
 
 export default function RootLayout({

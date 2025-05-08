@@ -3,8 +3,10 @@
 import { motion } from "framer-motion"
 import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
-import { Palette, ArrowRight, BarChart, Compass, Code, Zap } from "lucide-react"
+import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart, X } from "lucide-react"
 import Image from "next/image"
+import { useState } from "react"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -172,6 +174,12 @@ const ResultCard = ({
 }
 
 export default function ServicesSection() {
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false)
+
+  const openCalendly = () => {
+    setIsCalendlyOpen(true)
+  }
+
   return (
     <section id="services" className="relative py-24 bg-[#030303] overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.03] to-rose-500/[0.03]" />
@@ -285,6 +293,145 @@ export default function ServicesSection() {
                 Start Your Redesign 
                 <ArrowRight className="w-4 h-4" />
               </a>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* AI Chatbot Feature */}
+        <div className="mb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="order-2 lg:order-1"
+            >
+              <h3 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300">
+                AI-Powered Chatbots
+              </h3>
+              <p className="text-white/80 text-lg leading-relaxed mb-8">
+                Transform your website with cutting-edge AI chatbots that engage visitors 24/7, answer questions instantly, and convert prospects into customers even while you sleep.
+              </p>
+              
+              <div className="space-y-4 mb-8">
+                <div className="flex gap-3 items-start">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <ArrowRight className="w-3 h-3 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-medium mb-1">GPT-powered intelligence</h4>
+                    <p className="text-white/60 text-sm">Leverage cutting-edge AI for natural, human-like conversations that understand context</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3 items-start">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <ArrowRight className="w-3 h-3 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-medium mb-1">Custom-tailored for your business</h4>
+                    <p className="text-white/60 text-sm">Trained on your products, services, and brand voice to perfectly represent your company</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3 items-start">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <ArrowRight className="w-3 h-3 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-medium mb-1">Conversion-focused interactions</h4>
+                    <p className="text-white/60 text-sm">Strategic conversation paths designed to qualify leads and guide users toward booking or purchase</p>
+                  </div>
+                </div>
+              </div>
+              
+              <a 
+                href="/chatbots" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full text-white font-medium hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300"
+              >
+                Explore Chatbot Solutions
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="order-1 lg:order-2"
+            >
+              <div className="relative">
+                <div className="absolute -top-6 -right-6 w-64 h-64 bg-indigo-500/30 rounded-full filter blur-[80px] opacity-30 z-0"></div>
+                
+                {/* Dashboard Preview */}
+                <motion.div
+                  initial={{ y: 0 }}
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ 
+                    repeat: Infinity, 
+                    duration: 4,
+                    ease: "easeInOut"
+                  }}
+                  className="relative z-10 w-full max-w-md mx-auto"
+                >
+                  <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-xl shadow-indigo-500/10">
+                    <Image
+                      src="/hotel-bot-dashboard.svg"
+                      alt="Hotel Booking Chatbot Dashboard"
+                      width={800}
+                      height={500}
+                      className="w-full"
+                    />
+                  </div>
+                </motion.div>
+                
+                {/* Conversation Preview */}
+                <motion.div
+                  initial={{ opacity: 1, x: 0, y: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="absolute -bottom-8 -right-8 z-20 w-48 lg:w-60"
+                >
+                  <div className="rounded-xl overflow-hidden border border-white/10 shadow-xl shadow-purple-500/10">
+                    <Image
+                      src="/hotel-chatbot-conversation.svg"
+                      alt="Hotel Booking Chatbot Conversation"
+                      width={360}
+                      height={500}
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  {/* Animated particles */}
+                  <motion.div
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      opacity: [0.2, 0.5, 0.2]
+                    }}
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 3,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute -top-4 -left-4 w-10 h-10 bg-indigo-500 rounded-full filter blur-md opacity-20"
+                  />
+                  
+                  <motion.div
+                    animate={{ 
+                      scale: [1, 1.3, 1],
+                      opacity: [0.2, 0.6, 0.2]
+                    }}
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 4,
+                      ease: "easeInOut",
+                      delay: 1
+                    }}
+                    className="absolute -bottom-6 -right-6 w-8 h-8 bg-purple-500 rounded-full filter blur-md opacity-30"
+                  />
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -418,6 +565,27 @@ export default function ServicesSection() {
               description="Thoughtful design that communicates your unique value proposition and establishes credibility in your market."
               delay={0.6}
             />
+            
+            <ResultCard
+              icon={Bot}
+              title="AI-Powered Assistance"
+              description="Smart chatbots that handle inquiries 24/7, qualify leads, and guide users through personalized customer journeys."
+              delay={0.2}
+            />
+            
+            <ResultCard
+              icon={MessageCircle}
+              title="Enhanced Customer Experience"
+              description="Instant responses and personalized interactions that boost customer satisfaction and build lasting relationships."
+              delay={0.4}
+            />
+            
+            <ResultCard
+              icon={LineChart}
+              title="Measurable Business Impact"
+              description="Data-driven decisions with analytics dashboards that track ROI and optimize your marketing investment."
+              delay={0.6}
+            />
           </div>
         </motion.div>
         
@@ -433,15 +601,31 @@ export default function ServicesSection() {
           <p className="text-white/70 max-w-2xl mx-auto mb-8">
             Let's discuss how our premium services can elevate your digital presence and drive real business results.
           </p>
-          <a 
-            href="#contact" 
+          <button 
+            onClick={openCalendly}
             className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-500 to-rose-500 rounded-full text-white font-medium hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300"
           >
             Schedule a Consultation 
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </button>
         </motion.div>
       </div>
+
+      {/* Calendly Modal */}
+      <Dialog open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen}>
+        <DialogContent className="sm:max-w-[900px] p-0 bg-transparent border-none">
+          <div className="relative w-full">
+            <button
+              onClick={() => setIsCalendlyOpen(false)}
+              className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+            <div className="calendly-inline-widget" data-url="https://calendly.com/zak-thewebtailors?primary_color=c084fc" style={{ minWidth: 320, height: 700 }}></div>
+            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   )
 }

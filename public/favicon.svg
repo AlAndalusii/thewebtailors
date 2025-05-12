@@ -5,8 +5,8 @@
   <!-- Inner black circle for the T letter -->
   <circle cx="32" cy="32" r="22" fill="black" />
   
-  <!-- Simple T letter that will render properly -->
-  <path d="M26 24H38V28H34V40H30V28H26V24Z" fill="white" />
+  <!-- Simplified yet recognizable cursive T -->
+  <path d="M25 24.5C25 23.12 26.12 22 27.5 22H37.5C38.88 22 40 23.12 40 24.5C40 25.88 38.88 27 37.5 27H35V35C35 37.76 32.76 40 30 40C27.24 40 25 37.76 25 35V34C25 33.45 25.45 33 26 33H27C27.55 33 28 33.45 28 34V35C28 36.1 28.9 37 30 37C31.1 37 32 36.1 32 35V27H27.5C26.12 27 25 25.88 25 24.5Z" fill="white"/>
   
   <!-- Gradient definition -->
   <defs>

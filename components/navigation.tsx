@@ -28,6 +28,7 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
   const [scrolled, setScrolled] = useState(false)
+  const [isAIChatbotVisible, setIsAIChatbotVisible] = useState(false)
   const pathname = usePathname()
   const isHomePage = pathname === "/"
 
@@ -49,6 +50,18 @@ export default function Navigation() {
             setActiveSection(section)
             break
           }
+        }
+      }
+
+      // Check if AI Chatbot section is visible
+      const aiChatbotSection = document.getElementById('ai-chatbot-section')
+      if (aiChatbotSection) {
+        const rect = aiChatbotSection.getBoundingClientRect()
+        // If AI Chatbot section is in view
+        if (rect.top <= 300 && rect.bottom >= 100) {
+          setIsAIChatbotVisible(true)
+        } else {
+          setIsAIChatbotVisible(false)
         }
       }
 
@@ -95,6 +108,18 @@ export default function Navigation() {
       window.location.href = `/${item.href}`
     }
   }
+
+  // Prevent body scrolling when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -163,7 +188,7 @@ export default function Navigation() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Fixed to take up full screen */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -171,30 +196,34 @@ export default function Navigation() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md md:hidden"
+              className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md md:hidden flex flex-col"
             >
-              <div className="relative h-full w-full flex flex-col items-center justify-center p-6">
-                {/* Improved close button */}
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="absolute top-6 right-6 p-3 rounded-full bg-gradient-to-r from-indigo-600/60 to-purple-600/60 text-white shadow-lg shadow-black/10 touch-manipulation"
-                  aria-label="Close menu"
-                >
-                  <X className="w-6 h-6" />
-                </button>
+              <div className="relative h-full w-full flex flex-col overflow-auto">
+                {/* Top Logo and Close Button */}
+                <div className="sticky top-0 flex items-center justify-between p-6 border-b border-white/10 bg-black/70 backdrop-blur-md">
+                  <Logo />
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="p-3 rounded-full bg-gradient-to-r from-indigo-600/80 to-purple-600/80 text-white shadow-lg shadow-black/10 touch-manipulation"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
 
-                <nav className="w-full max-w-md">
-                  <ul className="flex flex-col gap-6 items-center">
+                {/* Navigation Items */}
+                <nav className="flex-1 p-6">
+                  <ul className="flex flex-col gap-4 items-stretch">
                     {navItems.map((item) => (
                       <li key={item.href} className="w-full">
                         {item.isExternal ? (
                           <Link
                             href={item.href}
                             className={cn(
-                              "block text-2xl font-medium text-center py-3 px-6 rounded-xl transition-all",
+                              "block text-2xl font-medium text-center py-4 px-6 rounded-xl transition-all",
                               isNavItemActive(item)
                                 ? "text-white bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border border-white/10"
-                                : "text-white/70 hover:text-white hover:bg-white/5"
+                                : "text-white/80 hover:text-white hover:bg-white/5"
                             )}
                             onClick={() => setIsOpen(false)}
                           >
@@ -204,10 +233,10 @@ export default function Navigation() {
                           <a
                             href={item.href}
                             className={cn(
-                              "block text-2xl font-medium text-center py-3 px-6 rounded-xl transition-all",
+                              "block text-2xl font-medium text-center py-4 px-6 rounded-xl transition-all",
                               isNavItemActive(item)
                                 ? "text-white bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border border-white/10"
-                                : "text-white/70 hover:text-white hover:bg-white/5"
+                                : "text-white/80 hover:text-white hover:bg-white/5"
                             )}
                             onClick={(e) => {
                               handleNavClick(e, item)
@@ -221,25 +250,39 @@ export default function Navigation() {
                     ))}
                   </ul>
                 </nav>
+                
+                {/* Footer with contact info */}
+                <div className="p-6 mt-auto border-t border-white/10 bg-black/50">
+                  <div className="text-center text-white/60 text-sm">
+                    <p>Need help? Contact us</p>
+                    <p className="mt-2 text-white font-medium">info@thewebtailors.com</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </header>
 
-      {/* Side Navigation Menu - Only shown on homepage */}
-      {isHomePage && (
+      {/* Side Navigation Menu - Only shown on homepage and hidden when AI chatbot is visible */}
+      {isHomePage && !isAIChatbotVisible && (
         <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-40 hidden lg:block">
           <div className="bg-black/30 backdrop-blur-xl rounded-2xl border border-white/10 py-6 px-4 shadow-lg shadow-black/20">
             <ul className="flex flex-col gap-6">
-              {navItems.filter(item => !item.isExternal || item.href === "/").map((item) => (
+              {navItems.filter(item => !item.isExternal || item.href === "/").map((item) => {
+                // Only show one active item at a time
+                const isActive = item.href === "/" 
+                  ? isHomePage && activeSection === "hero"  // Home is only active on homepage with hero section active
+                  : isNavItemActive(item);                  // Other items are active based on their section
+                
+                return (
                 <li key={item.href}>
                   {item.href === "/" ? (
                     <Link
                       href="/"
                       className={cn(
                         "flex items-center transition-all duration-300 group relative",
-                        isNavItemActive(item)
+                        isActive
                           ? "text-white"
                           : "text-white/40 hover:text-white/90"
                       )}
@@ -248,12 +291,12 @@ export default function Navigation() {
                       <div className="relative">
                         <div className={cn(
                           "w-3 h-3 rounded-full transition-all duration-300 mr-4 group-hover:scale-125",
-                          isNavItemActive(item)
+                          isActive
                             ? "bg-gradient-to-r from-indigo-500 to-rose-500 scale-125" 
                             : "bg-white/40 group-hover:bg-white/70"
                         )} />
                         
-                        {isNavItemActive(item) && (
+                        {isActive && (
                           <div className="absolute top-0 left-0 w-3 h-3 rounded-full bg-indigo-500 animate-ping opacity-75"></div>
                         )}
                       </div>
@@ -261,10 +304,10 @@ export default function Navigation() {
                       {/* Label that appears on hover or when active */}
                       <span className={cn(
                         "text-sm font-medium opacity-0 translate-x-1 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 absolute right-8",
-                        isNavItemActive(item) && "opacity-100 translate-x-0"
+                        isActive && "opacity-100 translate-x-0"
                       )}>
                         {item.label}
-                        {isNavItemActive(item) && (
+                        {isActive && (
                           <motion.div
                             initial={{ opacity: 0, x: -5 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -280,7 +323,7 @@ export default function Navigation() {
                       href={item.href}
                       className={cn(
                         "flex items-center transition-all duration-300 group relative",
-                        isNavItemActive(item)
+                        isActive
                           ? "text-white"
                           : "text-white/40 hover:text-white/90"
                       )}
@@ -293,7 +336,7 @@ export default function Navigation() {
                       }}
                     >
                       {/* Animated indicator for active item */}
-                      {isNavItemActive(item) && (
+                      {isActive && (
                         <motion.div 
                           layoutId="sideNavIndicator"
                           className="absolute right-full mr-3 w-10 h-0.5 bg-gradient-to-r from-indigo-500 to-rose-500"
@@ -307,12 +350,12 @@ export default function Navigation() {
                       <div className="relative">
                         <div className={cn(
                           "w-3 h-3 rounded-full transition-all duration-300 mr-4 group-hover:scale-125",
-                          isNavItemActive(item)
+                          isActive
                             ? "bg-gradient-to-r from-indigo-500 to-rose-500 scale-125" 
                             : "bg-white/40 group-hover:bg-white/70"
                         )} />
                         
-                        {isNavItemActive(item) && (
+                        {isActive && (
                           <div className="absolute top-0 left-0 w-3 h-3 rounded-full bg-indigo-500 animate-ping opacity-75"></div>
                         )}
                       </div>
@@ -320,10 +363,10 @@ export default function Navigation() {
                       {/* Label that appears on hover or when active */}
                       <span className={cn(
                         "text-sm font-medium opacity-0 translate-x-1 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 absolute right-8",
-                        isNavItemActive(item) && "opacity-100 translate-x-0"
+                        isActive && "opacity-100 translate-x-0"
                       )}>
                         {item.label}
-                        {isNavItemActive(item) && (
+                        {isActive && (
                           <motion.div
                             initial={{ opacity: 0, x: -5 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -336,7 +379,7 @@ export default function Navigation() {
                     </a>
                   )}
                 </li>
-              ))}
+              )})}
             </ul>
           </div>
         </div>

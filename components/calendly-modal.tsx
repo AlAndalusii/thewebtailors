@@ -23,6 +23,34 @@ export default function CalendlyModal({ isOpen, onClose }: CalendlyModalProps) {
     }
   }, [isOpen])
   
+  // Initialize Calendly widget when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      // Load the script and initialize the widget
+      const script = document.createElement('script')
+      script.src = 'https://assets.calendly.com/assets/external/widget.js'
+      script.async = true
+      script.onload = () => {
+        if (typeof window !== 'undefined' && (window as any).Calendly) {
+          (window as any).Calendly.initInlineWidget({
+            url: 'https://calendly.com/zak-thewebtailors?primary_color=67169e',
+            parentElement: document.querySelector('.calendly-inline-widget'),
+            prefill: {},
+            utm: {}
+          });
+        }
+      }
+      document.body.appendChild(script)
+      
+      return () => {
+        // Clean up
+        if (script.parentNode) {
+          document.body.removeChild(script)
+        }
+      }
+    }
+  }, [isOpen])
+  
   // Handle escape key to close modal
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -48,27 +76,45 @@ export default function CalendlyModal({ isOpen, onClose }: CalendlyModalProps) {
           
           {/* Modal */}
           <motion.div 
-            className="fixed inset-4 md:inset-10 lg:inset-20 z-50 bg-gray-900 rounded-2xl overflow-hidden border border-white/10 shadow-xl"
+            className="fixed inset-4 md:inset-10 lg:inset-20 z-50 bg-black/95 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/10 shadow-xl"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="calendly-modal-title"
           >
+            {/* Title for accessibility */}
+            <h2 id="calendly-modal-title" className="sr-only">Book Your Free Demo</h2>
+            
+            {/* Gradient border effect */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 rounded-3xl opacity-50 blur-sm"></div>
+            
             {/* Close button */}
             <button 
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/70 flex items-center justify-center text-white hover:bg-black/90 transition-colors border border-white/10"
+              aria-label="Close modal"
             >
-              <X className="w-6 h-6 text-white" />
+              <X className="w-4 h-4" />
             </button>
             
             {/* Calendly widget */}
-            <div className="w-full h-full">
+            <div className="w-full h-full relative">
               <div 
                 className="calendly-inline-widget w-full h-full" 
-                data-url="https://calendly.com/zak-thewebtailors?primary_color=c084fc"
-              ></div>
-              <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                data-url="https://calendly.com/zak-thewebtailors?primary_color=67169e"
+              >
+                {/* Loading spinner */}
+                <div className="flex items-center justify-center h-full">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full"
+                  />
+                </div>
+              </div>
             </div>
           </motion.div>
         </>

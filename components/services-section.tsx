@@ -3,10 +3,12 @@
 import { motion } from "framer-motion"
 import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
-import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart, X } from "lucide-react"
+import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -140,7 +142,19 @@ const ResultCard = ({
       <div className="absolute inset-0 rounded-xl p-[1px] bg-transparent z-10">
         <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-500/20 via-rose-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 blur-sm" />
         <div className="absolute inset-0 rounded-xl overflow-hidden">
-          <div className="h-full w-[200%] absolute -left-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+          <motion.div 
+            className="h-full w-[200%] absolute -left-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
+            animate={{
+              translateX: ["0%", "200%"]
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: "linear",
+              delay: delay * 2
+            }}
+          />
         </div>
       </div>
       
@@ -148,40 +162,116 @@ const ResultCard = ({
       <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-sm border border-white/10 group-hover:border-white/20 transition-colors duration-300 rounded-xl z-0" />
       
       {/* Card content */}
-      <div className="relative z-20 p-7 flex flex-col h-full">
+      <div className="relative z-20 p-6 flex flex-col h-full">
         {/* Animated icon container */}
-        <div className="relative mb-5 w-14 h-14">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-rose-500/30 rounded-xl opacity-70 group-hover:opacity-100 blur-md group-hover:blur-lg transition-all duration-300 group-hover:scale-110" />
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-rose-500/30 rounded-xl transform group-hover:scale-110 transition-transform duration-300" />
-          <div className="relative h-full w-full rounded-xl bg-black/20 backdrop-blur-sm flex items-center justify-center">
-            <Icon className="w-7 h-7 text-white transform group-hover:scale-110 transition-transform duration-300" />
+        <div className="relative mb-4 w-16 h-16 mx-auto">
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-rose-500/30 rounded-full opacity-70 blur-md"
+            animate={{ 
+              scale: [1, 1.3, 1],
+              opacity: [0.5, 0.8, 0.5] 
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-rose-500/30 rounded-full"
+            animate={{ 
+              rotate: [0, 180],
+              scale: [1, 1.1, 1] 
+            }}
+            transition={{ 
+              rotate: { duration: 12, repeat: Infinity, ease: "linear" },
+              scale: { duration: 4, repeat: Infinity, repeatType: "reverse" }
+            }}
+          />
+          <div className="relative h-full w-full rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center">
+            <motion.div
+              animate={{ 
+                rotate: [0, 5, 0, -5, 0],
+                scale: [1, 1.1, 1] 
+              }}
+              transition={{ 
+                duration: 5, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+            >
+              <Icon className="w-8 h-8 text-white" />
+            </motion.div>
           </div>
         </div>
         
         {/* Text content */}
-        <div>
-          <h4 className="text-xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90 group-hover:from-indigo-200 group-hover:to-white transition-colors duration-300">{title}</h4>
-          <p className="text-white/70 text-sm leading-relaxed">{description}</p>
+        <div className="text-center">
+          <motion.h4 
+            className="text-lg font-medium mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90 group-hover:from-indigo-200 group-hover:to-white transition-colors duration-300"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: delay + 0.2 }}
+            viewport={{ once: true }}
+          >
+            {title}
+          </motion.h4>
+          <motion.p 
+            className="text-white/60 text-sm"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: delay + 0.4 }}
+            viewport={{ once: true }}
+          >
+            {description}
+          </motion.p>
         </div>
         
         {/* Animated underline */}
-        <div className="mt-auto pt-5">
-          <div className="h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-indigo-500/60 to-rose-500/60 transition-all duration-300 rounded-full" />
-        </div>
+        <motion.div 
+          className="h-0.5 bg-gradient-to-r from-indigo-500/60 to-rose-500/60 rounded-full mx-auto mt-5"
+          initial={{ width: 0 }}
+          whileInView={{ width: "30%" }}
+          whileHover={{ width: "60%" }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        />
       </div>
     </motion.div>
   )
 }
 
 export default function ServicesSection() {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false)
+  const router = useRouter()
 
-  const openCalendly = () => {
-    setIsCalendlyOpen(true)
+  // Email template for the "Book a Demo" button
+  const handleBookDemo = () => {
+    const emailSubject = "Website Redesign Demo Request";
+    const emailBody = `Hi TheWebTailors Team,
+
+I'd like to book a demo to learn more about your website redesign service. Here are my details:
+
+Name: [Your Full Name]
+Business Name: [Your Business Name]
+Phone Number: [Your Contact Number]
+Current Website URL: [Your Website URL]
+Preferred Date/Time: [Your Preferred Date and Time]
+
+Brief Description of What You're Looking For:
+[Please provide a short description of your goals and requirements]
+
+Thank you,
+[Your Name]`;
+
+    window.location.href = `mailto:info@thewebtailors.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+  };
+
+  const navigateToChatbots = () => {
+    router.push('/chatbots')
   }
 
   return (
-    <section id="services" className="relative py-24 bg-[#030303] overflow-hidden">
+    <section id="services" className="relative py-24 pt-32 bg-[#030303] overflow-hidden scroll-mt-20">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.03] to-rose-500/[0.03]" />
       
       {/* Background elements */}
@@ -208,7 +298,7 @@ export default function ServicesSection() {
             </span>
           </h2>
           <p className="text-white/70 max-w-3xl mx-auto text-lg leading-relaxed">
-            We turn outdated websites into experiences your audience will love—and that actually get you results. Design that works, plain and simple.
+            We transform outdated accounting websites into client-generating assets that showcase your expertise and build trust. Design that brings real results.
           </p>
         </motion.div>
 
@@ -225,7 +315,7 @@ export default function ServicesSection() {
                 <div className="relative aspect-[4/3] w-full">
                   <Image
                     src="/New.jpg"
-                    alt="Website Redesign"
+                    alt="Accounting Website Redesign"
                     width={800}
                     height={600}
                     className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
@@ -248,57 +338,313 @@ export default function ServicesSection() {
               viewport={{ once: true }}
             >
               <h3 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300">
-                Website Redesign
+                Accounting Website Redesign
               </h3>
-              <p className="text-white/80 text-lg leading-relaxed mb-8">
-                Your outdated site deserves better. We'll create a fresh design that wows your visitors and actually grows your business. Beautiful meets functional.
+              <p className="text-white/70 mb-8 leading-relaxed">
+                Transform your outdated accounting website into a powerful client acquisition tool. Our specialized designs create credibility, showcase your services, and generate qualified leads for your firm.
               </p>
-              
-              <div className="space-y-4 mb-8">
-                <div className="flex gap-3 items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/30 to-rose-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <ArrowRight className="w-3 h-3 text-white" />
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-start">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
-                  <div>
-                    <h4 className="text-white font-medium mb-1">Modern, responsive design</h4>
-                    <p className="text-white/60 text-sm">Perfectly adapts to all devices, from mobile phones to large desktop screens</p>
+                  <span className="text-white/80">Dedicated service pages for tax planning, payroll, bookkeeping, and advisory services</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
-                </div>
-                
-                <div className="flex gap-3 items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/30 to-rose-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <ArrowRight className="w-3 h-3 text-white" />
+                  <span className="text-white/80">Built-in trust signals like credentials, testimonials, and industry affiliations</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
-                  <div>
-                    <h4 className="text-white font-medium mb-1">Enhanced user experience</h4>
-                    <p className="text-white/60 text-sm">Strategic layout and intuitive navigation that guide visitors toward conversion</p>
+                  <span className="text-white/80">Lead-generation forms optimized for accounting client acquisition</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
-                </div>
-                
-                <div className="flex gap-3 items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/30 to-rose-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <ArrowRight className="w-3 h-3 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-medium mb-1">Brand-aligned design</h4>
-                    <p className="text-white/60 text-sm">Visual storytelling that reinforces your brand identity and messaging</p>
-                  </div>
-                </div>
+                  <span className="text-white/80">Responsive design that delivers a flawless experience on all devices</span>
+                </li>
+              </ul>
+              <div className="flex flex-wrap gap-4">
+                <Button 
+                  className="gap-2 bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 transition-all duration-300 border-0 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40" 
+                  onClick={handleBookDemo}
+                >
+                  Book a Demo
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
               </div>
-              
-              <a 
-                href="#contact" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-rose-500 rounded-full text-white font-medium hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300"
-              >
-                Start Your Redesign 
-                <ArrowRight className="w-4 h-4" />
-              </a>
             </motion.div>
           </div>
         </div>
 
-        {/* AI Chatbot Feature */}
-        <div className="mb-24">
+        {/* Before & After Transformation Showcase */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="mb-28"
+        >
+          <div className="text-center mb-14">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-3xl md:text-4xl font-bold mb-4">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">The</span>
+                <span className={cn(
+                  " ml-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300",
+                  pacifico.className,
+                )}>
+                  Transformation
+                </span>
+              </h3>
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-white/70 max-w-3xl mx-auto text-lg"
+            >
+              See the dramatic difference in our professional accounting website redesigns
+            </motion.p>
+          </div>
+
+          <div className="relative">
+            {/* Ambient glow effects */}
+            <motion.div 
+              className="absolute -top-40 left-1/4 w-96 h-96 rounded-full"
+              animate={{ 
+                background: [
+                  'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.05) 50%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.05) 50%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.05) 50%, rgba(0,0,0,0) 70%)'
+                ],
+                filter: ['blur(60px)', 'blur(80px)', 'blur(60px)'],
+              }}
+              transition={{ 
+                duration: 10,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+            <motion.div 
+              className="absolute -bottom-40 right-1/4 w-96 h-96 rounded-full"
+              animate={{ 
+                background: [
+                  'radial-gradient(circle, rgba(244,114,182,0.15) 0%, rgba(244,114,182,0.05) 50%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(236,72,153,0.15) 0%, rgba(236,72,153,0.05) 50%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(244,114,182,0.15) 0%, rgba(244,114,182,0.05) 50%, rgba(0,0,0,0) 70%)'
+                ],
+                filter: ['blur(60px)', 'blur(80px)', 'blur(60px)'],
+              }}
+              transition={{ 
+                duration: 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                delay: 1
+              }}
+            />
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10">
+              {/* Before */}
+              <motion.div
+                initial={{ opacity: 0, y: 20, x: -20 }}
+                whileInView={{ opacity: 1, y: 0, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                className="relative"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="relative bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <div className="absolute top-0 left-0 bg-rose-500/90 text-white px-5 py-2 rounded-br-lg text-sm font-semibold z-20">
+                    BEFORE
+                  </div>
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0 z-10 opacity-70 hover:opacity-40 transition-opacity duration-300"
+                    animate={{ opacity: [0.7, 0.6, 0.7] }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  />
+                  <div className="relative aspect-[16/10] w-full">
+                    <Image
+                      src="/before7.png"
+                      alt="Before Redesign"
+                      width={1000}
+                      height={625}
+                      className="object-cover w-full h-full transition-transform duration-700"
+                      priority
+                    />
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 px-6 py-5 text-white z-20">
+                    <div className="flex items-center gap-4">
+                      <div className="h-px bg-white/30 flex-grow"></div>
+                      <div className="flex gap-1">
+                        <motion.div 
+                          className="w-2 h-2 rounded-full bg-rose-400"
+                          animate={{ opacity: [0.5, 1, 0.5] }}
+                          transition={{ 
+                            duration: 2, 
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            delay: 0.2
+                          }}
+                        />
+                        <motion.div 
+                          className="w-2 h-2 rounded-full bg-rose-400"
+                          animate={{ opacity: [0.5, 1, 0.5] }}
+                          transition={{ 
+                            duration: 2, 
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            delay: 0.4
+                          }}
+                        />
+                        <motion.div 
+                          className="w-2 h-2 rounded-full bg-rose-400"
+                          animate={{ opacity: [0.5, 1, 0.5] }}
+                          transition={{ 
+                            duration: 2, 
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            delay: 0.6
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute -bottom-3 left-6 right-6 h-6 bg-gradient-to-b from-white/5 to-transparent rounded-b-3xl blur-lg"></div>
+              </motion.div>
+
+              {/* After */}
+              <motion.div
+                initial={{ opacity: 0, y: 20, x: 20 }}
+                whileInView={{ opacity: 1, y: 0, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                className="relative"
+              >
+                <motion.div 
+                  className="absolute -inset-1 bg-gradient-to-br from-indigo-500/30 via-purple-500/30 to-rose-500/30 rounded-2xl blur-lg"
+                  animate={{ 
+                    opacity: [0.5, 0.8, 0.5],
+                    scale: [0.99, 1.01, 0.99],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                />
+                <div className="relative bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
+                  <div className="absolute top-0 left-0 bg-indigo-500/90 text-white px-5 py-2 rounded-br-lg text-sm font-semibold z-20">
+                    AFTER
+                  </div>
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-t from-indigo-900/50 via-black/10 to-black/0 z-10 mix-blend-overlay opacity-60 hover:opacity-30 transition-opacity duration-300"
+                    animate={{ opacity: [0.6, 0.5, 0.6] }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  />
+                  <div className="relative aspect-[16/10] w-full">
+                    <Image
+                      src="/after7.png"
+                      alt="After Redesign"
+                      width={1000}
+                      height={625}
+                      className="object-cover w-full h-full transition-transform duration-700"
+                      priority
+                    />
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 px-6 py-5 text-white z-20">
+                    <div className="flex items-center gap-4">
+                      <div className="h-px bg-gradient-to-r from-indigo-500/80 to-purple-500/80 flex-grow"></div>
+                      <motion.div 
+                        className="flex items-center gap-1.5"
+                        animate={{ 
+                          x: [0, 3, 0],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-indigo-300">
+                          <path d="M13 5l7 7-7 7M5 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </motion.div>
+                    </div>
+                  </div>
+                </div>
+                <motion.div 
+                  className="absolute -bottom-4 left-4 right-4 h-8 bg-gradient-to-b from-indigo-500/20 to-transparent rounded-b-3xl blur-xl"
+                  animate={{ 
+                    opacity: [0.3, 0.7, 0.3],
+                    height: ["1.5rem", "2rem", "1.5rem"]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                />
+              </motion.div>
+            </div>
+
+            <div className="flex flex-col md:flex-row justify-between items-center mt-10 md:mt-16 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
+              <div className="mb-6 md:mb-0">
+                <h4 className="text-xl font-semibold text-white mb-2">Ready to transform your accounting website?</h4>
+                <p className="text-white/70">See how we can elevate your online presence and convert more visitors into clients.</p>
+              </div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button 
+                  className="whitespace-nowrap gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 border-0 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40" 
+                  onClick={handleBookDemo}
+                >
+                  <span>Book a Free Design Consultation</span>
+                  <motion.span 
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </motion.span>
+                </Button>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* AI Chatbot for Accountants Feature */}
+        <div className="mb-24" id="ai-chatbot-section">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -307,52 +653,207 @@ export default function ServicesSection() {
               viewport={{ once: true }}
               className="order-2 lg:order-1"
             >
-              <h3 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300">
-                AI-Powered Chatbots
-              </h3>
-              <p className="text-white/80 text-lg leading-relaxed mb-8">
-                Transform your website with cutting-edge AI chatbots that engage visitors 24/7, answer questions instantly, and convert prospects into customers even while you sleep.
-              </p>
+              <motion.h3 
+                className="text-3xl font-bold mb-6"
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-300">
+                  AI Assistant for Accountants
+                </span>
+              </motion.h3>
               
-              <div className="space-y-4 mb-8">
-                <div className="flex gap-3 items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <ArrowRight className="w-3 h-3 text-white" />
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="text-white/80 text-lg leading-relaxed mb-8"
+              >
+                24/7 intelligent support that converts website visitors into qualified leads while handling complex tax inquiries.
+              </motion.p>
+              
+              <div className="space-y-5 mb-8">
+                <motion.div 
+                  className="flex gap-3 items-start"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                >
+                  <div className="relative w-10 h-10 flex-shrink-0">
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/50 to-purple-500/50 blur-md"
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [0.5, 0.8, 0.5],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    />
+                    <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center flex-shrink-0">
+                      <motion.div
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ 
+                          duration: 15,
+                          repeat: Infinity,
+                          ease: "linear" 
+                        }}
+                        className="absolute inset-0 rounded-full overflow-hidden"
+                      >
+                        <div className="w-full h-full bg-gradient-to-r from-indigo-500/10 to-purple-500/0" />
+                      </motion.div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-300">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                    </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1">GPT-powered intelligence</h4>
-                    <p className="text-white/60 text-sm">Leverage cutting-edge AI for natural, human-like conversations that understand context</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">HMRC Compliance</h4>
+                    <p className="text-white/60 text-sm">Real-time tax deadline tracking and automated client alerts</p>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="flex gap-3 items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <ArrowRight className="w-3 h-3 text-white" />
+                <motion.div 
+                  className="flex gap-3 items-start"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                >
+                  <div className="relative w-10 h-10 flex-shrink-0">
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/50 to-pink-500/50 blur-md"
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [0.5, 0.8, 0.5],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        delay: 0.5
+                      }}
+                    />
+                    <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-purple-500/30 to-pink-500/30 flex items-center justify-center flex-shrink-0">
+                      <motion.div
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ 
+                          duration: 15,
+                          repeat: Infinity,
+                          ease: "linear" 
+                        }}
+                        className="absolute inset-0 rounded-full overflow-hidden"
+                      >
+                        <div className="w-full h-full bg-gradient-to-r from-purple-500/10 to-pink-500/0" />
+                      </motion.div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-300">
+                        <path d="M17 10h.01"></path>
+                        <path d="M7 10h.01"></path>
+                        <path d="M13 14h.01"></path>
+                        <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                      </svg>
+                    </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1">Custom-tailored for your business</h4>
-                    <p className="text-white/60 text-sm">Trained on your products, services, and brand voice to perfectly represent your company</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Lead Capture</h4>
+                    <p className="text-white/60 text-sm">Converts visitors to qualified leads with CRM integration</p>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="flex gap-3 items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <ArrowRight className="w-3 h-3 text-white" />
+                <motion.div 
+                  className="flex gap-3 items-start"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                >
+                  <div className="relative w-10 h-10 flex-shrink-0">
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500/50 to-rose-500/50 blur-md"
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [0.5, 0.8, 0.5],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        delay: 1
+                      }}
+                    />
+                    <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-pink-500/30 to-rose-500/30 flex items-center justify-center flex-shrink-0">
+                      <motion.div
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ 
+                          duration: 15,
+                          repeat: Infinity,
+                          ease: "linear" 
+                        }}
+                        className="absolute inset-0 rounded-full overflow-hidden"
+                      >
+                        <div className="w-full h-full bg-gradient-to-r from-pink-500/10 to-rose-500/0" />
+                      </motion.div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-pink-300">
+                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                        <line x1="16" x2="16" y1="2" y2="6"></line>
+                        <line x1="8" x2="8" y1="2" y2="6"></line>
+                        <line x1="3" x2="21" y1="10" y2="10"></line>
+                      </svg>
+                    </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1">Conversion-focused interactions</h4>
-                    <p className="text-white/60 text-sm">Strategic conversation paths designed to qualify leads and guide users toward booking or purchase</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Appointment Booking</h4>
+                    <p className="text-white/60 text-sm">Schedules client meetings directly into your calendar</p>
                   </div>
-                </div>
+                </motion.div>
               </div>
               
-              <a 
-                href="/chatbots" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full text-white font-medium hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300"
+              <motion.div 
+                className="flex flex-wrap gap-4"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                viewport={{ once: true }}
               >
-                Explore Chatbot Solutions
-                <ArrowRight className="w-4 h-4" />
-              </a>
+                <motion.div
+                  whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Button 
+                    className="gap-2 relative overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 border-0 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 px-6 py-3" 
+                    onClick={handleBookDemo}
+                  >
+                    <motion.span 
+                      className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+                      animate={{ x: ['-100%', '100%'] }}
+                      transition={{ 
+                        duration: 1.5, 
+                        repeat: Infinity, 
+                        repeatDelay: 3 
+                      }}
+                    />
+                    <span className="relative z-10 flex items-center">
+                      Book a Demo
+                      <motion.span
+                        animate={{ x: [0, 4, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                      >
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </motion.span>
+                    </span>
+                  </Button>
+                </motion.div>
+              </motion.div>
             </motion.div>
 
             <motion.div
@@ -360,15 +861,37 @@ export default function ServicesSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="order-1 lg:order-2"
+              className="order-1 lg:order-2 relative z-50 lg:ml-6"
             >
               <div className="relative">
-                <div className="absolute -top-6 -right-6 w-64 h-64 bg-indigo-500/30 rounded-full filter blur-[80px] opacity-30 z-0"></div>
+                <motion.div 
+                  className="absolute -top-6 -right-6 w-64 h-64 rounded-full"
+                  animate={{ 
+                    background: [
+                      'radial-gradient(circle, rgba(99,102,241,0.3) 0%, rgba(147,51,234,0.1) 70%, rgba(0,0,0,0) 100%)',
+                      'radial-gradient(circle, rgba(139,92,246,0.3) 0%, rgba(168,85,247,0.1) 70%, rgba(0,0,0,0) 100%)',
+                      'radial-gradient(circle, rgba(99,102,241,0.3) 0%, rgba(147,51,234,0.1) 70%, rgba(0,0,0,0) 100%)'
+                    ],
+                    filter: ['blur(60px)', 'blur(80px)', 'blur(60px)'],
+                  }}
+                  transition={{ 
+                    duration: 5, 
+                    repeat: Infinity, 
+                    repeatType: "reverse" 
+                  }}
+                />
                 
-                {/* Dashboard Preview */}
+                {/* Dashboard Preview with enhanced animations */}
                 <motion.div
                   initial={{ y: 0 }}
-                  animate={{ y: [0, -10, 0] }}
+                  animate={{ 
+                    y: [0, -10, 0],
+                    boxShadow: [
+                      "0 0 0 rgba(99, 102, 241, 0.3)",
+                      "0 0 30px rgba(99, 102, 241, 0.6)",
+                      "0 0 0 rgba(99, 102, 241, 0.3)"
+                    ]
+                  }}
                   transition={{ 
                     repeat: Infinity, 
                     duration: 4,
@@ -376,38 +899,156 @@ export default function ServicesSection() {
                   }}
                   className="relative z-10 w-full max-w-md mx-auto"
                 >
-                  <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-xl shadow-indigo-500/10">
+                  {/* Animated glow effect */}
+                  <motion.div
+                    animate={{
+                      opacity: [0.4, 0.8, 0.4],
+                      scale: [1, 1.03, 1]
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 3,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute -inset-2 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 rounded-xl blur-xl z-0"
+                  />
+                  
+                  <div className="relative rounded-xl overflow-hidden border border-white/20 shadow-xl shadow-indigo-500/30">
                     <Image
                       src="/hotel-bot-dashboard.svg"
-                      alt="Hotel Booking Chatbot Dashboard"
+                      alt="Accounting Chatbot Dashboard"
                       width={800}
                       height={500}
                       className="w-full"
+                      priority
                     />
+                    <div className="absolute top-0 left-0 right-0 px-4 py-2 bg-gradient-to-r from-indigo-500/90 to-purple-700/90 backdrop-blur-sm">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-white text-sm font-medium">HMRC Compliance Assistant</h4>
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 rounded-full bg-red-400"></div>
+                          <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
+                          <div className="w-2 h-2 rounded-full bg-green-400"></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Animated pulse indicators */}
+                    <motion.div
+                      animate={{
+                        opacity: [0, 1, 0],
+                        scale: [0.8, 1.2, 0.8]
+                      }}
+                      transition={{
+                        repeat: Infinity,
+                        duration: 2,
+                        ease: "easeInOut",
+                        delay: 1
+                      }}
+                      className="absolute top-1/4 left-1/4 w-3 h-3 bg-green-500 rounded-full"
+                    >
+                      <motion.div
+                        animate={{ scale: [1, 2, 1] }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 2
+                        }}
+                        className="absolute inset-0 bg-green-500 rounded-full opacity-50"
+                      />
+                    </motion.div>
+                    
+                    <motion.div
+                      animate={{
+                        opacity: [0, 1, 0],
+                        scale: [0.8, 1.2, 0.8]
+                      }}
+                      transition={{
+                        repeat: Infinity,
+                        duration: 2,
+                        ease: "easeInOut",
+                        delay: 0.5
+                      }}
+                      className="absolute top-2/3 right-1/3 w-3 h-3 bg-indigo-500 rounded-full"
+                    >
+                      <motion.div
+                        animate={{ scale: [1, 2, 1] }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 2,
+                          delay: 0.5
+                        }}
+                        className="absolute inset-0 bg-indigo-500 rounded-full opacity-50"
+                      />
+                    </motion.div>
                   </div>
                 </motion.div>
                 
-                {/* Conversation Preview */}
+                {/* Conversation Preview with better animations */}
                 <motion.div
                   initial={{ opacity: 1, x: 0, y: 0 }}
                   animate={{ opacity: 1 }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    transition: { duration: 0.3 }
+                  }}
                   className="absolute -bottom-8 -right-8 z-20 w-48 lg:w-60"
                 >
-                  <div className="rounded-xl overflow-hidden border border-white/10 shadow-xl shadow-purple-500/10">
-                    <Image
-                      src="/hotel-chatbot-conversation.svg"
-                      alt="Hotel Booking Chatbot Conversation"
-                      width={360}
-                      height={500}
-                      className="w-full"
-                    />
+                  <div className="rounded-xl overflow-hidden border border-white/20 shadow-xl shadow-purple-500/30">
+                    <div className="bg-slate-900/90 p-3 border-b border-white/10 flex items-center space-x-2">
+                      <motion.div 
+                        animate={{ 
+                          scale: [1, 1.3, 1],
+                          backgroundColor: ["rgb(34, 197, 94)", "rgb(52, 211, 153)", "rgb(34, 197, 94)"]
+                        }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 2,
+                          ease: "easeInOut"
+                        }}
+                        className="w-2 h-2 rounded-full bg-green-500"
+                      />
+                      <p className="text-white text-xs">Accounting Assistant</p>
+                    </div>
+                    <div className="bg-slate-800/90 p-4 max-h-60">
+                      <div className="chat-msg mb-3">
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5 }}
+                          className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
+                        >
+                          Hi! How can I help with your taxes today?
+                        </motion.div>
+                      </div>
+                      <div className="chat-msg mb-3">
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: 0.5 }}
+                          className="bg-slate-700/60 rounded-lg p-2 text-white text-xs ml-auto max-w-[90%]"
+                        >
+                          When is my tax return due?
+                        </motion.div>
+                      </div>
+                      <div className="chat-msg mb-3">
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: 1 }}
+                          className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
+                        >
+                          31 January 2024. Need a reminder?
+                        </motion.div>
+                      </div>
+                    </div>
                   </div>
                   
-                  {/* Animated particles */}
+                  {/* Enhanced animated particles */}
                   <motion.div
                     animate={{ 
-                      scale: [1, 1.2, 1],
-                      opacity: [0.2, 0.5, 0.2]
+                      scale: [1, 1.5, 1],
+                      opacity: [0.2, 0.6, 0.2],
+                      rotate: [0, 15, 0]
                     }}
                     transition={{ 
                       repeat: Infinity, 
@@ -419,8 +1060,9 @@ export default function ServicesSection() {
                   
                   <motion.div
                     animate={{ 
-                      scale: [1, 1.3, 1],
-                      opacity: [0.2, 0.6, 0.2]
+                      scale: [1, 1.5, 1],
+                      opacity: [0.2, 0.6, 0.2],
+                      rotate: [0, -15, 0]
                     }}
                     transition={{ 
                       repeat: Infinity, 
@@ -448,8 +1090,7 @@ export default function ServicesSection() {
             <div>
               <h3 className="text-3xl font-bold text-white mb-3">Our Process</h3>
               <p className="text-white/70 max-w-xl">
-                A structured, transparent approach to transforming your digital presence
-                with strategic planning and expert execution.
+                Clear. Focused. Built to Perform.
               </p>
             </div>
             <div className="mt-6 md:mt-0">
@@ -468,32 +1109,32 @@ export default function ServicesSection() {
           <div className="space-y-0">
             <ProcessStep 
               number="1" 
-              title="Discovery & Strategy" 
-              description="We begin by understanding your business goals, target audience, and current challenges. This research informs a comprehensive strategy that aligns your website with your business objectives and user needs."
+              title="Discover" 
+              description="We learn your goals and plan a smart strategy."
               delay={0.2}
               icon={Compass}
             />
             
             <ProcessStep 
               number="2" 
-              title="Design & Prototyping" 
-              description="Our designers create wireframes and visual designs that bring your brand to life. We focus on both aesthetics and functionality, ensuring an intuitive user experience that encourages engagement and conversion."
+              title="Design" 
+              description="We create clean, branded layouts that drive action."
               delay={0.4}
               icon={Palette}
             />
             
             <ProcessStep 
               number="3" 
-              title="Development & Testing" 
-              description="Our development team builds your website with clean, efficient code following modern best practices. We rigorously test across all devices and browsers to ensure flawless performance and compatibility."
+              title="Build" 
+              description="We develop fast, responsive sites that work everywhere."
               delay={0.6}
               icon={Code}
             />
             
             <ProcessStep 
               number="4" 
-              title="Launch & Optimization" 
-              description="After launch, we don't just walk away. We monitor performance metrics, gather user feedback, and make data-driven improvements to continuously enhance your website's effectiveness and ROI."
+              title="Optimize" 
+              description="We launch, track, and refine for ongoing results."
               delay={0.8}
               icon={BarChart}
             />
@@ -506,86 +1147,401 @@ export default function ServicesSection() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="mb-20 relative"
+          className="mb-28 relative"
         >
-          {/* Background elements */}
-          <div className="absolute -top-10 left-1/4 w-72 h-72 bg-indigo-500/5 rounded-full filter blur-3xl" />
-          <div className="absolute -bottom-10 right-1/4 w-72 h-72 bg-rose-500/5 rounded-full filter blur-3xl" />
+          {/* Enhanced background elements */}
+          <motion.div 
+            className="absolute -top-20 left-1/4 w-96 h-96 rounded-full"
+            animate={{ 
+              background: [
+                'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.05) 50%, rgba(0,0,0,0) 70%)',
+                'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.05) 50%, rgba(0,0,0,0) 70%)',
+                'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.05) 50%, rgba(0,0,0,0) 70%)'
+              ],
+              scale: [1, 1.1, 1],
+              filter: ['blur(60px)', 'blur(70px)', 'blur(60px)'],
+            }}
+            transition={{ 
+              duration: 8,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
+          <motion.div 
+            className="absolute -bottom-20 right-1/4 w-96 h-96 rounded-full"
+            animate={{ 
+              background: [
+                'radial-gradient(circle, rgba(244,114,182,0.15) 0%, rgba(244,114,182,0.05) 50%, rgba(0,0,0,0) 70%)',
+                'radial-gradient(circle, rgba(236,72,153,0.15) 0%, rgba(236,72,153,0.05) 50%, rgba(0,0,0,0) 70%)',
+                'radial-gradient(circle, rgba(244,114,182,0.15) 0%, rgba(244,114,182,0.05) 50%, rgba(0,0,0,0) 70%)'
+              ],
+              scale: [1, 1.15, 1],
+              filter: ['blur(60px)', 'blur(80px)', 'blur(60px)'],
+            }}
+            transition={{ 
+              duration: 10,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1
+            }}
+          />
           
           <motion.div 
+            className="text-center mb-10 relative z-10"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16 relative z-10"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
+              className="mb-3"
             >
-              <h3 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300 relative z-10">
-                  Results-Driven Approach
+              <h3 className="text-4xl md:text-5xl font-bold relative inline-block">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-white to-rose-200 relative z-10">
+                  Results That Matter
                 </span>
-                <div className="absolute -bottom-1.5 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500/70 to-rose-500/70 rounded-full"></div>
+                <motion.div 
+                  className="absolute -bottom-2 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-500 rounded-full"
+                  initial={{ width: 0, left: "50%" }}
+                  whileInView={{ width: "100%", left: 0 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  viewport={{ once: true }}
+                />
               </h3>
             </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="text-white/70 max-w-3xl mx-auto text-lg leading-relaxed"
-            >
-              We measure success not just in design aesthetics, but in tangible business outcomes.
-              Every decision is made with your goals in mind.
-            </motion.p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-            <ResultCard
-              icon={Zap}
-              title="Increased Conversion Rates"
-              description="Strategic design and user experience improvements that turn more visitors into customers and generate measurable ROI."
-              delay={0.2}
+          {/* Metrics Showcase with Enhanced Animations */}
+          <div className="bg-white/[0.02] backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-10 mb-16 overflow-hidden relative">
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-rose-500/5"
+              animate={{ 
+                opacity: [0.5, 0.8, 0.5] 
+              }}
+              transition={{ 
+                duration: 8,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
             />
             
-            <ResultCard
-              icon={BarChart}
-              title="Enhanced Performance Metrics"
-              description="Faster loading times, improved engagement, and higher search rankings that drive more quality traffic to your website."
-              delay={0.4}
-            />
+            {/* Animated gradient lines */}
+            <div className="absolute inset-0 overflow-hidden opacity-20">
+              <motion.div 
+                className="absolute top-1/4 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ 
+                  duration: 15, 
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+              <motion.div 
+                className="absolute top-2/3 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-rose-500 to-transparent"
+                animate={{ x: ['100%', '-100%'] }}
+                transition={{ 
+                  duration: 18, 
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+              <motion.div 
+                className="absolute top-0 bottom-0 left-1/4 w-[1px] bg-gradient-to-b from-transparent via-purple-500 to-transparent"
+                animate={{ y: ['-100%', '100%'] }}
+                transition={{ 
+                  duration: 20, 
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+              <motion.div 
+                className="absolute top-0 bottom-0 right-1/3 w-[1px] bg-gradient-to-b from-transparent via-indigo-500 to-transparent"
+                animate={{ y: ['100%', '-100%'] }}
+                transition={{ 
+                  duration: 15, 
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: 2
+                }}
+              />
+            </div>
             
-            <ResultCard
-              icon={Compass}
-              title="Strategic Brand Positioning"
-              description="Thoughtful design that communicates your unique value proposition and establishes credibility in your market."
-              delay={0.6}
-            />
-            
-            <ResultCard
-              icon={Bot}
-              title="AI-Powered Assistance"
-              description="Smart chatbots that handle inquiries 24/7, qualify leads, and guide users through personalized customer journeys."
-              delay={0.2}
-            />
-            
-            <ResultCard
-              icon={MessageCircle}
-              title="Enhanced Customer Experience"
-              description="Instant responses and personalized interactions that boost customer satisfaction and build lasting relationships."
-              delay={0.4}
-            />
-            
-            <ResultCard
-              icon={LineChart}
-              title="Measurable Business Impact"
-              description="Data-driven decisions with analytics dashboards that track ROI and optimize your marketing investment."
-              delay={0.6}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
+              {/* Qualified Leads Metric */}
+              <motion.div 
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="relative mb-4 flex justify-center">
+                  <motion.div 
+                    className="absolute inset-0 rounded-full bg-indigo-500/30 blur-xl"
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      opacity: [0.3, 0.6, 0.3] 
+                    }}
+                    transition={{ 
+                      duration: 4,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  />
+                  <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 border border-indigo-500/30 flex items-center justify-center">
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ 
+                        duration: 20, 
+                        repeat: Infinity,
+                        ease: "linear" 
+                      }}
+                      className="absolute inset-0 rounded-full overflow-hidden opacity-60"
+                    >
+                      <div className="w-full h-full bg-gradient-to-r from-indigo-500/30 to-transparent" />
+                    </motion.div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-indigo-400 relative z-10">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                  </div>
+                </div>
+                
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 100, 
+                    damping: 10,
+                    delay: 0.2
+                  }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  <motion.div 
+                    className="absolute inset-0 filter blur-sm opacity-30 bg-indigo-500/30 rounded-xl"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.3, 0.5, 0.3]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  />
+                  <motion.span
+                    className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-indigo-500 block"
+                    animate={{
+                      textShadow: [
+                        "0 0 5px rgba(99, 102, 241, 0)",
+                        "0 0 15px rgba(99, 102, 241, 0.5)",
+                        "0 0 5px rgba(99, 102, 241, 0)"
+                      ]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  >
+                    +142%
+                  </motion.span>
+                </motion.div>
+                <h4 className="text-xl text-white mt-2 font-medium">Qualified Leads</h4>
+                <p className="text-white/60 text-sm mt-1">More high-quality prospects</p>
+              </motion.div>
+              
+              {/* Conversion Rate Metric */}
+              <motion.div 
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="relative mb-4 flex justify-center">
+                  <motion.div 
+                    className="absolute inset-0 rounded-full bg-purple-500/30 blur-xl"
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      opacity: [0.3, 0.6, 0.3] 
+                    }}
+                    transition={{ 
+                      duration: 4,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      delay: 0.5
+                    }}
+                  />
+                  <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-700/20 border border-purple-500/30 flex items-center justify-center">
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ 
+                        duration: 20, 
+                        repeat: Infinity,
+                        ease: "linear" 
+                      }}
+                      className="absolute inset-0 rounded-full overflow-hidden opacity-60"
+                    >
+                      <div className="w-full h-full bg-gradient-to-r from-purple-500/30 to-transparent" />
+                    </motion.div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-purple-400 relative z-10">
+                      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                      <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                  </div>
+                </div>
+                
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 100, 
+                    damping: 10,
+                    delay: 0.3
+                  }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  <motion.div 
+                    className="absolute inset-0 filter blur-sm opacity-30 bg-purple-500/30 rounded-xl"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.3, 0.5, 0.3]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      delay: 0.5
+                    }}
+                  />
+                  <motion.span
+                    className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-purple-500 block"
+                    animate={{
+                      textShadow: [
+                        "0 0 5px rgba(147, 51, 234, 0)",
+                        "0 0 15px rgba(147, 51, 234, 0.5)",
+                        "0 0 5px rgba(147, 51, 234, 0)"
+                      ]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      delay: 0.3
+                    }}
+                  >
+                    +94%
+                  </motion.span>
+                </motion.div>
+                <h4 className="text-xl text-white mt-2 font-medium">Conversion Rate</h4>
+                <p className="text-white/60 text-sm mt-1">Higher visitor-to-client ratio</p>
+              </motion.div>
+              
+              {/* Search Visibility Metric */}
+              <motion.div 
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <div className="relative mb-4 flex justify-center">
+                  <motion.div 
+                    className="absolute inset-0 rounded-full bg-rose-500/30 blur-xl"
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      opacity: [0.3, 0.6, 0.3] 
+                    }}
+                    transition={{ 
+                      duration: 4,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      delay: 1
+                    }}
+                  />
+                  <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-rose-500/20 to-rose-700/20 border border-rose-500/30 flex items-center justify-center">
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ 
+                        duration: 20, 
+                        repeat: Infinity,
+                        ease: "linear" 
+                      }}
+                      className="absolute inset-0 rounded-full overflow-hidden opacity-60"
+                    >
+                      <div className="w-full h-full bg-gradient-to-r from-rose-500/30 to-transparent" />
+                    </motion.div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-rose-400 relative z-10">
+                      <path d="m21 21-6-6m6 6v-4.8m0 4.8h-4.8"></path>
+                      <path d="M3 16.2V21m0-4.8H7.8"></path>
+                      <path d="M21 7.8V3m0 4.8h-4.8"></path>
+                      <path d="M3 3v4.8M3 3h4.8"></path>
+                      <path d="M10 21v-4a2 2 0 0 1 4 0v4"></path>
+                      <path d="M10 7V3h4v4"></path>
+                      <path d="M3 12h18"></path>
+                    </svg>
+                  </div>
+                </div>
+                
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 100, 
+                    damping: 10,
+                    delay: 0.4
+                  }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  <motion.div 
+                    className="absolute inset-0 filter blur-sm opacity-30 bg-rose-500/30 rounded-xl"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.3, 0.5, 0.3]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      delay: 1
+                    }}
+                  />
+                  <motion.span
+                    className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-rose-300 to-rose-500 block"
+                    animate={{
+                      textShadow: [
+                        "0 0 5px rgba(244, 63, 94, 0)",
+                        "0 0 15px rgba(244, 63, 94, 0.5)",
+                        "0 0 5px rgba(244, 63, 94, 0)"
+                      ]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      delay: 0.6
+                    }}
+                  >
+                    +67%
+                  </motion.span>
+                </motion.div>
+                <h4 className="text-xl text-white mt-2 font-medium">Search Visibility</h4>
+                <p className="text-white/60 text-sm mt-1">Improved rankings for key terms</p>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
         
@@ -601,31 +1557,22 @@ export default function ServicesSection() {
           <p className="text-white/70 max-w-2xl mx-auto mb-8">
             Let's discuss how our premium services can elevate your digital presence and drive real business results.
           </p>
-          <button 
-            onClick={openCalendly}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-500 to-rose-500 rounded-full text-white font-medium hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300"
+          <motion.button 
+            onClick={handleBookDemo}
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 rounded-full text-white font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 hover:scale-105"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
-            Schedule a Consultation 
-            <ArrowRight className="w-4 h-4" />
-          </button>
+            <span className="text-lg">Book a Demo</span>
+            <motion.span 
+              animate={{ x: [0, 4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+            >
+              <ArrowRight className="w-5 h-5" />
+            </motion.span>
+          </motion.button>
         </motion.div>
       </div>
-
-      {/* Calendly Modal */}
-      <Dialog open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen}>
-        <DialogContent className="sm:max-w-[900px] p-0 bg-transparent border-none">
-          <div className="relative w-full">
-            <button
-              onClick={() => setIsCalendlyOpen(false)}
-              className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70 transition-colors"
-            >
-              <X className="w-4 h-4" />
-            </button>
-            <div className="calendly-inline-widget" data-url="https://calendly.com/zak-thewebtailors?primary_color=c084fc" style={{ minWidth: 320, height: 700 }}></div>
-            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-          </div>
-        </DialogContent>
-      </Dialog>
     </section>
   )
 }

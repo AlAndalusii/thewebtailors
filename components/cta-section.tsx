@@ -83,7 +83,7 @@ export default function CTASection() {
   }
 
   return (
-    <section id="contact" className="relative snap-section bg-[#030303] overflow-hidden">
+    <section id="contact" className="relative snap-section bg-[#030303] overflow-hidden pt-32 scroll-mt-20">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] to-rose-500/[0.05]" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10 py-16 md:py-24 min-h-screen max-h-screen flex flex-col">

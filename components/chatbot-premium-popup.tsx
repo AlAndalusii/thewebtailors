@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Bot, Zap, BarChart, Clock, ArrowRight } from "lucide-react"
+import { X, Bot, Zap, BarChart, Clock, ArrowRight, Mail, Calculator, PieChart, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface ChatbotPremiumPopupProps {
@@ -35,8 +35,14 @@ export default function ChatbotPremiumPopup({ onBookDemo }: ChatbotPremiumPopupP
     setIsVisible(true)
   }
   
-  const handleBookDemo = () => {
-    onBookDemo()
+  const handleGetFreeAudit = () => {
+    // Email template for accounting firms
+    const subject = "AI Chatbot Demo For my Website"
+    const body = "Hello,%0A%0AI'm interested in getting a free audit of my accounting firm's website to improve client acquisition.%0A%0APlease contact me at your earliest convenience.%0A%0AThank you,%0A"
+    
+    // Open default email client with pre-populated fields
+    window.location.href = `mailto:info@yourcompany.com?subject=${subject}&body=${body}`
+    
     setIsVisible(false)
   }
 
@@ -107,7 +113,7 @@ export default function ChatbotPremiumPopup({ onBookDemo }: ChatbotPremiumPopupP
               <div className="pt-10 px-4 sm:px-8 text-center relative z-10">
                 <div className="mx-auto w-16 h-16 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 p-0.5 mb-6">
                   <div className="w-full h-full rounded-full bg-gray-900 flex items-center justify-center">
-                    <Bot className="w-8 h-8 text-white" />
+                    <Calculator className="w-8 h-8 text-white" />
                   </div>
                 </div>
                 
@@ -121,11 +127,11 @@ export default function ChatbotPremiumPopup({ onBookDemo }: ChatbotPremiumPopupP
                   }}
                   style={{ backgroundSize: "200% auto" }}
                 >
-                  Unlock the Full Potential of AI
+                  Unlock AI for Your Accounting Firm
                 </motion.h3>
                 
                 <p className="text-white/90 mb-6 text-sm sm:text-base">
-                  Experience the future of customer engagement with our premium AI chatbot solution that converts visitors 24/7.
+                  Transform client acquisition with our accounting-specific AI chatbot that converts prospects and streamlines client onboarding.
                 </p>
               </div>
               
@@ -138,18 +144,18 @@ export default function ChatbotPremiumPopup({ onBookDemo }: ChatbotPremiumPopupP
                         <Zap className="w-4 h-4 text-indigo-300" />
                       </div>
                       <div>
-                        <h4 className="text-white font-medium mb-1 text-sm sm:text-base">Conversion-Focused</h4>
-                        <p className="text-xs text-white/70">Turns conversations into qualified leads</p>
+                        <h4 className="text-white font-medium mb-1 text-sm sm:text-base">Client Acquisition</h4>
+                        <p className="text-xs text-white/70">Converts website visitors into qualified leads</p>
                       </div>
                     </div>
                     
                     <div className="flex items-start">
                       <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500/30 to-purple-500/30 flex items-center justify-center mr-3 flex-shrink-0">
-                        <BarChart className="w-4 h-4 text-indigo-300" />
+                        <PieChart className="w-4 h-4 text-indigo-300" />
                       </div>
                       <div>
-                        <h4 className="text-white font-medium mb-1 text-sm sm:text-base">Analytics Dashboard</h4>
-                        <p className="text-xs text-white/70">Gain insights to optimize performance</p>
+                        <h4 className="text-white font-medium mb-1 text-sm sm:text-base">Financial Insights</h4>
+                        <p className="text-xs text-white/70">Deliver value through AI-powered conversations</p>
                       </div>
                     </div>
                     
@@ -159,17 +165,17 @@ export default function ChatbotPremiumPopup({ onBookDemo }: ChatbotPremiumPopupP
                       </div>
                       <div>
                         <h4 className="text-white font-medium mb-1 text-sm sm:text-base">24/7 Availability</h4>
-                        <p className="text-xs text-white/70">Always ready to engage your visitors</p>
+                        <p className="text-xs text-white/70">Engage clients even outside business hours</p>
                       </div>
                     </div>
                     
                     <div className="flex items-start">
                       <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500/30 to-purple-500/30 flex items-center justify-center mr-3 flex-shrink-0">
-                        <Bot className="w-4 h-4 text-indigo-300" />
+                        <Shield className="w-4 h-4 text-indigo-300" />
                       </div>
                       <div>
-                        <h4 className="text-white font-medium mb-1 text-sm sm:text-base">GPT-Powered</h4>
-                        <p className="text-xs text-white/70">Cutting-edge AI for natural conversations</p>
+                        <h4 className="text-white font-medium mb-1 text-sm sm:text-base">Compliance-Ready</h4>
+                        <p className="text-xs text-white/70">Secure conversations with regulatory awareness</p>
                       </div>
                     </div>
                   </div>
@@ -177,24 +183,30 @@ export default function ChatbotPremiumPopup({ onBookDemo }: ChatbotPremiumPopupP
                 
                 <div className="mb-6">
                   <motion.div
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                     className="relative group"
                   >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full opacity-70 group-hover:opacity-100 blur-sm transition-all duration-200"></div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-600 to-rose-600 rounded-full opacity-70 group-hover:opacity-100 blur-sm transition-all duration-200"></div>
                     <Button 
-                      onClick={handleBookDemo}
-                      className="relative w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-medium rounded-full py-4 sm:py-6 border-0 shadow-lg shadow-indigo-600/20 flex items-center justify-center transition-all duration-300"
+                      onClick={handleGetFreeAudit}
+                      className="relative w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 hover:from-indigo-500 hover:via-purple-500 hover:to-rose-500 text-white font-medium rounded-full py-4 sm:py-6 border-0 shadow-lg shadow-indigo-600/20 flex items-center justify-center transition-all duration-300"
                     >
-                      <span className="text-base sm:text-lg">Book a Free Strategy Call</span>
-                      <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="text-base sm:text-lg">Get My Free Audit</span>
+                      <motion.span 
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                        className="ml-2"
+                      >
+                        <Mail className="w-5 h-5" />
+                      </motion.span>
                     </Button>
                   </motion.div>
                 </div>
                 
                 <p className="text-center text-white/40 text-xs">
-                  Limited spots available for personalized demos this month.
-                  <br />Secure your slot before we reach capacity.
+                  Limited spots available for free accounting website audits.
+                  <br />Secure your assessment before we reach capacity.
                 </p>
               </div>
             </motion.div>
@@ -210,10 +222,10 @@ export default function ChatbotPremiumPopup({ onBookDemo }: ChatbotPremiumPopupP
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
           className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 p-0.5 shadow-lg shadow-purple-900/30 z-40"
           onClick={reopenPopup}
-          aria-label="Show premium chatbot offer"
+          aria-label="Show accounting AI offer"
         >
           <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
-            <Bot className="w-6 h-6 text-white" />
+            <Calculator className="w-6 h-6 text-white" />
           </div>
         </motion.button>
       )}

@@ -43,7 +43,22 @@ const shimmer = {
 export default function ChatbotsPage() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false)
   
-  const openCalendly = () => setIsCalendlyOpen(true)
+  const openCalendly = () => {
+    setIsCalendlyOpen(true)
+    
+    // Ensure the Calendly widget is properly initialized
+    setTimeout(() => {
+      if (typeof window !== 'undefined' && (window as any).Calendly) {
+        (window as any).Calendly.initInlineWidget({
+          url: 'https://calendly.com/zak-thewebtailors?primary_color=67169e',
+          parentElement: document.querySelector('.calendly-inline-widget'),
+          prefill: {},
+          utm: {}
+        });
+      }
+    }, 100);
+  }
+  
   const closeCalendly = () => setIsCalendlyOpen(false)
   
   return (
@@ -78,7 +93,7 @@ export default function ChatbotsPage() {
                   AI-Powered Chatbots
                 </span>
                 <br /> 
-                <span>That Convert Visitors</span>
+                <span>For Accounting Firms</span>
               </h1>
               <motion.p 
                 className="mt-6 text-xl text-gray-300 leading-relaxed max-w-xl"
@@ -86,7 +101,7 @@ export default function ChatbotsPage() {
                 initial="visible"
                 animate="visible"
               >
-                Elevate your brand with custom chatbot solutions that engage visitors 24/7, turning conversations into conversions.
+                Transform client interactions with intelligent automation that handles inquiries, collects information, and schedules consultations—all while you focus on delivering value.
               </motion.p>
               
               <motion.div 
@@ -95,12 +110,25 @@ export default function ChatbotsPage() {
                 initial="visible"
                 animate="visible"
               >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+              >
                 <Button 
-                  className="px-8 py-6 text-lg font-medium bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/25"
+                    className="px-8 py-6 text-lg font-medium bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 hover:from-indigo-500 hover:via-purple-500 hover:to-rose-500 rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/25 flex items-center gap-2"
                   onClick={openCalendly}
                 >
-                  Book a Demo
+                    <span>Book a Demo</span>
+                    <motion.div
+                      animate={{ x: [0, 4, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </motion.div>
                 </Button>
+                </motion.div>
                 <a href="#how-it-works" className="text-lg font-medium text-gray-300 hover:text-white transition-colors flex items-center group">
                   Learn how it works
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -129,20 +157,20 @@ export default function ChatbotsPage() {
                   
                   <div className="p-6 pt-16">
                     <div className="flex flex-col space-y-4">
-                      <div className="self-start max-w-[70%] bg-gray-800 rounded-2xl rounded-bl-none p-4">
-                        <p className="text-gray-200">When can I check in to the hotel?</p>
+                      <div className="self-end max-w-[70%] bg-indigo-600 rounded-2xl rounded-br-none p-4">
+                        <p>How do I get started with your accounting services?</p>
                       </div>
                       
                       <div className="self-start max-w-[70%] bg-gray-800 rounded-2xl rounded-bl-none p-4">
-                        <p className="text-gray-200">Standard check-in is at 3:00 PM. You're welcome to leave your luggage with us earlier!</p>
+                        <p className="text-gray-200">You'll need to complete our initial assessment questionnaire. We'll email you the link once you're ready!</p>
                       </div>
                       
                       <div className="self-end max-w-[70%] bg-indigo-600 rounded-2xl rounded-br-none p-4">
-                        <p>Great — I'll arrive around 1:00 PM.</p>
+                        <p>Perfect — I'd like to get started right away.</p>
                       </div>
                       
                       <div className="self-start max-w-[70%] bg-gray-800 rounded-2xl rounded-bl-none p-4">
-                        <p className="text-gray-200">Perfect! We'll have a space ready for your bags and can text you when your room is available.</p>
+                        <p className="text-gray-200">Great! We've sent the questionnaire to your email. Please check your inbox and complete it at your earliest convenience.</p>
                       </div>
                       
                       <div className="mt-4 flex">
@@ -292,10 +320,10 @@ export default function ChatbotsPage() {
             variants={fadeIn}
           >
             <h2 className="text-3xl md:text-4xl font-bold">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Perfect</span> For
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Precision</span> Support
             </h2>
             <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">
-              Discover how our AI chatbots can transform customer interactions across industries
+              Streamline your practice with AI solutions designed specifically for accounting professionals
             </p>
           </motion.div>
           
@@ -307,32 +335,32 @@ export default function ChatbotsPage() {
           >
             {[
               {
-                title: "Hotels & Hospitality",
-                description: "Handle bookings, answer FAQs, and provide personalized recommendations for amenities and local attractions.",
+                title: "Client Onboarding",
+                description: "Automate initial consultations, gather essential financial information, and schedule follow-up meetings effortlessly.",
                 gradient: "from-blue-600 to-indigo-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                   </svg>
                 ),
               },
               {
-                title: "Digital Agencies",
-                description: "Pre-qualify leads, schedule consultations, and provide instant project quotes to potential clients.",
+                title: "Tax Deadline Alerts",
+                description: "Proactively notify clients of upcoming deadlines and required documentation with personalized communication.",
                 gradient: "from-purple-600 to-pink-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 ),
               },
               {
-                title: "E-Commerce",
-                description: "Assist with product recommendations, answer shipping questions, and help customers complete their purchase.",
+                title: "Document Collection",
+                description: "Securely request, receive, and organize client financial documents through guided conversational workflows.",
                 gradient: "from-cyan-600 to-blue-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 ),
               }
@@ -345,9 +373,13 @@ export default function ChatbotsPage() {
                 <div className={`h-full bg-gradient-to-br ${useCase.gradient} opacity-10 absolute inset-0 group-hover:opacity-20 transition-opacity duration-300`} />
                 
                 <div className="border border-white/10 bg-gray-900/50 rounded-2xl p-8 backdrop-blur-sm hover:border-indigo-500/30 transition-all duration-300 relative">
-                  <div className="mb-6 text-white/80">
+                  <motion.div 
+                    className="mb-6 text-white/80"
+                    whileHover={{ scale: 1.05, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
                     {useCase.icon}
-                  </div>
+                  </motion.div>
                   
                   <h3 className="text-2xl font-bold mb-3">{useCase.title}</h3>
                   <p className="text-gray-300 leading-relaxed mb-6">
@@ -501,10 +533,18 @@ export default function ChatbotsPage() {
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <Button 
-                  className="px-8 py-6 text-lg font-medium bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/25"
+                  className="px-8 py-6 text-lg font-medium bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 hover:from-indigo-500 hover:via-purple-500 hover:to-rose-500 rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/25 flex items-center gap-2"
                   onClick={openCalendly}
                 >
-                  Book a Demo
+                  <span>Book a Demo</span>
+                  <motion.div
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </motion.div>
                 </Button>
               </motion.div>
             </div>

@@ -164,3 +164,30 @@ textarea {
 
 /* Import placeholder styles */
 @import url('../styles/placeholders.css');
+
+/* Performance optimization - reduce animations when tab is not visible */
+.reduce-animations * {
+  animation-duration: 0.001ms !important;
+  animation-delay: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* Optimize rendering performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize images during loading */
+img {
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

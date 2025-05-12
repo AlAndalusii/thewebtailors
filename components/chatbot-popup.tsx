@@ -144,7 +144,7 @@ export default function ChatbotPopup({ onBookDemo }: ChatbotPopupProps) {
                   onClick={handleBookDemo}
                   className="w-full py-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-full shadow-lg shadow-indigo-600/20 flex items-center justify-center transition-all"
                 >
-                  <span>Book a Free Demo</span>
+                  <span>Get Free Demo</span>
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
                 

@@ -1,4 +1,6 @@
 import { Logo } from "./logo"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -8,17 +10,17 @@ export default function Footer() {
           <div className="md:col-span-2">
             <Logo className="mb-4" />
             <p className="text-white/40 max-w-md">
-              We transform outdated websites into modern experiences that captivate your audience and drive real results. Simple, effective, powerful.
+              We create trust-building websites for accounting and bookkeeping firms that convert visitors into qualified leads and showcase your expertise to potential clients.
             </p>
           </div>
 
           <div>
             <h4 className="text-white font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-white/40">
-              <li>Web Design</li>
-              <li>UI/UX Design</li>
-              <li>Responsive Development</li>
-              <li>Animation & Motion</li>
+              <li>Accounting Website Design</li>
+              <li>Tax Firm Branding</li>
+              <li>Bookkeeper Lead Generation</li>
+              <li>CPA Chatbot Development</li>
             </ul>
           </div>
 
@@ -27,6 +29,24 @@ export default function Footer() {
             <ul className="space-y-2 text-white/40">
               <li>info@thewebtailors.com</li>
             </ul>
+            
+            <div className="mt-6">
+              <h4 className="text-white font-semibold mb-4">Free Credibility Audit</h4>
+              <form className="space-y-3">
+                <input 
+                  type="email" 
+                  placeholder="Your Email" 
+                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-indigo-500/50"
+                />
+                <Button 
+                  type="submit"
+                  className="w-full gap-2 bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 transition-all duration-300"
+                >
+                  Get 5-Point Audit
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
 

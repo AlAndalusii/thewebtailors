@@ -21,10 +21,26 @@ export const metadata: Metadata = {
   generator: 'v0.dev',
   icons: {
     icon: [
-      { url: '/favicon.ico' },
+      { url: '/favicon.ico', sizes: 'any' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
+    apple: [
+      { url: '/favicon.png', sizes: '64x64', type: 'image/png' },
+    ],
+    shortcut: [
+      { url: '/favicon.png', type: 'image/png' }
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/favicon.svg',
+        color: '#6366F1'
+      }
+    ]
   },
+  manifest: '/manifest.json',
+  applicationName: 'theWebTailors',
+  keywords: ['accounting website', 'chatbots', 'web design', 'UK accountants', 'website redesign'],
 }
 
 export const viewport: Viewport = {

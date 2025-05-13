@@ -192,19 +192,29 @@ export default function Navigation() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md md:hidden flex flex-col"
+              initial={{ opacity: 0, y: "-100%" }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: "-100%" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md md:hidden flex flex-col"
+              style={{ 
+                position: "fixed", 
+                top: 0, 
+                left: 0, 
+                right: 0, 
+                bottom: 0, 
+                height: "100vh", 
+                width: "100vw",
+                overflowY: "auto"
+              }}
             >
-              <div className="relative h-full w-full flex flex-col overflow-auto">
+              <div className="relative h-full w-full flex flex-col">
                 {/* Top Logo and Close Button */}
-                <div className="sticky top-0 flex items-center justify-between p-6 border-b border-white/10 bg-black/70 backdrop-blur-md">
+                <div className="sticky top-0 flex items-center justify-between p-6 border-b border-white/10 bg-black/90 backdrop-blur-md z-10">
                   <Logo />
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="p-3 rounded-full bg-gradient-to-r from-indigo-600/80 to-purple-600/80 text-white shadow-lg shadow-black/10 touch-manipulation"
+                    className="p-3 rounded-full bg-gradient-to-r from-indigo-600/80 to-purple-600/80 text-white shadow-lg shadow-black/10 active:scale-95 transition-all"
                     aria-label="Close menu"
                   >
                     <X className="w-6 h-6" />
@@ -212,28 +222,35 @@ export default function Navigation() {
                 </div>
 
                 {/* Navigation Items */}
-                <nav className="flex-1 p-6">
-                  <ul className="flex flex-col gap-4 items-stretch">
+                <nav className="flex-1 p-6 mt-4">
+                  <ul className="flex flex-col gap-6 items-stretch">
                     {navItems.map((item) => (
                       <li key={item.href} className="w-full">
                         {item.isExternal ? (
                           <Link
                             href={item.href}
                             className={cn(
-                              "block text-2xl font-medium text-center py-4 px-6 rounded-xl transition-all",
+                              "flex items-center justify-center text-2xl font-medium py-5 px-6 rounded-xl transition-all",
                               isNavItemActive(item)
                                 ? "text-white bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border border-white/10"
                                 : "text-white/80 hover:text-white hover:bg-white/5"
                             )}
                             onClick={() => setIsOpen(false)}
                           >
-                            {item.label}
+                            <span>{item.label}</span>
+                            {isNavItemActive(item) && (
+                              <motion.div
+                                layoutId="mobileNavIndicator"
+                                className="absolute bottom-0 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-indigo-500 to-rose-500"
+                                transition={{ type: "spring", duration: 0.5 }}
+                              />
+                            )}
                           </Link>
                         ) : (
                           <a
                             href={item.href}
                             className={cn(
-                              "block text-2xl font-medium text-center py-4 px-6 rounded-xl transition-all",
+                              "flex items-center justify-center text-2xl font-medium py-5 px-6 rounded-xl transition-all",
                               isNavItemActive(item)
                                 ? "text-white bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border border-white/10"
                                 : "text-white/80 hover:text-white hover:bg-white/5"
@@ -243,7 +260,14 @@ export default function Navigation() {
                               setIsOpen(false)
                             }}
                           >
-                            {item.label}
+                            <span>{item.label}</span>
+                            {isNavItemActive(item) && (
+                              <motion.div
+                                layoutId="mobileNavIndicator"
+                                className="absolute bottom-0 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-indigo-500 to-rose-500"
+                                transition={{ type: "spring", duration: 0.5 }}
+                              />
+                            )}
                           </a>
                         )}
                       </li>
@@ -252,10 +276,12 @@ export default function Navigation() {
                 </nav>
                 
                 {/* Footer with contact info */}
-                <div className="p-6 mt-auto border-t border-white/10 bg-black/50">
-                  <div className="text-center text-white/60 text-sm">
+                <div className="p-6 mt-auto border-t border-white/10 bg-black/80">
+                  <div className="text-center text-white/70 text-sm">
                     <p>Need help? Contact us</p>
-                    <p className="mt-2 text-white font-medium">info@thewebtailors.com</p>
+                    <a href="mailto:info@thewebtailors.com" className="mt-2 text-white font-medium block">
+                      info@thewebtailors.com
+                    </a>
                   </div>
                 </div>
               </div>

@@ -3,9 +3,9 @@
 import { motion } from "framer-motion"
 import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
-import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart } from "lucide-react"
+import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart, ChevronRight, ShieldCheck, Star } from "lucide-react"
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -241,8 +241,98 @@ const ResultCard = ({
   )
 }
 
+// Animation variants and typing effect state for dashboard mockup (from hero-section)
+const uiMockupVariants = {
+  hover: {
+    rotateY: [0, 2, 0, -2, 0],
+    rotateX: [0, 1, 0, -1, 0],
+    transition: {
+      duration: 10,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }
+  }
+}
+const cursorBlink = {
+  opacity: [0, 1, 1, 0],
+  transition: {
+    duration: 1.5,
+    repeat: Infinity,
+    repeatType: "loop" as const,
+    times: [0, 0.4, 0.8, 1]
+  }
+}
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.25, 0.4, 0.25, 1],
+    },
+  },
+}
+const mockupLines = [
+  "PREMIER ACCOUNTING SERVICES",
+  "Financial Clarity",
+  "For Your Business",
+  "Expert guidance through complex financial advisory services",
+  ""
+];
+
 export default function ServicesSection() {
-  const router = useRouter()
+  const router = useRouter();
+
+  // Move hooks here (fix Invalid Hook Call)
+  const [typedLines, setTypedLines] = useState<string[]>([""]);
+  const typingState = useRef({
+    typingIndex: 0,
+    charIndex: 0,
+    isTyping: true
+  });
+  useEffect(() => {
+    if (!typingState.current.isTyping) return;
+    const { typingIndex, charIndex } = typingState.current;
+    if (typingIndex < mockupLines.length) {
+      if (charIndex < mockupLines[typingIndex].length) {
+        const timeout = setTimeout(() => {
+          setTypedLines((prev) => {
+            const newLines = [...prev];
+            newLines[typingIndex] = (newLines[typingIndex] || "") + mockupLines[typingIndex][charIndex];
+            return newLines;
+          });
+          typingState.current.charIndex += 1;
+        }, 40);
+        return () => clearTimeout(timeout);
+      } else {
+        if (typingIndex < mockupLines.length - 1) {
+          const timeout = setTimeout(() => {
+            setTypedLines((prev) => [...prev, ""]);
+            typingState.current.typingIndex += 1;
+            typingState.current.charIndex = 0;
+          }, 500);
+          return () => clearTimeout(timeout);
+        } else {
+          const timeout = setTimeout(() => {
+            setTypedLines([""]);
+            typingState.current.typingIndex = 0;
+            typingState.current.charIndex = 0;
+          }, 2200);
+          return () => clearTimeout(timeout);
+        }
+      }
+    }
+  }, [typedLines, mockupLines]);
 
   // Email template for the "Book a Demo" button
   const handleBookDemo = () => {
@@ -311,23 +401,230 @@ Thank you,
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <div className="relative overflow-hidden rounded-2xl border border-white/10">
-                <div className="relative aspect-[4/3] w-full">
-                  <Image
-                    src="/New.jpg"
-                    alt="Accounting Website Redesign"
-                    width={800}
-                    height={600}
-                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-lg px-4 py-2 inline-block mb-3">
-                      <span className="text-xs font-medium text-white/90">Premium Service</span>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-900/60 via-blue-950/70 to-purple-900/70 shadow-2xl shadow-indigo-900/30">
+                {/* --- Begin Dashboard Mockup (moved from hero) --- */}
+                {/* Browser window mockup with 3D perspective */}
+                <motion.div 
+                  className="bg-slate-900/80 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-700/50 shadow-2xl transform perspective-1200"
+                  animate="hover"
+                  variants={uiMockupVariants}
+                >
+                  {/* Browser header */}
+                  <div className="bg-slate-800/80 backdrop-blur-md p-3 border-b border-slate-700/50 flex items-center justify-between">
+                    <div className="flex items-center space-x-1.5">
+                      <div className="w-3 h-3 rounded-full bg-rose-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-amber-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div className="flex-1 mx-4">
+                      <div className="bg-slate-700/80 backdrop-blur-sm rounded-full h-6 w-full max-w-md mx-auto flex items-center justify-center group hover:bg-slate-600/80 transition-colors duration-300">
+                        <div className="flex items-center text-slate-400 text-xs group-hover:text-slate-300 transition-colors duration-300">
+                          <span>wilkinsaccounting.com</span>
+                          <motion.span 
+                            className="ml-1 w-1 h-3 bg-indigo-400 inline-block"
+                            animate={cursorBlink}
+                          ></motion.span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                  {/* Browser content - Modern premium design */}
+                  <div className="h-[450px] relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-slate-900/20 to-rose-900/30 backdrop-blur-sm"></div>
+                    {/* Top navigation bar */}
+                    <div className="relative z-10 h-14 backdrop-blur-md bg-black/10 border-b border-white/10 flex items-center justify-between px-6">
+                      <motion.div 
+                        className="text-white font-bold text-lg tracking-wide flex items-center space-x-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.8, duration: 0.5 }}
+                      >
+                        <motion.div 
+                          className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-md flex items-center justify-center mr-2"
+                          whileHover={{ rotate: [0, 5, -5, 0] }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <span className="text-sm">W</span>
+                        </motion.div>
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">WILKINS</span>
+                      </motion.div>
+                      <motion.div 
+                        className="flex space-x-8"
+                        variants={staggerContainer}
+                        initial="hidden"
+                        animate="show"
+                      >
+                        {["HOME", "SERVICES", "ABOUT", "TEAM", "CONTACT"].map((item, i) => (
+                          <motion.div 
+                            key={item} 
+                            variants={fadeInUp}
+                            className={`text-sm font-medium transition-colors duration-300 ${i === 0 ? 'text-white' : 'text-white/60 hover:text-white'}`}
+                            whileHover={{ y: -2 }}
+                          >
+                            {item}
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    </div>
+                    {/* Main content area */}
+                    <div className="relative z-10 grid grid-cols-12 gap-6 p-6 h-[calc(100%-56px)]">
+                      <div className="col-span-8 flex flex-col justify-center">
+                        {/* Typing effect for all lines */}
+                        <div className="min-h-[140px] flex flex-col justify-center">
+                          {mockupLines.map((line, i) => (
+                            <div key={i} className={
+                              i === 0
+                                ? "text-xs text-indigo-400 font-semibold mb-2 tracking-wider"
+                                : i === 1
+                                ? "text-3xl font-bold text-white mb-0 leading-tight"
+                                : i === 2
+                                ? "text-3xl font-bold text-white mb-3 leading-tight"
+                                : i === 3
+                                ? "text-white/70 text-sm flex items-center"
+                                : "text-3xl font-bold mb-3 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-rose-400"
+                            }>
+                              {typedLines[i] || ""}
+                              {typingState.current.typingIndex === i && (
+                                <motion.span
+                                  className="inline-block w-1 h-4 align-middle bg-indigo-400 ml-0.5"
+                                  animate={cursorBlink}
+                                />
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex space-x-4 mb-8">
+                          <motion.button 
+                            className="px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white text-sm font-medium flex items-center space-x-2 hover:from-indigo-700 hover:to-purple-700 transition-colors shadow-lg shadow-indigo-900/30"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <span>Our Services</span>
+                            <ChevronRight className="h-4 w-4" />
+                          </motion.button>
+                          <motion.button 
+                            className="px-5 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white text-sm font-medium hover:bg-white/10 transition-colors"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            Contact Us
+                          </motion.button>
+                        </div>
+                        <div className="flex items-center space-x-8">
+                          <motion.div 
+                            className="flex space-x-2 items-center"
+                            whileHover={{ scale: 1.05, x: 3 }}
+                          >
+                            <ShieldCheck className="h-5 w-5 text-indigo-400" />
+                            <span className="text-white/70 text-xs">HMRC Compliant</span>
+                          </motion.div>
+                          <motion.div 
+                            className="flex space-x-2 items-center"
+                            whileHover={{ scale: 1.05, x: 3 }}
+                          >
+                            <Star className="h-5 w-5 text-amber-400" />
+                            <span className="text-white/70 text-xs">5-Star Rated</span>
+                          </motion.div>
+                        </div>
+                      </div>
+                      <div className="col-span-4 relative">
+                        <div className="relative h-full w-full flex items-center justify-center">
+                          <motion.div
+                            animate={{ 
+                              y: [0, -10, 0],
+                              rotate: [0, 5, 0]
+                            }}
+                            transition={{ 
+                              duration: 6, 
+                              repeat: Infinity,
+                              repeatType: "loop" as const, 
+                            }}
+                            className="absolute h-32 w-32 bg-gradient-to-br from-indigo-500/20 to-transparent backdrop-blur-md border border-indigo-500/30 rounded-xl shadow-[0_0_15px_rgba(99,102,241,0.3)] transform rotate-12"
+                          />
+                          <motion.div
+                            animate={{ 
+                              y: [0, 10, 0],
+                              rotate: [0, -5, 0]
+                            }}
+                            transition={{ 
+                              duration: 7, 
+                              repeat: Infinity,
+                              repeatType: "loop" as const,
+                              delay: 0.5
+                            }}
+                            className="absolute h-32 w-32 bg-gradient-to-br from-purple-500/20 to-transparent backdrop-blur-md border border-purple-500/30 rounded-xl shadow-[0_0_15px_rgba(168,85,247,0.3)] transform -rotate-6"
+                          />
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 1.5, duration: 0.8 }}
+                            className="relative z-10 w-48 h-48 rounded-full bg-gradient-to-br from-indigo-800/80 to-purple-800/80 backdrop-blur-md border border-indigo-500/30 shadow-[0_0_30px_rgba(99,102,241,0.3)] overflow-hidden"
+                            whileHover={{ boxShadow: "0 0 40px rgba(99,102,241,0.5)" }}
+                          >
+                            <div className="absolute inset-1 rounded-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
+                              <div className="absolute inset-0 flex items-end justify-center pb-6">
+                                <div className="text-white/90 text-center">
+                                  <p className="text-xs font-medium">Sarah Wilkins, CPA</p>
+                                  <p className="text-[10px] text-white/60">Director & Founder</p>
+                                </div>
+                              </div>
+                            </div>
+                            <motion.div 
+                              className="absolute top-6 right-6 w-1.5 h-1.5 rounded-full bg-purple-400"
+                              animate={{
+                                y: [0, -8, 0],
+                                opacity: [0.2, 1, 0.2]
+                              }}
+                              transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                repeatType: "loop" as const
+                              }}
+                            />
+                            <motion.div 
+                              className="absolute bottom-10 left-4 w-1 h-1 rounded-full bg-indigo-400"
+                              animate={{
+                                y: [0, 6, 0],
+                                opacity: [0.2, 1, 0.2]
+                              }}
+                              transition={{
+                                duration: 2.5,
+                                repeat: Infinity,
+                                repeatType: "loop" as const,
+                                delay: 0.5
+                              }}
+                            />
+                            <motion.div 
+                              className="absolute top-14 left-6 w-1 h-1 rounded-full bg-rose-400"
+                              animate={{
+                                y: [0, -5, 0],
+                                opacity: [0.2, 1, 0.2]
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                repeatType: "loop" as const,
+                                delay: 1
+                              }}
+                            />
+                          </motion.div>
+                        </div>
+                      </div>
+                    </div>
+                    <motion.div 
+                      className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-indigo-500/10 to-transparent"
+                      animate={{ 
+                        opacity: [0.1, 0.3, 0.1],
+                      }}
+                      transition={{ 
+                        duration: 4, 
+                        repeat: Infinity,
+                        repeatType: "loop" as const
+                      }}
+                    />
+                  </div>
+                </motion.div>
+                {/* --- End Dashboard Mockup --- */}
               </div>
             </motion.div>
             
@@ -1315,7 +1612,7 @@ Thank you,
               animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
             >
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="h-4 w-4" />
             </motion.span>
           </motion.button>
         </motion.div>

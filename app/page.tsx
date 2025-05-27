@@ -7,7 +7,6 @@ import FAQSection from "@/components/faq-section"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
 import Navigation from "@/components/navigation"
-import PremiumPopup from "@/components/premium-popup"
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
       <FAQSection />
       <ContactSection />
       <Footer />
-      <PremiumPopup />
     </main>
   )
 }

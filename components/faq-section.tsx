@@ -75,23 +75,23 @@ export default function FAQSection() {
   const faqItems = [
     {
       question: "Who are the Web Tailors?",
-      answer: "We're a small team passionate about redesigning websites. We focus solely on transforming existing sites into stunning, effective online experiences."
+      answer: "We're a specialized team passionate about creating websites for mental health professionals. We focus on transforming existing therapy and counseling websites into welcoming, effective online experiences."
     },
     {
       question: "How does it work?",
-      answer: "It's easy - just enter a few details about your business, add a title & a couple of keywords, and our world-class writers will whip up a high quality piece in under three business days."
+      answer: "It's simple - share details about your practice, your therapeutic approach, and your goals. Our expert team will create a website that authentically represents your practice and connects with potential clients."
     },
     {
       question: "How long does it take?",
-      answer: "We deliver results fast - you'll have your first redesign concept within 72 hours of starting the project."
+      answer: "We work efficiently while maintaining quality - you'll have your first website concept within 72 hours of starting the project."
     },
     {
       question: "Is there any risk?",
-      answer: "None at all! We offer a 100% money-back guarantee. If you're not completely satisfied, we'll refund everything."
+      answer: "None at all! We offer a 100% satisfaction guarantee. If you're not completely satisfied with your new website, we'll refund your investment."
     },
     {
       question: "What's included in the redesign?",
-      answer: "You'll get a complete visual refresh, improved user experience, mobile optimization, and performance enhancements - all customized to your brand."
+      answer: "You'll get a complete visual refresh, improved user experience, mobile optimization, and performance enhancements - all customized to your therapeutic approach and practice style."
     }
   ]
   

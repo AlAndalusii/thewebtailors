@@ -6,7 +6,6 @@ import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import CalendlyModal from "@/components/calendly-modal"
-import ChatbotPremiumPopup from "@/components/chatbot-premium-popup"
 
 // Animation variants
 const fadeIn = {
@@ -43,33 +42,41 @@ const shimmer = {
 export default function ChatbotsPage() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false)
   
-  const openCalendly = () => {
-    setIsCalendlyOpen(true)
-    
-    // Ensure the Calendly widget is properly initialized
-    setTimeout(() => {
-      if (typeof window !== 'undefined' && (window as any).Calendly) {
-        (window as any).Calendly.initInlineWidget({
-          url: 'https://calendly.com/zak-thewebtailors?primary_color=67169e',
-          parentElement: document.querySelector('.calendly-inline-widget'),
-          prefill: {},
-          utm: {}
-        });
-      }
-    }, 100);
+  const handleBookDemo = () => {
+    const emailBody = `Hello TheWebTailors Team,
+
+I'm interested in enhancing my therapy practice with a premium website. Here are my details:
+
+Name: [Your Full Name]
+Practice Name: [Your Practice Name]
+Phone Number: [Your Contact Number]
+Preferred Contact Time: [Best days/times to chat]
+Current Website: [Yes/No, if yes please provide URL]
+Practice Type: [Private Practice/Group Practice/Other]
+Specialties: [Your Therapy Specialties]
+Target Clients: [Your Ideal Client Demographics]
+
+I'm particularly interested in:
+- Modern, professional design
+- HIPAA-compliant features
+- Client portal integration
+- Online booking system
+- Therapy-specific AI chatbot
+
+Please contact me to discuss how we can transform my online presence.
+
+Best regards,
+[Your Name]`;
+
+    window.location.href = `mailto:info@thewebtailors.com?subject=Therapy Practice Website Redesign&body=${encodeURIComponent(emailBody)}`;
   }
-  
-  const closeCalendly = () => setIsCalendlyOpen(false)
   
   return (
     <main className="bg-[#030303] text-white overflow-hidden">
       <Navigation />
       
       {/* Calendly Modal */}
-      <CalendlyModal isOpen={isCalendlyOpen} onClose={closeCalendly} />
-      
-      {/* Premium Popup */}
-      <ChatbotPremiumPopup onBookDemo={openCalendly} />
+      <CalendlyModal isOpen={isCalendlyOpen} onClose={() => setIsCalendlyOpen(false)} />
       
       {/* Hero Section */}
       <section className="min-h-screen relative flex items-center pt-32 pb-20">
@@ -90,10 +97,10 @@ export default function ChatbotsPage() {
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-                  AI-Powered Chatbots
+                  AI Assistant for Therapists
                 </span>
                 <br /> 
-                <span>For Accounting Firms</span>
+                <span>Simplify Your Practice</span>
               </h1>
               <motion.p 
                 className="mt-6 text-xl text-gray-300 leading-relaxed max-w-xl"
@@ -101,7 +108,7 @@ export default function ChatbotsPage() {
                 initial="visible"
                 animate="visible"
               >
-                Transform client interactions with intelligent automation that handles inquiries, collects information, and schedules consultations—all while you focus on delivering value.
+                Let AI handle client inquiries, schedule appointments, and answer common questions 24/7. Focus on what matters most - your clients.
               </motion.p>
               
               <motion.div 
@@ -116,7 +123,7 @@ export default function ChatbotsPage() {
               >
                 <Button 
                     className="px-8 py-6 text-lg font-medium bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 hover:from-indigo-500 hover:via-purple-500 hover:to-rose-500 rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/25 flex items-center gap-2"
-                  onClick={openCalendly}
+                  onClick={() => setIsCalendlyOpen(true)}
                 >
                     <span>Book a Demo</span>
                     <motion.div
@@ -158,19 +165,19 @@ export default function ChatbotsPage() {
                   <div className="p-6 pt-16">
                     <div className="flex flex-col space-y-4">
                       <div className="self-end max-w-[70%] bg-indigo-600 rounded-2xl rounded-br-none p-4">
-                        <p>How do I get started with your accounting services?</p>
+                        <p>What are your current availability and rates?</p>
                       </div>
                       
                       <div className="self-start max-w-[70%] bg-gray-800 rounded-2xl rounded-bl-none p-4">
-                        <p className="text-gray-200">You'll need to complete our initial assessment questionnaire. We'll email you the link once you're ready!</p>
+                        <p className="text-gray-200">I have weekday slots available between 9 AM - 7 PM. Individual sessions are $120/hour, and I offer a free 15-minute consultation. Would you like to schedule a time?</p>
                       </div>
                       
                       <div className="self-end max-w-[70%] bg-indigo-600 rounded-2xl rounded-br-none p-4">
-                        <p>Perfect — I'd like to get started right away.</p>
+                        <p>Yes, I'd like to book a consultation.</p>
                       </div>
                       
                       <div className="self-start max-w-[70%] bg-gray-800 rounded-2xl rounded-bl-none p-4">
-                        <p className="text-gray-200">Great! We've sent the questionnaire to your email. Please check your inbox and complete it at your earliest convenience.</p>
+                        <p className="text-gray-200">I'll show you my available slots for next week. Just pick a time that works for you, and I'll send a confirmation email right away.</p>
                       </div>
                       
                       <div className="mt-4 flex">
@@ -232,10 +239,10 @@ export default function ChatbotsPage() {
             variants={fadeIn}
           >
             <h2 className="text-3xl md:text-4xl font-bold">
-              How It <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Works</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Practice</span> Management Made Easy
             </h2>
             <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">
-              A simple three-step process to transform your website with intelligent AI assistance
+              Streamline your therapy practice with AI that handles the details while you focus on client care
             </p>
           </motion.div>
           
@@ -247,29 +254,32 @@ export default function ChatbotsPage() {
           >
             {[
               {
-                title: "Build",
-                description: "We design and develop a custom chatbot tailored to your brand's voice and your customer's needs.",
+                title: "Smart Scheduling",
+                description: "Automatically manage appointments, send reminders, and handle rescheduling requests.",
+                gradient: "from-blue-600 to-indigo-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 ),
               },
               {
-                title: "Chat",
-                description: "Your AI assistant engages visitors with natural conversations, providing immediate responses 24/7.",
+                title: "Client Screening",
+                description: "Gather essential information and conduct initial assessments before the first session.",
+                gradient: "from-purple-600 to-pink-600",
+                icon: (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Instant Support",
+                description: "Answer common questions about services, insurance, and policies 24/7.",
+                gradient: "from-cyan-600 to-blue-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Convert",
-                description: "Transform conversations into qualified leads and bookings with strategic conversion paths.",
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 ),
               }
@@ -320,10 +330,10 @@ export default function ChatbotsPage() {
             variants={fadeIn}
           >
             <h2 className="text-3xl md:text-4xl font-bold">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Precision</span> Support
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Compassionate</span> Support
             </h2>
             <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">
-              Streamline your practice with AI solutions designed specifically for accounting professionals
+              Streamline your practice with AI solutions designed specifically for mental health professionals
             </p>
           </motion.div>
           
@@ -335,8 +345,8 @@ export default function ChatbotsPage() {
           >
             {[
               {
-                title: "Client Onboarding",
-                description: "Automate initial consultations, gather essential financial information, and schedule follow-up meetings effortlessly.",
+                title: "Client Intake",
+                description: "Automate initial consultations, gather essential mental health information, and schedule follow-up sessions with care and confidentiality.",
                 gradient: "from-blue-600 to-indigo-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -345,8 +355,8 @@ export default function ChatbotsPage() {
                 ),
               },
               {
-                title: "Tax Deadline Alerts",
-                description: "Proactively notify clients of upcoming deadlines and required documentation with personalized communication.",
+                title: "Appointment Reminders",
+                description: "Proactively notify clients of upcoming sessions with gentle, supportive communication.",
                 gradient: "from-purple-600 to-pink-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -355,8 +365,8 @@ export default function ChatbotsPage() {
                 ),
               },
               {
-                title: "Document Collection",
-                description: "Securely request, receive, and organize client financial documents through guided conversational workflows.",
+                title: "Secure Documentation",
+                description: "Safely collect and organize client information through HIPAA-compliant conversational workflows.",
                 gradient: "from-cyan-600 to-blue-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -521,10 +531,10 @@ export default function ChatbotsPage() {
           >
             <div className="text-center">
               <h2 className="text-3xl md:text-4xl font-bold">
-                Ready to <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Transform</span> Your Website?
+                Ready to <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Transform</span> Your Practice?
               </h2>
               <p className="mt-6 text-xl text-gray-300 max-w-2xl mx-auto">
-                Book a demo today and discover how our AI chatbots can elevate your customer experience and drive conversions.
+                Book a demo today and see how our AI assistant can help you manage your therapy practice more efficiently.
               </p>
               
               <motion.div 
@@ -534,7 +544,7 @@ export default function ChatbotsPage() {
               >
                 <Button 
                   className="px-8 py-6 text-lg font-medium bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 hover:from-indigo-500 hover:via-purple-500 hover:to-rose-500 rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/25 flex items-center gap-2"
-                  onClick={openCalendly}
+                  onClick={() => setIsCalendlyOpen(true)}
                 >
                   <span>Book a Demo</span>
                   <motion.div

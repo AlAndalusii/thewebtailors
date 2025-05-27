@@ -70,7 +70,7 @@ export default function GallerySection() {
               viewport={{ once: true }}
               className="text-white/70 max-w-3xl mx-auto text-lg"
             >
-              See the dramatic difference in our professional accounting website redesigns
+              See the dramatic impact of our expert therapy website redesigns
             </motion.p>
           </div>
 
@@ -84,7 +84,8 @@ export default function GallerySection() {
               <motion.div
                 initial={{ opacity: 0, y: 20, x: -20 }}
                 whileInView={{ opacity: 1, y: 0, x: 0 }}
-                transition={{ duration: 0.8 }}
+                whileHover={{ scale: 1.06 }}
+                transition={{ duration: 0.8, type: "spring", stiffness: 300, damping: 18 }}
                 viewport={{ once: true, margin: "-100px" }}
                 className="relative"
               >
@@ -96,14 +97,19 @@ export default function GallerySection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0 z-10 opacity-70"></div>
                   <div className="relative aspect-[16/10] w-full">
                     <Image
-                      src="/before7.png"
+                      src="/before7788.png"
                       alt="Before Redesign"
                       width={800}
                       height={500}
                       className="object-cover w-full h-full"
-                      loading="lazy"
+                      priority={true}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       onLoad={handleImageLoad}
+                      onError={(e) => {
+                        console.error('Error loading before image:', e);
+                        // Fallback to the old image if the new one fails
+                        e.currentTarget.src = '/before777.png';
+                      }}
                     />
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 px-6 py-5 text-white z-20">
@@ -124,7 +130,8 @@ export default function GallerySection() {
               <motion.div
                 initial={{ opacity: 0, y: 20, x: 20 }}
                 whileInView={{ opacity: 1, y: 0, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                whileHover={{ scale: 1.06 }}
+                transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 300, damping: 18 }}
                 viewport={{ once: true, margin: "-100px" }}
                 className="relative"
               >
@@ -136,12 +143,12 @@ export default function GallerySection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/50 via-black/10 to-black/0 z-10 mix-blend-overlay opacity-60"></div>
                   <div className="relative aspect-[16/10] w-full">
                     <Image
-                      src="/after7.png"
+                      src="/Screenshot 2025-05-27 at 12.30.36.png"
                       alt="After Redesign"
                       width={800}
                       height={500}
                       className="object-cover w-full h-full"
-                      loading="lazy"
+                      priority={true}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       onLoad={handleImageLoad}
                     />
@@ -163,8 +170,8 @@ export default function GallerySection() {
 
             <div className="flex flex-col md:flex-row justify-between items-center mt-10 md:mt-16 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
               <div className="mb-6 md:mb-0">
-                <h4 className="text-xl font-semibold text-white mb-2">Ready to transform your accounting website?</h4>
-                <p className="text-white/70">See how we can elevate your online presence and convert more visitors into clients.</p>
+                <h4 className="text-xl font-semibold text-white mb-2">Ready to transform your therapy website?</h4>
+                <p className="text-white/70">See how we can elevate your online presence and turn more visitors into clients.</p>
               </div>
               <motion.div
                 whileHover={{ scale: 1.05 }}

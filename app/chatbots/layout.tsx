@@ -2,9 +2,10 @@ import type { Metadata, Viewport } from "next"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Accounting Website Redesigns + AI Chatbots | theWebtailors",
-  description: "We redesign outdated accounting websites & add AI chatbots to boost leads. theWebtailors build modern, high-converting sites for UK accountants.",
+  title: "Therapy Website Design & AI Chatbots | Modern Sites for Therapists",
+  description: "Professional web design for therapists with AI chatbots. Create a modern, secure website that attracts clients and streamlines your practice. Get a custom therapy website design with booking automation.",
   generator: 'v0.dev',
+  keywords: ['web design for therapists', 'therapy web design', 'therapy website design', 'therapist website', 'mental health website', 'therapy practice website', 'counseling website design', 'private practice therapist website'],
 }
 
 export const viewport: Viewport = {

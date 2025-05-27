@@ -72,11 +72,31 @@ const config = {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(100%)" },
         },
+        "pulse-slow": {
+          "0%, 100%": { opacity: "0.3", transform: "scale(1)" },
+          "50%": { opacity: "0.5", transform: "scale(1.1)" },
+        },
+        "gradient-flow": {
+          "0%": { 
+            backgroundPosition: "0% 100%",
+            opacity: "0.3"
+          },
+          "50%": { 
+            backgroundPosition: "0% 0%",
+            opacity: "0.5"
+          },
+          "100%": { 
+            backgroundPosition: "0% 100%",
+            opacity: "0.3"
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "shimmer": "shimmer 2s infinite",
+        "pulse-slow": "pulse-slow 4s ease-in-out infinite",
+        "gradient-flow": "gradient-flow 3s ease-in-out infinite",
       },
     },
   },

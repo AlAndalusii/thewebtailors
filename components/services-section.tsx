@@ -1,14 +1,15 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart, ChevronRight, ShieldCheck, Star } from "lucide-react"
 import Image from "next/image"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useSectionVisibility } from '@/hooks/useScrollManager';
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -283,15 +284,42 @@ const fadeInUp = {
   },
 }
 const mockupLines = [
-  "PREMIER ACCOUNTING SERVICES",
-  "Financial Clarity",
-  "For Your Business",
-  "Expert guidance through complex financial advisory services",
+  "PROFESSIONAL THERAPY SERVICES",
+  "Your Journey to Wellness",
+  "Starts Here",
+  "Expert guidance through evidence-based therapeutic approaches",
   ""
 ];
 
 export default function ServicesSection() {
   const router = useRouter();
+  const isVisible = useSectionVisibility('services', 0.1);
+
+  // Memoize animation variants to prevent recreating them on each render
+  const metricsVariants: Variants = useMemo(() => ({
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 0.4, 0.25, 1]
+      }
+    }
+  }), []);
+
+  const glowVariants: Variants = useMemo(() => ({
+    initial: { opacity: 0.3, scale: 1 },
+    animate: {
+      opacity: [0.3, 0.5, 0.3],
+      scale: [1, 1.1, 1],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        repeatType: "reverse" as const
+      }
+    }
+  }), []);
 
   // Move hooks here (fix Invalid Hook Call)
   const [typedLines, setTypedLines] = useState<string[]>([""]);
@@ -362,18 +390,16 @@ Thank you,
 
   return (
     <section id="services" className="relative py-24 pt-32 bg-[#030303] overflow-hidden scroll-mt-20">
+      {/* Optimize background gradients by using CSS instead of motion.div */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.03] to-rose-500/[0.03]" />
-      
-      {/* Background elements */}
-      <div className="absolute top-40 left-20 w-96 h-96 bg-indigo-500/5 rounded-full filter blur-3xl" />
-      <div className="absolute bottom-40 right-20 w-96 h-96 bg-rose-500/5 rounded-full filter blur-3xl" />
+      <div className="absolute top-40 left-20 w-96 h-96 bg-indigo-500/5 rounded-full filter blur-3xl animate-pulse-slow" />
+      <div className="absolute bottom-40 right-20 w-96 h-96 bg-rose-500/5 rounded-full filter blur-3xl animate-pulse-slow" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          variants={metricsVariants}
           className="text-center mb-20"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -419,7 +445,7 @@ Thank you,
                     <div className="flex-1 mx-4">
                       <div className="bg-slate-700/80 backdrop-blur-sm rounded-full h-6 w-full max-w-md mx-auto flex items-center justify-center group hover:bg-slate-600/80 transition-colors duration-300">
                         <div className="flex items-center text-slate-400 text-xs group-hover:text-slate-300 transition-colors duration-300">
-                          <span>wilkinsaccounting.com</span>
+                          <span>mindfultherapy.com</span>
                           <motion.span 
                             className="ml-1 w-1 h-3 bg-indigo-400 inline-block"
                             animate={cursorBlink}
@@ -444,9 +470,9 @@ Thank you,
                           whileHover={{ rotate: [0, 5, -5, 0] }}
                           transition={{ duration: 0.5 }}
                         >
-                          <span className="text-sm">W</span>
+                          <span className="text-sm">M</span>
                         </motion.div>
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">WILKINS</span>
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">MINDFUL</span>
                       </motion.div>
                       <motion.div 
                         className="flex space-x-8"
@@ -454,7 +480,7 @@ Thank you,
                         initial="hidden"
                         animate="show"
                       >
-                        {["HOME", "SERVICES", "ABOUT", "TEAM", "CONTACT"].map((item, i) => (
+                        {["HOME", "THERAPY", "APPROACH", "ABOUT", "CONTACT"].map((item, i) => (
                           <motion.div 
                             key={item} 
                             variants={fadeInUp}
@@ -516,7 +542,7 @@ Thank you,
                             whileHover={{ scale: 1.05, x: 3 }}
                           >
                             <ShieldCheck className="h-5 w-5 text-indigo-400" />
-                            <span className="text-white/70 text-xs">HMRC Compliant</span>
+                            <span className="text-white/70 text-xs">BACP Accredited</span>
                           </motion.div>
                           <motion.div 
                             className="flex space-x-2 items-center"
@@ -564,8 +590,8 @@ Thank you,
                             <div className="absolute inset-1 rounded-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
                               <div className="absolute inset-0 flex items-end justify-center pb-6">
                                 <div className="text-white/90 text-center">
-                                  <p className="text-xs font-medium">Sarah Wilkins, CPA</p>
-                                  <p className="text-[10px] text-white/60">Director & Founder</p>
+                                  <p className="text-xs font-medium">Dr. Sarah Mitchell</p>
+                                  <p className="text-[10px] text-white/60">Licensed Therapist</p>
                                 </div>
                               </div>
                             </div>
@@ -635,10 +661,10 @@ Thank you,
               viewport={{ once: true }}
             >
               <h3 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300">
-                Accounting Website Redesign
+                Therapy Practice Website Design
               </h3>
               <p className="text-white/70 mb-8 leading-relaxed">
-                Transform your outdated accounting website into a powerful client acquisition tool. Our specialized designs create credibility, showcase your services, and generate qualified leads for your firm.
+                Transform your therapy practice website into a welcoming space that builds trust and connects with clients. Our specialized designs create a safe, professional presence that helps clients feel comfortable reaching out.
               </p>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start">
@@ -647,7 +673,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Dedicated service pages for tax planning, payroll, bookkeeping, and advisory services</span>
+                  <span className="text-white/80">Dedicated pages for therapy approaches, specialties, and client resources</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -655,7 +681,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Built-in trust signals like credentials, testimonials, and industry affiliations</span>
+                  <span className="text-white/80">Built-in trust elements like credentials, client testimonials, and professional memberships</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -663,7 +689,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Lead-generation forms optimized for accounting client acquisition</span>
+                  <span className="text-white/80">Easy booking and contact forms designed for therapy client inquiries</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -671,7 +697,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Responsive design that delivers a flawless experience on all devices</span>
+                  <span className="text-white/80">Mobile-friendly design that makes it easy for clients to connect from any device</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
@@ -705,7 +731,7 @@ Thank you,
                 viewport={{ once: true }}
               >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-300">
-                  AI Assistant for Accountants
+                  AI Assistant for Therapists
                 </span>
               </motion.h3>
               
@@ -716,7 +742,7 @@ Thank you,
                 viewport={{ once: true }}
                 className="text-white/80 text-lg leading-relaxed mb-8"
               >
-                24/7 intelligent support that converts website visitors into qualified leads while handling complex tax inquiries.
+                24/7 compassionate support that helps potential clients find the right therapist while answering common questions about your practice.
               </motion.p>
               
               <div className="space-y-5 mb-8">
@@ -760,8 +786,8 @@ Thank you,
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">HMRC Compliance</h4>
-                    <p className="text-white/60 text-sm">Real-time tax deadline tracking and automated client alerts</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Client Matching</h4>
+                    <p className="text-white/60 text-sm">Helps clients find the right therapy approach and appointment times</p>
                   </div>
                 </motion.div>
                 
@@ -968,7 +994,7 @@ Thank you,
                     />
                     <div className="absolute top-0 left-0 right-0 px-4 py-2 bg-gradient-to-r from-indigo-500/90 to-purple-700/90 backdrop-blur-sm">
                       <div className="flex items-center justify-between">
-                        <h4 className="text-white text-sm font-medium">HMRC Compliance Assistant</h4>
+                        <h4 className="text-white text-sm font-medium">Therapy Assistant</h4>
                         <div className="flex space-x-1">
                           <div className="w-2 h-2 rounded-full bg-red-400"></div>
                           <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
@@ -1051,7 +1077,7 @@ Thank you,
                         }}
                         className="w-2 h-2 rounded-full bg-green-500"
                       />
-                      <p className="text-white text-xs">Accounting Assistant</p>
+                      <p className="text-white text-xs">Counseling Assistant</p>
                     </div>
                     <div className="bg-slate-800/90 p-4 max-h-60">
                       <div className="chat-msg mb-3">
@@ -1061,7 +1087,7 @@ Thank you,
                           transition={{ duration: 0.5 }}
                           className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
                         >
-                          Hi! How can I help with your taxes today?
+                          Hi! How can I help you with your therapy needs today?
                         </motion.div>
                       </div>
                       <div className="chat-msg mb-3">
@@ -1071,7 +1097,7 @@ Thank you,
                           transition={{ duration: 0.5, delay: 0.5 }}
                           className="bg-slate-700/60 rounded-lg p-2 text-white text-xs ml-auto max-w-[90%]"
                         >
-                          When is my tax return due?
+                          When is the next available appointment?
                         </motion.div>
                       </div>
                       <div className="chat-msg mb-3">
@@ -1081,7 +1107,7 @@ Thank you,
                           transition={{ duration: 0.5, delay: 1 }}
                           className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
                         >
-                          31 January 2024. Need a reminder?
+                          I have openings next Tuesday at 2 PM and Thursday at 4 PM. Would you like to schedule one of these?
                         </motion.div>
                       </div>
                     </div>
@@ -1259,82 +1285,28 @@ Thank you,
             </motion.div>
           </motion.div>
           
-          {/* Metrics Showcase with Enhanced Animations */}
-          <div className="bg-white/[0.02] backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-10 mb-16 overflow-hidden relative">
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-rose-500/5"
-              animate={{ 
-                opacity: [0.5, 0.8, 0.5] 
-              }}
-              transition={{ 
-                duration: 8,
-                repeat: Infinity,
-                repeatType: "reverse"
-              }}
-            />
-            
-            {/* Animated gradient lines */}
-            <div className="absolute inset-0 overflow-hidden opacity-20">
-              <motion.div 
-                className="absolute top-1/4 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
-                animate={{ x: ['-100%', '100%'] }}
-                transition={{ 
-                  duration: 15, 
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-              <motion.div 
-                className="absolute top-2/3 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-rose-500 to-transparent"
-                animate={{ x: ['100%', '-100%'] }}
-                transition={{ 
-                  duration: 18, 
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-              <motion.div 
-                className="absolute top-0 bottom-0 left-1/4 w-[1px] bg-gradient-to-b from-transparent via-purple-500 to-transparent"
-                animate={{ y: ['-100%', '100%'] }}
-                transition={{ 
-                  duration: 20, 
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-              <motion.div 
-                className="absolute top-0 bottom-0 right-1/3 w-[1px] bg-gradient-to-b from-transparent via-indigo-500 to-transparent"
-                animate={{ y: ['100%', '-100%'] }}
-                transition={{ 
-                  duration: 15, 
-                  repeat: Infinity,
-                  ease: "linear",
-                  delay: 2
-                }}
-              />
-            </div>
+          {/* Metrics Showcase with Optimized Animations */}
+          <motion.div 
+            className="relative"
+            initial="hidden"
+            animate={isVisible ? "visible" : "hidden"}
+            variants={metricsVariants}
+          >
+            {/* Use CSS animations for the vertical line instead of motion.div */}
+            <div className="absolute top-0 bottom-0 right-1/3 w-[1px] bg-gradient-to-b from-transparent via-indigo-500 to-transparent animate-gradient-flow" />
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
               {/* Qualified Leads Metric */}
               <motion.div 
                 className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
+                variants={metricsVariants}
               >
                 <div className="relative mb-4 flex justify-center">
                   <motion.div 
                     className="absolute inset-0 rounded-full bg-indigo-500/30 blur-xl"
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      opacity: [0.3, 0.6, 0.3] 
-                    }}
-                    transition={{ 
-                      duration: 4,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
+                    variants={glowVariants}
+                    initial="initial"
+                    animate={isVisible ? "animate" : "initial"}
                   />
                   <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 border border-indigo-500/30 flex items-center justify-center">
                     <motion.div
@@ -1406,24 +1378,14 @@ Thank you,
               {/* Conversion Rate Metric */}
               <motion.div 
                 className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
+                variants={metricsVariants}
               >
                 <div className="relative mb-4 flex justify-center">
                   <motion.div 
                     className="absolute inset-0 rounded-full bg-purple-500/30 blur-xl"
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      opacity: [0.3, 0.6, 0.3] 
-                    }}
-                    transition={{ 
-                      duration: 4,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                      delay: 0.5
-                    }}
+                    variants={glowVariants}
+                    initial="initial"
+                    animate={isVisible ? "animate" : "initial"}
                   />
                   <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-700/20 border border-purple-500/30 flex items-center justify-center">
                     <motion.div
@@ -1495,24 +1457,14 @@ Thank you,
               {/* Search Visibility Metric */}
               <motion.div 
                 className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                viewport={{ once: true }}
+                variants={metricsVariants}
               >
                 <div className="relative mb-4 flex justify-center">
                   <motion.div 
                     className="absolute inset-0 rounded-full bg-rose-500/30 blur-xl"
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      opacity: [0.3, 0.6, 0.3] 
-                    }}
-                    transition={{ 
-                      duration: 4,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                      delay: 1
-                    }}
+                    variants={glowVariants}
+                    initial="initial"
+                    animate={isVisible ? "animate" : "initial"}
                   />
                   <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-rose-500/20 to-rose-700/20 border border-rose-500/30 flex items-center justify-center">
                     <motion.div
@@ -1586,7 +1538,7 @@ Thank you,
                 <p className="text-white/60 text-sm mt-1">Improved rankings for key terms</p>
               </motion.div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
         
         {/* CTA Section */}

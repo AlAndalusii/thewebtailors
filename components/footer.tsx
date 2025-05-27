@@ -10,17 +10,17 @@ export default function Footer() {
           <div className="md:col-span-2">
             <Logo className="mb-4" />
             <p className="text-white/40 max-w-md">
-              We create trust-building websites for accounting and bookkeeping firms that convert visitors into qualified leads and showcase your expertise to potential clients.
+              We create trust-building websites for therapy and counseling practices that convert visitors into clients and showcase your expertise to potential clients.
             </p>
           </div>
 
           <div>
             <h4 className="text-white font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-white/40">
-              <li>Accounting Website Design</li>
-              <li>Tax Firm Branding</li>
-              <li>Bookkeeper Lead Generation</li>
-              <li>CPA Chatbot Development</li>
+              <li>Therapy Website Design</li>
+              <li>Counseling Practice Branding</li>
+              <li>Client Engagement Solutions</li>
+              <li>Mental Health Chatbot Development</li>
             </ul>
           </div>
 

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { Logo } from "./logo"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useScrollManager } from '@/hooks/useScrollManager';
 
 // Define the type for navigation items
 type NavItem = {
@@ -31,51 +32,48 @@ export default function Navigation() {
   const [isAIChatbotVisible, setIsAIChatbotVisible] = useState(false)
   const pathname = usePathname()
   const isHomePage = pathname === "/"
+  const { registerCallback } = useScrollManager()
 
   useEffect(() => {
-    // Only track scrolling and activate sections on homepage
-    if (!isHomePage) return
+    if (!isHomePage) return;
 
-    const handleScroll = () => {
+    const cleanup = registerCallback((scrollY) => {
       // Update active section
-      const sections = ["hero", "services", "gallery", "why-choose-us", "contact"]
+      const sections = ["hero", "services", "gallery", "why-choose-us", "contact"];
       
       for (const section of sections) {
-        const element = document.getElementById(section)
+        const element = document.getElementById(section);
         if (element) {
-          const rect = element.getBoundingClientRect()
+          const rect = element.getBoundingClientRect();
           
           // If this section is in view (accounting for some tolerance)
           if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section)
-            break
+            setActiveSection(section);
+            break;
           }
         }
       }
 
       // Check if AI Chatbot section is visible
-      const aiChatbotSection = document.getElementById('ai-chatbot-section')
+      const aiChatbotSection = document.getElementById('ai-chatbot-section');
       if (aiChatbotSection) {
-        const rect = aiChatbotSection.getBoundingClientRect()
+        const rect = aiChatbotSection.getBoundingClientRect();
         // If AI Chatbot section is in view
         if (rect.top <= 300 && rect.bottom >= 100) {
-          setIsAIChatbotVisible(true)
+          setIsAIChatbotVisible(true);
         } else {
-          setIsAIChatbotVisible(false)
+          setIsAIChatbotVisible(false);
         }
       }
 
       // Check if page has scrolled for navbar background
-      if (window.scrollY > 50) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
-    }
+      setScrolled(scrollY > 50);
+    });
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [isHomePage])
+    return () => {
+      if (cleanup) cleanup();
+    };
+  }, [isHomePage, registerCallback]);
 
   // Helper function to determine if a nav item is active
   const isNavItemActive = (item: NavItem) => {

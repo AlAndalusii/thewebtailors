@@ -70,7 +70,7 @@ export default function GallerySection() {
               viewport={{ once: true }}
               className="text-white/70 max-w-3xl mx-auto text-lg"
             >
-              See the dramatic impact of our expert therapy website redesigns
+              See the dramatic impact of our expert trade business website redesigns
             </motion.p>
           </div>
 
@@ -94,21 +94,22 @@ export default function GallerySection() {
                   <div className="absolute top-0 left-0 bg-rose-500/90 text-white px-5 py-2 rounded-br-lg text-sm font-semibold z-20">
                     BEFORE
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0 z-10 opacity-70"></div>
-                  <div className="relative aspect-[16/10] w-full">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
+                  <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
-                      src="/before7788.png"
-                      alt="Before Redesign"
+                      src="/before 4.png"
+                      alt="Before Redesign - Trade Business Website"
                       width={800}
                       height={500}
-                      className="object-cover w-full h-full"
+                      className="object-contain w-full h-full"
                       priority={true}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       onLoad={handleImageLoad}
-                      onError={(e) => {
-                        console.error('Error loading before image:', e);
-                        // Fallback to the old image if the new one fails
-                        e.currentTarget.src = '/before777.png';
+                      style={{
+                        maxHeight: '100%',
+                        width: 'auto',
+                        margin: '0 auto',
+                        display: 'block'
                       }}
                     />
                   </div>
@@ -140,17 +141,23 @@ export default function GallerySection() {
                   <div className="absolute top-0 left-0 bg-indigo-500/90 text-white px-5 py-2 rounded-br-lg text-sm font-semibold z-20">
                     AFTER
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/50 via-black/10 to-black/0 z-10 mix-blend-overlay opacity-60"></div>
-                  <div className="relative aspect-[16/10] w-full">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
+                  <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
-                      src="/Screenshot 2025-05-27 at 12.30.36.png"
-                      alt="After Redesign"
+                      src="/after 4.png"
+                      alt="After Redesign - Trade Business Website"
                       width={800}
                       height={500}
-                      className="object-cover w-full h-full"
+                      className="object-contain w-full h-full"
                       priority={true}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       onLoad={handleImageLoad}
+                      style={{
+                        maxHeight: '100%',
+                        width: 'auto',
+                        margin: '0 auto',
+                        display: 'block'
+                      }}
                     />
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 px-6 py-5 text-white z-20">
@@ -170,8 +177,8 @@ export default function GallerySection() {
 
             <div className="flex flex-col md:flex-row justify-between items-center mt-10 md:mt-16 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
               <div className="mb-6 md:mb-0">
-                <h4 className="text-xl font-semibold text-white mb-2">Ready to transform your therapy website?</h4>
-                <p className="text-white/70">See how we can elevate your online presence and turn more visitors into clients.</p>
+                <h4 className="text-xl font-semibold text-white mb-2">Ready to transform your trade business website?</h4>
+                <p className="text-white/70">See how we can elevate your online presence and turn more visitors into customers.</p>
               </div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -181,7 +188,7 @@ export default function GallerySection() {
                   className="whitespace-nowrap gap-2 inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 rounded-full border-0 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40" 
                   onClick={openCalendly}
                 >
-                  <span>Book a Free Design Consultation</span>
+                  <span>Book a Free Website Consultation</span>
                   <motion.span 
                     animate={{ x: [0, 4, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}

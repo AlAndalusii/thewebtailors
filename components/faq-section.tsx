@@ -75,11 +75,11 @@ export default function FAQSection() {
   const faqItems = [
     {
       question: "Who are the Web Tailors?",
-      answer: "We're a specialized team passionate about creating websites for mental health professionals. We focus on transforming existing therapy and counseling websites into welcoming, effective online experiences."
+      answer: "We're a specialized team passionate about creating websites for UK tradespeople. We focus on transforming existing trade business websites into professional, effective online experiences that generate more jobs."
     },
     {
       question: "How does it work?",
-      answer: "It's simple - share details about your practice, your therapeutic approach, and your goals. Our expert team will create a website that authentically represents your practice and connects with potential clients."
+      answer: "It's simple - share details about your trade business, your services, and your goals. Our expert team will create a website that authentically represents your business and connects with potential customers."
     },
     {
       question: "How long does it take?",
@@ -91,7 +91,7 @@ export default function FAQSection() {
     },
     {
       question: "What's included in the redesign?",
-      answer: "You'll get a complete visual refresh, improved user experience, mobile optimization, and performance enhancements - all customized to your therapeutic approach and practice style."
+      answer: "You'll get a complete visual refresh, improved user experience, mobile optimization, and performance enhancements - all customized to your trade services and business style."
     }
   ]
   

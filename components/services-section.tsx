@@ -284,10 +284,10 @@ const fadeInUp = {
   },
 }
 const mockupLines = [
-  "PROFESSIONAL THERAPY SERVICES",
-  "Your Journey to Wellness",
-  "Starts Here",
-  "Expert guidance through evidence-based therapeutic approaches",
+  "PROFESSIONAL GAS SERVICES",
+  "Your Local Gas Expert",
+  "Gas Safe Registered",
+  "Professional gas engineers serving your area",
   ""
 ];
 
@@ -445,7 +445,7 @@ Thank you,
                     <div className="flex-1 mx-4">
                       <div className="bg-slate-700/80 backdrop-blur-sm rounded-full h-6 w-full max-w-md mx-auto flex items-center justify-center group hover:bg-slate-600/80 transition-colors duration-300">
                         <div className="flex items-center text-slate-400 text-xs group-hover:text-slate-300 transition-colors duration-300">
-                          <span>mindfultherapy.com</span>
+                          <span>gasengineer.co.uk</span>
                           <motion.span 
                             className="ml-1 w-1 h-3 bg-indigo-400 inline-block"
                             animate={cursorBlink}
@@ -470,9 +470,9 @@ Thank you,
                           whileHover={{ rotate: [0, 5, -5, 0] }}
                           transition={{ duration: 0.5 }}
                         >
-                          <span className="text-sm">M</span>
+                          <span className="text-sm">G</span>
                         </motion.div>
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">MINDFUL</span>
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">GAS SAFE</span>
                       </motion.div>
                       <motion.div 
                         className="flex space-x-8"
@@ -480,7 +480,7 @@ Thank you,
                         initial="hidden"
                         animate="show"
                       >
-                        {["HOME", "THERAPY", "APPROACH", "ABOUT", "CONTACT"].map((item, i) => (
+                        {["HOME", "SERVICES", "CERTIFICATES", "ABOUT", "CONTACT"].map((item, i) => (
                           <motion.div 
                             key={item} 
                             variants={fadeInUp}
@@ -542,7 +542,7 @@ Thank you,
                             whileHover={{ scale: 1.05, x: 3 }}
                           >
                             <ShieldCheck className="h-5 w-5 text-indigo-400" />
-                            <span className="text-white/70 text-xs">BACP Accredited</span>
+                            <span className="text-white/70 text-xs">Gas Safe Registered</span>
                           </motion.div>
                           <motion.div 
                             className="flex space-x-2 items-center"
@@ -590,8 +590,8 @@ Thank you,
                             <div className="absolute inset-1 rounded-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
                               <div className="absolute inset-0 flex items-end justify-center pb-6">
                                 <div className="text-white/90 text-center">
-                                  <p className="text-xs font-medium">Dr. Sarah Mitchell</p>
-                                  <p className="text-[10px] text-white/60">Licensed Therapist</p>
+                                  <p className="text-xs font-medium">John Smith</p>
+                                  <p className="text-[10px] text-white/60">Gas Safe Engineer</p>
                                 </div>
                               </div>
                             </div>
@@ -661,10 +661,10 @@ Thank you,
               viewport={{ once: true }}
             >
               <h3 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300">
-                Therapy Practice Website Design
+                Trade Business Website Design
               </h3>
               <p className="text-white/70 mb-8 leading-relaxed">
-                Transform your therapy practice website into a welcoming space that builds trust and connects with clients. Our specialized designs create a safe, professional presence that helps clients feel comfortable reaching out.
+                Transform your trade business website into a professional platform that builds trust and connects with customers. Our specialized designs create a strong online presence that helps potential customers find and choose your services.
               </p>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start">
@@ -673,7 +673,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Dedicated pages for therapy approaches, specialties, and client resources</span>
+                  <span className="text-white/80">Dedicated pages for services, areas covered, and customer testimonials</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -681,7 +681,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Built-in trust elements like credentials, client testimonials, and professional memberships</span>
+                  <span className="text-white/80">Built-in trust elements like qualifications, certifications, and customer reviews</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -689,15 +689,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Easy booking and contact forms designed for therapy client inquiries</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <span className="text-white/80">Mobile-friendly design that makes it easy for clients to connect from any device</span>
+                  <span className="text-white/80">Easy booking and quote request forms designed for trade inquiries</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
@@ -731,7 +723,7 @@ Thank you,
                 viewport={{ once: true }}
               >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-300">
-                  AI Assistant for Therapists
+                  AI Assistant for Tradespeople
                 </span>
               </motion.h3>
               
@@ -742,7 +734,7 @@ Thank you,
                 viewport={{ once: true }}
                 className="text-white/80 text-lg leading-relaxed mb-8"
               >
-                24/7 compassionate support that helps potential clients find the right therapist while answering common questions about your practice.
+                24/7 professional support that helps potential customers find the right services while answering common questions about your business.
               </motion.p>
               
               <div className="space-y-5 mb-8">
@@ -786,8 +778,8 @@ Thank you,
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Client Matching</h4>
-                    <p className="text-white/60 text-sm">Helps clients find the right therapy approach and appointment times</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Customer Matching</h4>
+                    <p className="text-white/60 text-sm">Helps customers find the right services and book appointments</p>
                   </div>
                 </motion.div>
                 
@@ -994,7 +986,7 @@ Thank you,
                     />
                     <div className="absolute top-0 left-0 right-0 px-4 py-2 bg-gradient-to-r from-indigo-500/90 to-purple-700/90 backdrop-blur-sm">
                       <div className="flex items-center justify-between">
-                        <h4 className="text-white text-sm font-medium">Therapy Assistant</h4>
+                        <h4 className="text-white text-sm font-medium">Electrical Assistant</h4>
                         <div className="flex space-x-1">
                           <div className="w-2 h-2 rounded-full bg-red-400"></div>
                           <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
@@ -1077,7 +1069,7 @@ Thank you,
                         }}
                         className="w-2 h-2 rounded-full bg-green-500"
                       />
-                      <p className="text-white text-xs">Counseling Assistant</p>
+                      <p className="text-white text-xs">Electrical Assistant</p>
                     </div>
                     <div className="bg-slate-800/90 p-4 max-h-60">
                       <div className="chat-msg mb-3">
@@ -1087,7 +1079,7 @@ Thank you,
                           transition={{ duration: 0.5 }}
                           className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
                         >
-                          Hi! How can I help you with your therapy needs today?
+                          Hi! How can I help?
                         </motion.div>
                       </div>
                       <div className="chat-msg mb-3">
@@ -1097,7 +1089,7 @@ Thank you,
                           transition={{ duration: 0.5, delay: 0.5 }}
                           className="bg-slate-700/60 rounded-lg p-2 text-white text-xs ml-auto max-w-[90%]"
                         >
-                          When is the next available appointment?
+                          When's the earliest you can come?
                         </motion.div>
                       </div>
                       <div className="chat-msg mb-3">
@@ -1107,7 +1099,7 @@ Thank you,
                           transition={{ duration: 0.5, delay: 1 }}
                           className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
                         >
-                          I have openings next Tuesday at 2 PM and Thursday at 4 PM. Would you like to schedule one of these?
+                          Earliest slot is tomorrow at 11am. Shall I book you in?
                         </motion.div>
                       </div>
                     </div>

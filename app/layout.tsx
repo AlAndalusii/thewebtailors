@@ -15,9 +15,9 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "Therapy Website Redesigns + AI Chatbots | theWebtailors",
+  title: "Trades Website Design + AI Chatbots | theWebtailors",
   description:
-    "We redesign outdated therapy websites & add AI chatbots to boost client engagement. theWebtailors build modern, high-converting sites for therapists and counselors.",
+    "We build modern websites & add AI chatbots for UK tradespeople. theWebtailors create high-converting sites for electricians, plumbers, gas engineers & builders.",
   generator: 'v0.dev',
   icons: {
     icon: [
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   applicationName: 'theWebTailors',
-  keywords: ['therapy website', 'chatbots', 'web design', 'counseling', 'website redesign', 'mental health'],
+  keywords: ['tradesman website', 'chatbots', 'web design', 'electrician website', 'plumber website', 'gas engineer website', 'builder website'],
 }
 
 export const viewport: Viewport = {

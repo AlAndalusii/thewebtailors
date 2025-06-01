@@ -106,14 +106,15 @@ export default function HeroSection() {
   }, [handleMouseMove]);
   
   // Email template for the "Get My Free Audit" button
-  const emailSubject = "Website Design Consultation For Therapists";
+  const emailSubject = "Website Design Consultation For Tradespeople";
   const emailBody = `Hi TheWebTailors Team,
 
-I'd like to request a Website Audit for my therapy practice. Here are my details:
+I'd like to request a Website Audit for my trade business. Here are my details:
 
 Name: [Your Full Name]
-Practice Name: [Your Practice Name]
+Business Name: [Your Business Name]
 Phone Number: [Your Contact Number]
+Trade Type: [Electrician/Plumber/Gas Engineer/Builder/Other]
 Availability: [Best days/times to chat]
 
 Thanks!
@@ -334,15 +335,15 @@ Thanks!
         {/* Left: Headline, subheadline, bullets, trust, ratings */}
         <div className="lg:col-span-6 z-10">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-yellow-100 to-rose-200 drop-shadow-xl tracking-tight" style={{letterSpacing: '-0.02em'}}>
-            Premium Web Design for Therapists
+            Premium Web Design for Tradespeople
           </h1>
           <p className={cn("text-2xl text-white/80 mb-8 font-light", poppins.className)}>
-            Build trust. Attract clients. Grow your practice.
+            Get more jobs. Build trust. Grow your business.
           </p>
           <ul className="mb-8 space-y-3">
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Secure, Mobile-First, Private</li>
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Built for Counsellors & Therapists</li>
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Trusted by Independent Practices</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Mobile-First, Professional Design</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Built for UK Tradespeople</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Trusted by Local Trades</li>
           </ul>
           <div className="flex items-center space-x-6 mb-8">
             <div className="flex items-center space-x-1">

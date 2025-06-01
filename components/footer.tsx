@@ -10,17 +10,17 @@ export default function Footer() {
           <div className="md:col-span-2">
             <Logo className="mb-4" />
             <p className="text-white/40 max-w-md">
-              We create trust-building websites for therapy and counseling practices that convert visitors into clients and showcase your expertise to potential clients.
+              We create professional websites for UK tradespeople that convert visitors into customers and showcase your expertise to potential clients.
             </p>
           </div>
 
           <div>
             <h4 className="text-white font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-white/40">
-              <li>Therapy Website Design</li>
-              <li>Counseling Practice Branding</li>
-              <li>Client Engagement Solutions</li>
-              <li>Mental Health Chatbot Development</li>
+              <li>Trade Business Website Design</li>
+              <li>Tradesman Branding</li>
+              <li>Online Booking Solutions</li>
+              <li>Trade Business Chatbot Development</li>
             </ul>
           </div>
 

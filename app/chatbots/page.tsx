@@ -5,7 +5,6 @@ import { motion } from "framer-motion"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import CalendlyModal from "@/components/calendly-modal"
 
 // Animation variants
 const fadeIn = {
@@ -40,43 +39,27 @@ const shimmer = {
 }
 
 export default function ChatbotsPage() {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false)
-  
   const handleBookDemo = () => {
-    const emailBody = `Hello TheWebTailors Team,
+    const emailBody = `Hi TheWebTailors Team,
 
-I'm interested in enhancing my therapy practice with a premium website. Here are my details:
+I'm interested in the AI chatbot for my trade business. Here are my details:
 
-Name: [Your Full Name]
-Practice Name: [Your Practice Name]
-Phone Number: [Your Contact Number]
-Preferred Contact Time: [Best days/times to chat]
-Current Website: [Yes/No, if yes please provide URL]
-Practice Type: [Private Practice/Group Practice/Other]
-Specialties: [Your Therapy Specialties]
-Target Clients: [Your Ideal Client Demographics]
+Name: [Your Name]
+Business Name: [Your Business Name]
+Phone: [Your Phone Number]
+Best time to call: [Your Availability]
 
-I'm particularly interested in:
-- Modern, professional design
-- HIPAA-compliant features
-- Client portal integration
-- Online booking system
-- Therapy-specific AI chatbot
-
-Please contact me to discuss how we can transform my online presence.
+Looking forward to hearing from you!
 
 Best regards,
 [Your Name]`;
 
-    window.location.href = `mailto:info@thewebtailors.com?subject=Therapy Practice Website Redesign&body=${encodeURIComponent(emailBody)}`;
+    window.location.href = `mailto:info@thewebtailors.com?subject=AI Chatbot Demo Request&body=${encodeURIComponent(emailBody)}`;
   }
   
   return (
     <main className="bg-[#030303] text-white overflow-hidden">
       <Navigation />
-      
-      {/* Calendly Modal */}
-      <CalendlyModal isOpen={isCalendlyOpen} onClose={() => setIsCalendlyOpen(false)} />
       
       {/* Hero Section */}
       <section className="min-h-screen relative flex items-center pt-32 pb-20">
@@ -97,10 +80,10 @@ Best regards,
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-                  AI Assistant for Therapists
+                  AI Assistant for Tradespeople
                 </span>
                 <br /> 
-                <span>Simplify Your Practice</span>
+                <span>Simplify Your Business</span>
               </h1>
               <motion.p 
                 className="mt-6 text-xl text-gray-300 leading-relaxed max-w-xl"
@@ -108,7 +91,7 @@ Best regards,
                 initial="visible"
                 animate="visible"
               >
-                Let AI handle client inquiries, schedule appointments, and answer common questions 24/7. Focus on what matters most - your clients.
+                Let AI handle customer inquiries, schedule jobs, and answer common questions 24/7. Focus on what matters most - your trade work.
               </motion.p>
               
               <motion.div 
@@ -120,11 +103,11 @@ Best regards,
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-              >
-                <Button 
-                    className="px-8 py-6 text-lg font-medium bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 hover:from-indigo-500 hover:via-purple-500 hover:to-rose-500 rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/25 flex items-center gap-2"
-                  onClick={() => setIsCalendlyOpen(true)}
                 >
+                  <Button 
+                    className="px-8 py-6 text-lg font-medium bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 hover:from-indigo-500 hover:via-purple-500 hover:to-rose-500 rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/25 flex items-center gap-2"
+                    onClick={handleBookDemo}
+                  >
                     <span>Book a Demo</span>
                     <motion.div
                       animate={{ x: [0, 4, 0] }}
@@ -134,7 +117,7 @@ Best regards,
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
                     </motion.div>
-                </Button>
+                  </Button>
                 </motion.div>
                 <a href="#how-it-works" className="text-lg font-medium text-gray-300 hover:text-white transition-colors flex items-center group">
                   Learn how it works
@@ -163,60 +146,74 @@ Best regards,
                   </div>
                   
                   <div className="p-6 pt-16">
-                    <div className="flex flex-col space-y-4">
-                      <div className="self-end max-w-[70%] bg-indigo-600 rounded-2xl rounded-br-none p-4">
-                        <p>What are your current availability and rates?</p>
-                      </div>
-                      
-                      <div className="self-start max-w-[70%] bg-gray-800 rounded-2xl rounded-bl-none p-4">
-                        <p className="text-gray-200">I have weekday slots available between 9 AM - 7 PM. Individual sessions are $120/hour, and I offer a free 15-minute consultation. Would you like to schedule a time?</p>
-                      </div>
-                      
-                      <div className="self-end max-w-[70%] bg-indigo-600 rounded-2xl rounded-br-none p-4">
-                        <p>Yes, I'd like to book a consultation.</p>
-                      </div>
-                      
-                      <div className="self-start max-w-[70%] bg-gray-800 rounded-2xl rounded-bl-none p-4">
-                        <p className="text-gray-200">I'll show you my available slots for next week. Just pick a time that works for you, and I'll send a confirmation email right away.</p>
-                      </div>
-                      
-                      <div className="mt-4 flex">
-                        <div className="flex-1">
-                          <motion.div 
-                            className="h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full relative"
-                            variants={shimmer}
-                            animate="visible"
-                            initial="hidden"
-                            style={{ backgroundSize: "200% 100%" }}
-                          >
-                            <div className="absolute inset-0 flex items-center px-4 text-white">
-                              Type your message...
-                            </div>
-                          </motion.div>
+                    <div className="space-y-4 mb-20">
+                      <div className="flex justify-end">
+                        <div className="bg-indigo-600/40 rounded-lg p-2 max-w-[80%]">
+                          <p className="text-white text-sm">Hi, how can I help?</p>
                         </div>
-                        <button className="ml-2 w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                          </svg>
-                        </button>
+                      </div>
+                      <div className="flex justify-start">
+                        <div className="bg-slate-700/60 rounded-lg p-2 max-w-[80%]">
+                          <p className="text-white text-sm">Boiler not working, making noise</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-end">
+                        <div className="bg-indigo-600/40 rounded-lg p-2 max-w-[80%]">
+                          <p className="text-white text-sm">Can you turn it off?</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-start">
+                        <div className="bg-slate-700/60 rounded-lg p-2 max-w-[80%]">
+                          <p className="text-white text-sm">Yes, when can you come?</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-end">
+                        <div className="bg-indigo-600/40 rounded-lg p-2 max-w-[80%]">
+                          <p className="text-white text-sm">Today 2pm or 4pm?</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-start">
+                        <div className="bg-slate-700/60 rounded-lg p-2 max-w-[80%]">
+                          <p className="text-white text-sm">2pm please</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-end">
+                        <div className="bg-indigo-600/40 rounded-lg p-2 max-w-[80%]">
+                          <p className="text-white text-sm">Address?</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-start">
+                        <div className="bg-slate-700/60 rounded-lg p-2 max-w-[80%]">
+                          <p className="text-white text-sm">123 Gas St, London</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-end">
+                        <div className="bg-indigo-600/40 rounded-lg p-2 max-w-[80%]">
+                          <p className="text-white text-sm">Booked for 2pm. Engineer will call 30min before</p>
+                        </div>
                       </div>
                     </div>
-                    
-                    <motion.div 
-                      className="absolute bottom-6 right-6 w-24 h-24 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 p-1"
-                      animate={{ 
-                        rotate: 360,
-                        boxShadow: ["0 0 15px rgba(129, 140, 248, 0.5)", "0 0 25px rgba(129, 140, 248, 0.5)", "0 0 15px rgba(129, 140, 248, 0.5)"]
-                      }}
-                      transition={{ 
-                        rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                        boxShadow: { duration: 2, repeat: Infinity, repeatType: "reverse" }
-                      }}
-                    >
-                      <div className="w-full h-full rounded-full bg-gray-900 flex items-center justify-center">
-                        <span className="text-2xl font-bold">AI</span>
+
+                    {/* Typing space and send button */}
+                    <div className="absolute bottom-4 left-4 right-4 flex gap-2">
+                      <div className="flex-1 relative">
+                        <input 
+                          type="text" 
+                          placeholder="Type your message..." 
+                          className="w-full bg-slate-800/80 border border-slate-700/50 rounded-full px-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500/50"
+                        />
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                          <div className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div>
+                          <div className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                          <div className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                        </div>
                       </div>
-                    </motion.div>
+                      <button className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center hover:bg-indigo-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -239,10 +236,10 @@ Best regards,
             variants={fadeIn}
           >
             <h2 className="text-3xl md:text-4xl font-bold">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Practice</span> Management Made Easy
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Business</span> Management Made Easy
             </h2>
             <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">
-              Streamline your therapy practice with AI that handles the details while you focus on client care
+              Streamline your trade business with AI that handles the details while you focus on your work
             </p>
           </motion.div>
           
@@ -255,7 +252,7 @@ Best regards,
             {[
               {
                 title: "Smart Scheduling",
-                description: "Automatically manage appointments, send reminders, and handle rescheduling requests.",
+                description: "Automatically manage jobs, send reminders, and handle rescheduling requests.",
                 gradient: "from-blue-600 to-indigo-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -264,8 +261,8 @@ Best regards,
                 ),
               },
               {
-                title: "Client Screening",
-                description: "Gather essential information and conduct initial assessments before the first session.",
+                title: "Quote Requests",
+                description: "Gather essential information and provide accurate quotes before the job starts.",
                 gradient: "from-purple-600 to-pink-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -275,7 +272,7 @@ Best regards,
               },
               {
                 title: "Instant Support",
-                description: "Answer common questions about services, insurance, and policies 24/7.",
+                description: "Answer common questions about services, pricing, and availability 24/7.",
                 gradient: "from-cyan-600 to-blue-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -330,10 +327,10 @@ Best regards,
             variants={fadeIn}
           >
             <h2 className="text-3xl md:text-4xl font-bold">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Compassionate</span> Support
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Professional</span> Support
             </h2>
             <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">
-              Streamline your practice with AI solutions designed specifically for mental health professionals
+              Streamline your business with AI solutions designed specifically for UK tradespeople
             </p>
           </motion.div>
           
@@ -345,8 +342,8 @@ Best regards,
           >
             {[
               {
-                title: "Client Intake",
-                description: "Automate initial consultations, gather essential mental health information, and schedule follow-up sessions with care and confidentiality.",
+                title: "Job Intake",
+                description: "Automate initial consultations, gather essential job details, and schedule site visits with efficiency and professionalism.",
                 gradient: "from-blue-600 to-indigo-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -355,8 +352,8 @@ Best regards,
                 ),
               },
               {
-                title: "Appointment Reminders",
-                description: "Proactively notify clients of upcoming sessions with gentle, supportive communication.",
+                title: "Job Reminders",
+                description: "Proactively notify customers of upcoming appointments with clear, professional communication.",
                 gradient: "from-purple-600 to-pink-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -366,7 +363,7 @@ Best regards,
               },
               {
                 title: "Secure Documentation",
-                description: "Safely collect and organize client information through HIPAA-compliant conversational workflows.",
+                description: "Safely collect and organize customer information through professional conversational workflows.",
                 gradient: "from-cyan-600 to-blue-600",
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -531,10 +528,10 @@ Best regards,
           >
             <div className="text-center">
               <h2 className="text-3xl md:text-4xl font-bold">
-                Ready to <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Transform</span> Your Practice?
+                Ready to <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Transform</span> Your Business?
               </h2>
               <p className="mt-6 text-xl text-gray-300 max-w-2xl mx-auto">
-                Book a demo today and see how our AI assistant can help you manage your therapy practice more efficiently.
+                Book a demo today and see how our AI assistant can help you manage your trade business more efficiently.
               </p>
               
               <motion.div 
@@ -544,7 +541,7 @@ Best regards,
               >
                 <Button 
                   className="px-8 py-6 text-lg font-medium bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 hover:from-indigo-500 hover:via-purple-500 hover:to-rose-500 rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/25 flex items-center gap-2"
-                  onClick={() => setIsCalendlyOpen(true)}
+                  onClick={handleBookDemo}
                 >
                   <span>Book a Demo</span>
                   <motion.div

@@ -20,7 +20,7 @@ const navItems: NavItem[] = [
   { label: "Home", href: "/", isExternal: true },
   { label: "Our Services", href: "#services" },
   { label: "Our Work", href: "#gallery" },
-  { label: "Chatbots", href: "/chatbots", isExternal: true },
+  { label: "Leads System", href: "/leads-system", isExternal: true },
   { label: "Articles", href: "/articles", isExternal: true },
   { label: "Contact", href: "#contact" },
 ]

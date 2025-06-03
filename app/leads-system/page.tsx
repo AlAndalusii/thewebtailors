@@ -39,11 +39,11 @@ const shimmer = {
   }
 }
 
-export default function ChatbotsPage() {
+export default function LeadsSystemPage() {
   const handleBookDemo = () => {
     const emailBody = `Hi TheWebTailors Team,
 
-I'm interested in the AI chatbot for my trade business. Here are my details:
+I'm interested in the Leads System for my trade business. Here are my details:
 
 Name: [Your Name]
 Business Name: [Your Business Name]
@@ -55,7 +55,7 @@ Looking forward to hearing from you!
 Best regards,
 [Your Name]`;
 
-    window.location.href = `mailto:info@thewebtailors.com?subject=AI Chatbot Demo Request&body=${encodeURIComponent(emailBody)}`;
+    window.location.href = `mailto:info@thewebtailors.com?subject=Leads System Demo Request&body=${encodeURIComponent(emailBody)}`;
   }
   
   // Animated chat messages for the mockup
@@ -114,12 +114,12 @@ Best regards,
   return (
     <>
       <Head>
-        <title>AI Chatbot for Tradespeople | 24/7 Customer Service & Booking | TheWebTailors</title>
+        <title>Leads System for Tradespeople | 24/7 Customer Service & Booking | TheWebTailors</title>
         <meta 
           name="description" 
-          content="Transform your trade business with our AI chatbot. Handle customer inquiries, schedule jobs & provide instant quotes 24/7. Perfect for electricians, plumbers & gas engineers. Book a free demo today."
+          content="Transform your trade business with our Leads System. Handle customer inquiries, schedule jobs & provide instant quotes 24/7. Perfect for electricians, plumbers & gas engineers. Book a free demo today."
         />
-        <meta name="keywords" content="trade business chatbot, AI assistant for tradespeople, 24/7 customer service, trade booking system, gas engineer chatbot, electrician chatbot, plumber chatbot, trade business automation" />
+        <meta name="keywords" content="trade business leads system, AI assistant for tradespeople, 24/7 customer service, trade booking system, gas engineer leads, electrician leads, plumber leads, trade business automation" />
       </Head>
       <main className="bg-[#030303] text-white overflow-hidden">
         <Navigation />

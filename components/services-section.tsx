@@ -384,8 +384,8 @@ Thank you,
     window.location.href = `mailto:info@thewebtailors.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
   };
 
-  const navigateToChatbots = () => {
-    router.push('/chatbots')
+  const navigateToLeadsSystem = () => {
+    router.push('/leads-system')
   }
 
   return (

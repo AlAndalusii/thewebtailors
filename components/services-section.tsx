@@ -414,7 +414,7 @@ Thank you,
             </span>
           </h2>
           <p className="text-white/70 max-w-3xl mx-auto text-lg leading-relaxed">
-            We transform outdated accounting websites into client-generating assets that showcase your expertise and build trust. Design that brings real results.
+            We turn outdated websites for tradesmen into lead-generating platforms that build trust and highlight your skills. Smart design built for trades that gets results.
           </p>
         </motion.div>
 
@@ -664,7 +664,7 @@ Thank you,
                 Trade Business Website Design
               </h3>
               <p className="text-white/70 mb-8 leading-relaxed">
-                Transform your trade business website into a professional platform that builds trust and connects with customers. Our specialized designs create a strong online presence that helps potential customers find and choose your services.
+                Turn your trade business website into a trusted platform that attracts leads and wins customers. Our websites for tradesmen are built for trades and designed to grow enquiries and boost reputation.
               </p>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start">
@@ -681,7 +681,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Built-in trust elements like qualifications, certifications, and customer reviews</span>
+                  <span className="text-white/80">Trust-driven features like accreditations, trade certifications, and real reviews</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -689,7 +689,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Easy booking and quote request forms designed for trade inquiries</span>
+                  <span className="text-white/80">Simple booking and quote request forms designed for tradesman website design</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
@@ -705,8 +705,8 @@ Thank you,
           </div>
         </div>
 
-        {/* AI Chatbot for Accountants Feature */}
-        <div className="mb-24" id="ai-chatbot-section">
+        {/* Follow-Up System for Accountants Feature */}
+        <div className="mb-24" id="follow-up-system-section">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -723,7 +723,7 @@ Thank you,
                 viewport={{ once: true }}
               >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-300">
-                  AI Assistant for Tradespeople
+                  Follow-Up System for Tradespeople
                 </span>
               </motion.h3>
               
@@ -734,7 +734,7 @@ Thank you,
                 viewport={{ once: true }}
                 className="text-white/80 text-lg leading-relaxed mb-8"
               >
-                24/7 professional support that helps potential customers find the right services while answering common questions about your business.
+                24/7 Follow-Up System support that captures leads, books jobs, and helps customers choose the right trade services while answering common questions instantly.
               </motion.p>
               
               <div className="space-y-5 mb-8">
@@ -778,8 +778,8 @@ Thank you,
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Customer Matching</h4>
-                    <p className="text-white/60 text-sm">Helps customers find the right services and book appointments</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Job Matching</h4>
+                    <p className="text-white/60 text-sm">Guides customers to the right trade services and books instantly</p>
                   </div>
                 </motion.div>
                 
@@ -827,7 +827,7 @@ Thank you,
                   </div>
                   <div>
                     <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Lead Capture</h4>
-                    <p className="text-white/60 text-sm">Converts visitors to qualified leads with CRM integration</p>
+                    <p className="text-white/60 text-sm">Turns visitors into job leads with built-in CRM sync</p>
                   </div>
                 </motion.div>
                 
@@ -874,8 +874,8 @@ Thank you,
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Appointment Booking</h4>
-                    <p className="text-white/60 text-sm">Schedules client meetings directly into your calendar</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Booking System</h4>
+                    <p className="text-white/60 text-sm">Adds jobs and callouts straight into your trade calendar</p>
                   </div>
                 </motion.div>
               </div>
@@ -986,7 +986,7 @@ Thank you,
                     />
                     <div className="absolute top-0 left-0 right-0 px-4 py-2 bg-gradient-to-r from-indigo-500/90 to-purple-700/90 backdrop-blur-sm">
                       <div className="flex items-center justify-between">
-                        <h4 className="text-white text-sm font-medium">Electrical Assistant</h4>
+                        <h4 className="text-white text-sm font-medium">Electrical Follow-Up System</h4>
                         <div className="flex space-x-1">
                           <div className="w-2 h-2 rounded-full bg-red-400"></div>
                           <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
@@ -1069,7 +1069,7 @@ Thank you,
                         }}
                         className="w-2 h-2 rounded-full bg-green-500"
                       />
-                      <p className="text-white text-xs">Electrical Assistant</p>
+                      <p className="text-white text-xs">Electrical Follow-Up System</p>
                     </div>
                     <div className="bg-slate-800/90 p-4 max-h-60">
                       <div className="chat-msg mb-3">

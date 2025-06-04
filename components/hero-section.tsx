@@ -46,10 +46,10 @@ export default function HeroSection() {
   const animationPaused = useRef(false);
   
   const features = [
-    "Client Trust Builder",
-    "Lead Generation",
+    "Emergency Call Generator",
+    "Local SEO Optimized",
     "Modern Design",
-    "HIPAA Compliant"
+    "24/7 Lead Capture"
   ]
   
   useEffect(() => {
@@ -277,9 +277,9 @@ Thanks!
   };
 
   const switchMessages = [
-    "Book More Consultations",
-    "Automate Client Queries",
-    "Enhance Professionalism"
+    "Book More Emergency Jobs",
+    "Automate Customer Queries",
+    "Enhance Local Visibility"
   ];
   const [activeSwitch, setActiveSwitch] = useState(0);
   useEffect(() => {
@@ -291,8 +291,8 @@ Thanks!
 
   // Feature cycling for premium benefits (classic style)
   const cyclingFeatures = [
-    "Book More Sessions",
-    "Build Client Trust",
+    "Get More Emergency Calls",
+    "Build Local Trust",
     "Enhance Professionalism"
   ];
   useEffect(() => {
@@ -335,15 +335,15 @@ Thanks!
         {/* Left: Headline, subheadline, bullets, trust, ratings */}
         <div className="lg:col-span-6 z-10">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-yellow-100 to-rose-200 drop-shadow-xl tracking-tight" style={{letterSpacing: '-0.02em'}}>
-            Premium Web Design for Tradespeople
+            Premium Locksmith Web Design
           </h1>
           <p className={cn("text-2xl text-white/80 mb-8 font-light", poppins.className)}>
-            Get more jobs. Build trust. Grow your business.
+            Get more local calls. Build trust. Grow your locksmith business.
           </p>
           <ul className="mb-8 space-y-3">
             <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Mobile-First, Professional Design</li>
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Built for UK Tradespeople</li>
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Trusted by Local Trades</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Built for UK Locksmiths</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Trusted by Local Experts</li>
           </ul>
           <div className="flex items-center space-x-6 mb-8">
             <div className="flex items-center space-x-1">

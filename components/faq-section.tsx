@@ -75,23 +75,23 @@ export default function FAQSection() {
   const faqItems = [
     {
       question: "Who are the Web Tailors?",
-      answer: "We're a specialized team passionate about creating websites for UK tradespeople. We focus on transforming existing trade business websites into professional, effective online experiences that generate more jobs."
+      answer: "We're a specialized team passionate about creating websites for UK locksmiths. We focus on transforming outdated locksmith websites into professional, emergency call-generating platforms that build trust and showcase your expertise."
     },
     {
       question: "How does it work?",
-      answer: "It's simple - share details about your trade business, your services, and your goals. Our expert team will create a website that authentically represents your business and connects with potential customers."
+      answer: "It's simple - share details about your locksmith business, your emergency services, and your goals. Our expert team will create a website that authentically represents your business, prioritizes emergency calls, and connects with customers in urgent need of locksmith services."
     },
     {
       question: "How long does it take?",
-      answer: "We work efficiently while maintaining quality - you'll have your first website concept within 72 hours of starting the project."
+      answer: "We work efficiently while maintaining quality - you'll have your first locksmith website concept within 72 hours of starting the project. We understand that every day without a professional website means missed emergency calls."
     },
     {
       question: "Is there any risk?",
-      answer: "None at all! We offer a 100% satisfaction guarantee. If you're not completely satisfied with your new website, we'll refund your investment."
+      answer: "None at all! We offer a 100% satisfaction guarantee. If you're not completely satisfied with your new locksmith website, we'll refund your investment. We're confident in our ability to deliver a website that generates emergency calls."
     },
     {
       question: "What's included in the redesign?",
-      answer: "You'll get a complete visual refresh, improved user experience, mobile optimization, and performance enhancements - all customized to your trade services and business style."
+      answer: "You'll get a complete visual refresh, emergency call optimization, mobile-first design, local SEO setup, and performance enhancements - all customized to your locksmith services. We focus on making it easy for customers to contact you in emergency situations."
     }
   ]
   

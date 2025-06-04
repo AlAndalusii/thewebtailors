@@ -315,13 +315,13 @@ export default function ContactSection() {
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-4">
-                    <div className="bg-white/5 p-3 rounded-xl">
-                      <Clock className="w-5 h-5 text-rose-400" />
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600/10 to-purple-600/10 flex items-center justify-center">
+                      <Clock className="w-6 h-6 text-indigo-400" />
                     </div>
                     <div>
-                      <h4 className="text-white/90 font-medium text-sm">Working Hours</h4>
-                      <p className="text-white/60 text-sm mt-1">Mon-Fri: 9AM to 5PM</p>
+                      <h4 className="text-white/90 font-medium text-sm">Client Support Available 24/7</h4>
+                      <p className="text-white/60 text-sm">We're here to help anytime</p>
                     </div>
                   </div>
                 </div>
@@ -341,8 +341,8 @@ export default function ContactSection() {
                       </div>
                     </div>
                     <div>
-                      <h4 className="text-white/90 font-medium text-sm">Complimentary Consultation</h4>
-                      <p className="text-white/60 text-xs mt-1">Initial strategy session to understand your needs</p>
+                      <h4 className="text-white/90 font-medium text-sm">Priority Response</h4>
+                      <p className="text-white/60 text-xs mt-1">30-minute emergency response time</p>
                     </div>
                   </li>
                   
@@ -355,8 +355,8 @@ export default function ContactSection() {
                       </div>
                     </div>
                     <div>
-                      <h4 className="text-white/90 font-medium text-sm">Premium Support</h4>
-                      <p className="text-white/60 text-xs mt-1">Dedicated account manager for your project</p>
+                      <h4 className="text-white/90 font-medium text-sm">Expert Support</h4>
+                      <p className="text-white/60 text-xs mt-1">Master certified locksmiths</p>
                     </div>
                   </li>
                   

@@ -284,10 +284,10 @@ const fadeInUp = {
   },
 }
 const mockupLines = [
-  "PROFESSIONAL GAS SERVICES",
-  "Your Local Gas Expert",
-  "Gas Safe Registered",
-  "Professional gas engineers serving your area",
+  "PREMIUM LOCKSMITH SERVICE",
+  "LockGuard Elite",
+  "Master Locksmiths | 24/7 Emergency Service | Certified & Trusted",
+  "",
   ""
 ];
 
@@ -414,7 +414,7 @@ Thank you,
             </span>
           </h2>
           <p className="text-white/70 max-w-3xl mx-auto text-lg leading-relaxed">
-            We turn outdated websites for tradesmen into lead-generating platforms that build trust and highlight your skills. Smart design built for trades that gets results.
+            We turn outdated locksmith websites into lead machines that drive emergency calls and build trust — designed to get real results.
           </p>
         </motion.div>
 
@@ -445,7 +445,7 @@ Thank you,
                     <div className="flex-1 mx-4">
                       <div className="bg-slate-700/80 backdrop-blur-sm rounded-full h-6 w-full max-w-md mx-auto flex items-center justify-center group hover:bg-slate-600/80 transition-colors duration-300">
                         <div className="flex items-center text-slate-400 text-xs group-hover:text-slate-300 transition-colors duration-300">
-                          <span>gasengineer.co.uk</span>
+                          <span>lockguardelite.co.uk</span>
                           <motion.span 
                             className="ml-1 w-1 h-3 bg-indigo-400 inline-block"
                             animate={cursorBlink}
@@ -470,9 +470,8 @@ Thank you,
                           whileHover={{ rotate: [0, 5, -5, 0] }}
                           transition={{ duration: 0.5 }}
                         >
-                          <span className="text-sm">G</span>
+                          <span className="text-sm">L</span>
                         </motion.div>
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">GAS SAFE</span>
                       </motion.div>
                       <motion.div 
                         className="flex space-x-8"
@@ -496,17 +495,15 @@ Thank you,
                     <div className="relative z-10 grid grid-cols-12 gap-6 p-6 h-[calc(100%-56px)]">
                       <div className="col-span-8 flex flex-col justify-center">
                         {/* Typing effect for all lines */}
-                        <div className="min-h-[140px] flex flex-col justify-center">
+                        <div className="min-h-[140px] flex flex-col justify-center space-y-3">
                           {mockupLines.map((line, i) => (
                             <div key={i} className={
                               i === 0
-                                ? "text-xs text-indigo-400 font-semibold mb-2 tracking-wider"
+                                ? "text-xs text-indigo-400 font-semibold mb-2 tracking-wider uppercase"
                                 : i === 1
-                                ? "text-3xl font-bold text-white mb-0 leading-tight"
+                                ? "text-4xl font-bold text-white mb-1 leading-tight tracking-tight"
                                 : i === 2
-                                ? "text-3xl font-bold text-white mb-3 leading-tight"
-                                : i === 3
-                                ? "text-white/70 text-sm flex items-center"
+                                ? "text-lg text-white/80 font-medium tracking-wide"
                                 : "text-3xl font-bold mb-3 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-rose-400"
                             }>
                               {typedLines[i] || ""}
@@ -519,38 +516,44 @@ Thank you,
                             </div>
                           ))}
                         </div>
-                        <div className="flex space-x-4 mb-8">
+                        
+                        <div className="flex flex-col gap-4 mt-8">
+                          <motion.div 
+                            className="flex space-x-3 items-center"
+                            whileHover={{ scale: 1.05, x: 3 }}
+                          >
+                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-indigo-500/10 backdrop-blur-sm">
+                              <ShieldCheck className="h-4 w-4 text-indigo-400" />
+                            </div>
+                            <span className="text-white/70 text-sm font-medium">MLA Certified</span>
+                          </motion.div>
+                          <motion.div 
+                            className="flex space-x-3 items-center"
+                            whileHover={{ scale: 1.05, x: 3 }}
+                          >
+                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-amber-500/20 to-amber-500/10 backdrop-blur-sm">
+                              <Star className="h-4 w-4 text-amber-400" />
+                            </div>
+                            <span className="text-white/70 text-sm font-medium">5-Star Rated Service</span>
+                          </motion.div>
+                        </div>
+
+                        <div className="flex space-x-4 mt-8">
                           <motion.button 
-                            className="px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white text-sm font-medium flex items-center space-x-2 hover:from-indigo-700 hover:to-purple-700 transition-colors shadow-lg shadow-indigo-900/30"
+                            className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white text-sm font-medium flex items-center space-x-2 hover:from-indigo-700 hover:to-purple-700 transition-colors shadow-lg shadow-indigo-900/30"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                            <span>Our Services</span>
+                            <span>Emergency Service</span>
                             <ChevronRight className="h-4 w-4" />
                           </motion.button>
                           <motion.button 
-                            className="px-5 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white text-sm font-medium hover:bg-white/10 transition-colors"
+                            className="px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white text-sm font-medium hover:bg-white/10 transition-colors"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
                             Contact Us
                           </motion.button>
-                        </div>
-                        <div className="flex items-center space-x-8">
-                          <motion.div 
-                            className="flex space-x-2 items-center"
-                            whileHover={{ scale: 1.05, x: 3 }}
-                          >
-                            <ShieldCheck className="h-5 w-5 text-indigo-400" />
-                            <span className="text-white/70 text-xs">Gas Safe Registered</span>
-                          </motion.div>
-                          <motion.div 
-                            className="flex space-x-2 items-center"
-                            whileHover={{ scale: 1.05, x: 3 }}
-                          >
-                            <Star className="h-5 w-5 text-amber-400" />
-                            <span className="text-white/70 text-xs">5-Star Rated</span>
-                          </motion.div>
                         </div>
                       </div>
                       <div className="col-span-4 relative">
@@ -590,8 +593,8 @@ Thank you,
                             <div className="absolute inset-1 rounded-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
                               <div className="absolute inset-0 flex items-end justify-center pb-6">
                                 <div className="text-white/90 text-center">
-                                  <p className="text-xs font-medium">John Smith</p>
-                                  <p className="text-[10px] text-white/60">Gas Safe Engineer</p>
+                                  <p className="text-xs font-medium">Master Locksmith</p>
+                                  <p className="text-[10px] text-white/60">MLA Certified Professional</p>
                                 </div>
                               </div>
                             </div>
@@ -661,10 +664,13 @@ Thank you,
               viewport={{ once: true }}
             >
               <h3 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300">
-                Trade Business Website Design
+                Locksmith Website Design
               </h3>
+              <p className="text-white/70 mb-4 leading-relaxed">
+                Turn your locksmith website into a tool that gets you more emergency calls and builds local trust.
+              </p>
               <p className="text-white/70 mb-8 leading-relaxed">
-                Turn your trade business website into a trusted platform that attracts leads and wins customers. Our websites for tradesmen are built for trades and designed to grow enquiries and boost reputation.
+                We build sites made just for locksmiths—fast-loading, trusted, and made to get you calls when it matters most.
               </p>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start">
@@ -673,7 +679,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Dedicated pages for services, areas covered, and customer testimonials</span>
+                  <span className="text-white/80">Show off your emergency services and real customer reviews</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -681,7 +687,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Trust-driven features like accreditations, trade certifications, and real reviews</span>
+                  <span className="text-white/80">Build trust with clear accreditations and badges</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -689,7 +695,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Simple booking and quote request forms designed for tradesman website design</span>
+                  <span className="text-white/80">Get more bookings with simple forms that work on any phone</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
@@ -723,7 +729,7 @@ Thank you,
                 viewport={{ once: true }}
               >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-300">
-                  Follow-Up System for Tradespeople
+                  Follow-Up System for Locksmiths
                 </span>
               </motion.h3>
               
@@ -734,7 +740,7 @@ Thank you,
                 viewport={{ once: true }}
                 className="text-white/80 text-lg leading-relaxed mb-8"
               >
-                24/7 Follow-Up System support that captures leads, books jobs, and helps customers choose the right trade services while answering common questions instantly.
+                24/7 Follow-Up System built for locksmiths — capture leads, book emergency jobs, and guide customers to the right locksmith service while answering common questions instantly.
               </motion.p>
               
               <div className="space-y-5 mb-8">
@@ -778,8 +784,8 @@ Thank you,
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Job Matching</h4>
-                    <p className="text-white/60 text-sm">Guides customers to the right trade services and books instantly</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Emergency Job Matching</h4>
+                    <p className="text-white/60 text-sm">Directs customers to your locksmith services and books urgent callouts fast.</p>
                   </div>
                 </motion.div>
                 
@@ -827,7 +833,7 @@ Thank you,
                   </div>
                   <div>
                     <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Lead Capture</h4>
-                    <p className="text-white/60 text-sm">Turns visitors into job leads with built-in CRM sync</p>
+                    <p className="text-white/60 text-sm">Collects caller details and syncs with your CRM to turn visitors into real locksmith leads.</p>
                   </div>
                 </motion.div>
                 
@@ -874,8 +880,8 @@ Thank you,
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Booking System</h4>
-                    <p className="text-white/60 text-sm">Adds jobs and callouts straight into your trade calendar</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Instant Booking System</h4>
+                    <p className="text-white/60 text-sm">Adds jobs directly to your calendar — no missed calls, no lost business.</p>
                   </div>
                 </motion.div>
               </div>
@@ -986,7 +992,7 @@ Thank you,
                     />
                     <div className="absolute top-0 left-0 right-0 px-4 py-2 bg-gradient-to-r from-indigo-500/90 to-purple-700/90 backdrop-blur-sm">
                       <div className="flex items-center justify-between">
-                        <h4 className="text-white text-sm font-medium">Electrical Follow-Up System</h4>
+                        <h4 className="text-white text-sm font-medium">Emergency Response System</h4>
                         <div className="flex space-x-1">
                           <div className="w-2 h-2 rounded-full bg-red-400"></div>
                           <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
@@ -1069,7 +1075,7 @@ Thank you,
                         }}
                         className="w-2 h-2 rounded-full bg-green-500"
                       />
-                      <p className="text-white text-xs">Electrical Follow-Up System</p>
+                      <p className="text-white text-xs">Emergency Response System</p>
                     </div>
                     <div className="bg-slate-800/90 p-4 max-h-60">
                       <div className="chat-msg mb-3">
@@ -1089,7 +1095,7 @@ Thank you,
                           transition={{ duration: 0.5, delay: 0.5 }}
                           className="bg-slate-700/60 rounded-lg p-2 text-white text-xs ml-auto max-w-[90%]"
                         >
-                          When's the earliest you can come?
+                          I'm locked out of my house. How soon can you help?
                         </motion.div>
                       </div>
                       <div className="chat-msg mb-3">
@@ -1099,7 +1105,7 @@ Thank you,
                           transition={{ duration: 0.5, delay: 1 }}
                           className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
                         >
-                          Earliest slot is tomorrow at 11am. Shall I book you in?
+                          We can have a locksmith at your location within 30 minutes. Would you like me to dispatch one now?
                         </motion.div>
                       </div>
                     </div>
@@ -1541,9 +1547,9 @@ Thank you,
           viewport={{ once: true }}
           className="bg-gradient-to-br from-indigo-500/10 to-rose-500/10 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12 text-center"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Transform Your Website?</h3>
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Transform Your Locksmith Website?</h3>
           <p className="text-white/70 max-w-2xl mx-auto mb-8">
-            Let's discuss how our premium services can elevate your digital presence and drive real business results.
+            Let's discuss how our premium services can elevate your digital presence and drive more emergency calls to your business.
           </p>
           <motion.button 
             onClick={handleBookDemo}

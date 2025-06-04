@@ -60,12 +60,12 @@ Best regards,
   
   // Animated chat messages for the mockup
   const chatMessages = [
-    { sender: "user", text: "Hi, I need an emergency plumber!" },
-    { sender: "bot", text: "We can help right away. Can you tell me your address?" },
+    { sender: "user", text: "Help! I'm locked out of my house!" },
+    { sender: "bot", text: "A locksmith can help right away. What's your location?" },
     { sender: "user", text: "12 King St, London" },
-    { sender: "bot", text: "Thank you! We have a plumber available now. The callout is £300. Shall I book them for you?" },
-    { sender: "user", text: "Yes, please!" },
-    { sender: "bot", text: "All set! Your plumber is on the way. Confirmation sent." },
+    { sender: "bot", text: "Perfect! Our emergency locksmith can be there in 15 minutes. Service fee is £85. Shall I dispatch them now?" },
+    { sender: "user", text: "Yes, please hurry!" },
+    { sender: "bot", text: "Locksmith dispatched! They're on their way. Confirmation sent." },
   ];
 
   const [displayedMessages, setDisplayedMessages] = useState<{ sender: string; text: string }[]>([]);
@@ -75,9 +75,9 @@ Best regards,
   const [currentBulletIndex, setCurrentBulletIndex] = useState(0);
 
   const bulletPoints = [
-    "Automate your follow-ups—start saving time today!",
-    "Boost customer loyalty—keep them coming back!",
-    "Connect effortlessly—sync with your favorite tools now!"
+    "Capture every emergency lockout—24/7 instant response!",
+    "Boost local visibility—dominate emergency calls!",
+    "Streamline dispatch—get to customers faster!"
   ];
 
   useEffect(() => {
@@ -114,12 +114,12 @@ Best regards,
   return (
     <>
       <Head>
-        <title>Leads System for Tradespeople | 24/7 Customer Service & Booking | TheWebTailors</title>
+        <title>Leads System for Locksmiths | 24/7 Emergency Response & Booking | TheWebTailors</title>
         <meta 
           name="description" 
-          content="Transform your trade business with our Leads System. Handle customer inquiries, schedule jobs & provide instant quotes 24/7. Perfect for electricians, plumbers & gas engineers. Book a free demo today."
+          content="Transform your locksmith business with our Leads System. Handle emergency lockouts, schedule security jobs & provide instant quotes 24/7. Perfect for residential, commercial & automotive locksmiths. Book a free demo today."
         />
-        <meta name="keywords" content="trade business leads system, AI assistant for tradespeople, 24/7 customer service, trade booking system, gas engineer leads, electrician leads, plumber leads, trade business automation" />
+        <meta name="keywords" content="locksmith leads system, AI assistant for locksmiths, 24/7 emergency response, locksmith booking system, emergency lockout leads, residential locksmith leads, commercial locksmith leads, locksmith business automation" />
       </Head>
       <main className="bg-[#030303] text-white overflow-hidden">
         <Navigation />
@@ -139,15 +139,15 @@ Best regards,
                 <div>
                   <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 text-left">
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#e0d7f7] via-[#b6c7ff] to-[#ffe9b6] animate-gradient-x">
-                      Follow-Up System for Tradespeople
+                      Emergency Response System for Locksmiths
                     </span>
                   </h1>
                   <p className="mt-6 text-lg md:text-xl text-gray-400 leading-relaxed max-w-xl font-bold text-left">
-                    Respond instantly. Impress every lead. Our system turns interest into bookings—effortlessly.
+                    Respond within 15 minutes. Never miss an emergency call. Our system turns urgent lockouts into satisfied customers—guaranteed.
                   </p>
                   
                   {/* Animated Bullet Points */}
-                  <div className="mt-6 space-y-3">
+                  <div className="mt-8 space-y-4">
                     <AnimatePresence>
                       {bulletPoints.map((bullet, index) => (
                         index <= currentBulletIndex && (
@@ -156,9 +156,9 @@ Best regards,
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.2 }}
-                            className="flex items-start gap-3"
+                            className="flex items-start gap-4"
                           >
-                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 mt-2 flex-shrink-0"></div>
+                            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 mt-2 flex-shrink-0"></div>
                             <p className="text-lg text-gray-300 font-bold">
                               {bullet}
                             </p>
@@ -169,14 +169,14 @@ Best regards,
                   </div>
                 </div>
                 {/* CTA Buttons */}
-                <div className="flex flex-row gap-4 items-center mt-10 lg:mt-auto pb-2 lg:pb-4">
+                <div className="flex flex-row gap-6 items-center mt-16 lg:mt-20 pb-4 lg:pb-6">
                   <Button 
                     className="px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-[#f7e9c6] via-[#e0b7ff] to-[#a3b8ff] text-gray-900 shadow-lg border border-amber-200/60 hover:from-[#ffe9b6] hover:to-[#b6c7ff] transition-all duration-300 focus:ring-4 focus:ring-amber-200/30 focus:outline-none"
                     style={{ boxShadow: '0 4px 32px 0 rgba(247, 233, 198, 0.10), 0 1.5px 8px 0 rgba(99, 102, 241, 0.10)' }}
                     onClick={handleBookDemo}
                   >
                     <span>Book a Demo</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </Button>

@@ -70,7 +70,7 @@ export default function GallerySection() {
               viewport={{ once: true }}
               className="text-white/70 max-w-3xl mx-auto text-lg"
             >
-              See the dramatic impact of our expert trade business website redesigns
+              See the dramatic impact of our expert locksmith website redesigns
             </motion.p>
           </div>
 

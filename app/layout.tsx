@@ -15,9 +15,9 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "Trades Website Design + AI Chatbots | theWebtailors",
+  title: "Affordable Locksmith Web Design UK | Custom Website Experts",
   description:
-    "We build modern websites & add AI chatbots for UK tradespeople. theWebtailors create high-converting sites for electricians, plumbers, gas engineers & builders.",
+    "Conversion-focused locksmith web design for UK locksmiths. Get a custom, affordable website that drives emergency calls & local leads. Free redesign audit.",
   generator: 'v0.dev',
   icons: {
     icon: [

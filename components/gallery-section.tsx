@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Star, Award, TrendingUp } from "lucide-react"
 import { useState, useRef } from "react"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { X } from "lucide-react"
@@ -38,70 +38,171 @@ export default function GallerySection() {
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.02] to-rose-500/[0.02]" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10 py-8">
-        {/* Elegant Before/After comparison section */}
+        {/* Premium Before/After Transformation Showcase */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="mb-28"
+          className="mb-32"
         >
-          <div className="text-center mb-14">
+          {/* Premium Header Section */}
+          <div className="text-center mb-20">
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
+              className="relative"
             >
-              <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">The</span>
+              {/* Decorative elements */}
+              <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                <motion.div
+                  animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="w-6 h-6 border border-gold-400/30 rounded-full flex items-center justify-center"
+                >
+                  <Star className="w-3 h-3 text-yellow-400/60" />
+                </motion.div>
+                <div className="w-12 h-px bg-gradient-to-r from-transparent via-gold-400/40 to-transparent"></div>
+                <Award className="w-4 h-4 text-yellow-400/60" />
+                <div className="w-12 h-px bg-gradient-to-r from-transparent via-gold-400/40 to-transparent"></div>
+                <motion.div
+                  animate={{ rotate: -360, scale: [1, 1.2, 1] }}
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                  className="w-6 h-6 border border-gold-400/30 rounded-full flex items-center justify-center"
+                >
+                  <Star className="w-3 h-3 text-yellow-400/60" />
+                </motion.div>
+              </div>
+
+              <h3 className="text-4xl md:text-5xl font-bold mb-6 relative">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/80">The</span>
                 <span className={cn(
-                  " ml-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300",
+                  " ml-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-rose-300",
                   pacifico.className,
                 )}>
                   Transformation
                 </span>
-                </h3>
+                
+                {/* Premium accent line */}
+                <motion.div 
+                  className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent rounded-full"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "280px" }}
+                  transition={{ duration: 1.2, delay: 0.5 }}
+                  viewport={{ once: true }}
+                />
+              </h3>
             </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-white/70 max-w-3xl mx-auto text-lg"
+              className="space-y-4"
             >
-              See the dramatic impact of our expert locksmith website redesigns
-            </motion.p>
+              <p className="text-white/80 max-w-4xl mx-auto text-xl font-light leading-relaxed">
+                Witness the remarkable evolution of UK trade business websites through our premium design methodology
+              </p>
+              <div className="flex items-center justify-center gap-6 mt-6">
+                <div className="flex items-center gap-2 text-white/60">
+                  <TrendingUp className="w-4 h-4 text-green-400" />
+                  <span className="text-sm font-medium">+340% Lead Generation</span>
+                </div>
+                <div className="w-px h-4 bg-white/20"></div>
+                <div className="flex items-center gap-2 text-white/60">
+                  <Award className="w-4 h-4 text-yellow-400" />
+                  <span className="text-sm font-medium">Premium Standards</span>
+                </div>
+                <div className="w-px h-4 bg-white/20"></div>
+                <div className="flex items-center gap-2 text-white/60">
+                  <Star className="w-4 h-4 text-indigo-400" />
+                  <span className="text-sm font-medium">Professional Excellence</span>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
+          {/* Enhanced Premium Showcase */}
           <div className="relative">
-            {/* Simplified ambient glow effects - static instead of animated */}
-            <div className="absolute -top-40 left-1/4 w-96 h-96 rounded-full bg-indigo-500/10 blur-[60px] opacity-30" />
-            <div className="absolute -bottom-40 right-1/4 w-96 h-96 rounded-full bg-rose-500/10 blur-[60px] opacity-30" />
+            {/* Sophisticated ambient effects */}
+            <motion.div 
+              className="absolute -top-60 left-1/4 w-[500px] h-[500px] rounded-full"
+              animate={{ 
+                background: [
+                  'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.05) 40%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.05) 40%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.05) 40%, rgba(0,0,0,0) 70%)'
+                ],
+                scale: [1, 1.1, 1],
+                filter: ['blur(80px)', 'blur(100px)', 'blur(80px)'],
+              }}
+              transition={{ 
+                duration: 12,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div 
+              className="absolute -bottom-60 right-1/4 w-[500px] h-[500px] rounded-full"
+              animate={{ 
+                background: [
+                  'radial-gradient(circle, rgba(244,114,182,0.15) 0%, rgba(244,114,182,0.05) 40%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(236,72,153,0.15) 0%, rgba(236,72,153,0.05) 40%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(244,114,182,0.15) 0%, rgba(244,114,182,0.05) 40%, rgba(0,0,0,0) 70%)'
+                ],
+                scale: [1, 1.15, 1],
+                filter: ['blur(80px)', 'blur(100px)', 'blur(80px)'],
+              }}
+              transition={{ 
+                duration: 15,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+                delay: 2
+              }}
+            />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10">
-              {/* Before */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+              {/* BEFORE - Premium Card */}
               <motion.div
-                initial={{ opacity: 0, y: 20, x: -20 }}
+                initial={{ opacity: 0, y: 30, x: -30 }}
                 whileInView={{ opacity: 1, y: 0, x: 0 }}
-                whileHover={{ scale: 1.06 }}
-                transition={{ duration: 0.8, type: "spring", stiffness: 300, damping: 18 }}
+                whileHover={{ 
+                  scale: 1.02,
+                  rotateY: 5,
+                  rotateX: 2,
+                  transition: { duration: 0.3 }
+                }}
+                transition={{ duration: 1, type: "spring", stiffness: 200, damping: 20 }}
                 viewport={{ once: true, margin: "-100px" }}
-                className="relative"
+                className="relative group perspective-1000"
               >
-                <div className="absolute -inset-1 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-lg opacity-60"></div>
-                <div className="relative bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
-                  <div className="absolute top-0 left-0 bg-rose-500/90 text-white px-5 py-2 rounded-br-lg text-sm font-semibold z-20">
-                    BEFORE
+                <div className="absolute -inset-2 bg-gradient-to-br from-red-500/30 via-rose-500/20 to-pink-500/30 rounded-3xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                
+                <div className="relative bg-white/[0.04] backdrop-blur-md border-2 border-white/20 rounded-3xl overflow-hidden shadow-2xl">
+                  {/* Premium BEFORE badge */}
+                  <div className="absolute top-0 left-0 bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-3 rounded-br-2xl text-sm font-bold tracking-wide z-20 shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-white/60 animate-pulse"></div>
+                      BEFORE
+                    </div>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
+                  
+                  {/* Premium overlay effects */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent z-10"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-rose-500/10 z-10"></div>
+                  
                   <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
                       src="/before 4.png"
-                      alt="Before Redesign - Trade Business Website"
-                      width={800}
-                      height={500}
-                      className="object-contain w-full h-full"
+                      alt="Before Redesign - UK Trade Business Website"
+                      width={900}
+                      height={600}
+                      className="object-contain w-full h-full transition-transform duration-700 group-hover:scale-105"
                       priority={true}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       onLoad={handleImageLoad}
@@ -113,42 +214,67 @@ export default function GallerySection() {
                       }}
                     />
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 px-6 py-5 text-white z-20">
-                    <div className="flex items-center gap-4">
-                      <div className="h-px bg-white/30 flex-grow"></div>
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 rounded-full bg-rose-400 opacity-80"></div>
-                        <div className="w-2 h-2 rounded-full bg-rose-400 opacity-60"></div>
-                        <div className="w-2 h-2 rounded-full bg-rose-400 opacity-40"></div>
+                  
+                  {/* Premium bottom section */}
+                  <div className="absolute bottom-0 left-0 right-0 px-8 py-6 text-white z-20">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-white/70 font-medium tracking-wide uppercase">Original Design</p>
+                        <p className="text-sm text-white/90 mt-1">Limited functionality & outdated aesthetics</p>
+                      </div>
+                      <div className="flex flex-col items-end gap-1">
+                        <div className="flex gap-1">
+                          <div className="w-2 h-2 rounded-full bg-red-400 opacity-80"></div>
+                          <div className="w-2 h-2 rounded-full bg-red-400 opacity-60"></div>
+                          <div className="w-2 h-2 rounded-full bg-red-400 opacity-40"></div>
+                        </div>
+                        <span className="text-xs text-white/60">Low Performance</span>
                       </div>
                     </div>
+                    <div className="mt-4 h-px bg-gradient-to-r from-red-400/30 via-white/10 to-transparent"></div>
                   </div>
                 </div>
-                <div className="absolute -bottom-3 left-6 right-6 h-6 bg-gradient-to-b from-white/5 to-transparent rounded-b-3xl blur-lg"></div>
+                
+                {/* Premium shadow effect */}
+                <div className="absolute -bottom-4 left-8 right-8 h-8 bg-gradient-to-b from-black/20 to-transparent rounded-b-3xl blur-lg"></div>
               </motion.div>
 
-              {/* After */}
+              {/* AFTER - Premium Card */}
               <motion.div
-                initial={{ opacity: 0, y: 20, x: 20 }}
+                initial={{ opacity: 0, y: 30, x: 30 }}
                 whileInView={{ opacity: 1, y: 0, x: 0 }}
-                whileHover={{ scale: 1.06 }}
-                transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 300, damping: 18 }}
+                whileHover={{ 
+                  scale: 1.02,
+                  rotateY: -5,
+                  rotateX: 2,
+                  transition: { duration: 0.3 }
+                }}
+                transition={{ duration: 1, delay: 0.3, type: "spring", stiffness: 200, damping: 20 }}
                 viewport={{ once: true, margin: "-100px" }}
-                className="relative"
+                className="relative group perspective-1000"
               >
-                <div className="absolute -inset-1 bg-gradient-to-br from-indigo-500/30 via-purple-500/30 to-rose-500/30 rounded-2xl blur-lg opacity-60"></div>
-                <div className="relative bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
-                  <div className="absolute top-0 left-0 bg-indigo-500/90 text-white px-5 py-2 rounded-br-lg text-sm font-semibold z-20">
-                    AFTER
+                <div className="absolute -inset-2 bg-gradient-to-br from-indigo-500/40 via-purple-500/30 to-rose-500/40 rounded-3xl blur-xl opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
+                
+                <div className="relative bg-white/[0.04] backdrop-blur-md border-2 border-white/20 rounded-3xl overflow-hidden shadow-2xl">
+                  {/* Premium AFTER badge */}
+                  <div className="absolute top-0 left-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 text-white px-6 py-3 rounded-br-2xl text-sm font-bold tracking-wide z-20 shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                      AFTER
+                    </div>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
+                  
+                  {/* Premium overlay effects */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent z-10"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-purple-500/10 z-10"></div>
+                  
                   <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
                       src="/after 4.png"
-                      alt="After Redesign - Trade Business Website"
-                      width={800}
-                      height={500}
-                      className="object-contain w-full h-full"
+                      alt="After Redesign - Premium UK Trade Website"
+                      width={900}
+                      height={600}
+                      className="object-contain w-full h-full transition-transform duration-700 group-hover:scale-105"
                       priority={true}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       onLoad={handleImageLoad}
@@ -160,44 +286,84 @@ export default function GallerySection() {
                       }}
                     />
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 px-6 py-5 text-white z-20">
-                    <div className="flex items-center gap-4">
-                      <div className="h-px bg-white/30 flex-grow"></div>
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 rounded-full bg-indigo-400 opacity-80"></div>
-                        <div className="w-2 h-2 rounded-full bg-indigo-400 opacity-60"></div>
-                        <div className="w-2 h-2 rounded-full bg-indigo-400 opacity-40"></div>
+                  
+                  {/* Premium bottom section */}
+                  <div className="absolute bottom-0 left-0 right-0 px-8 py-6 text-white z-20">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-white/70 font-medium tracking-wide uppercase">Premium Transformation</p>
+                        <p className="text-sm text-white/90 mt-1">Advanced features & professional excellence</p>
+                      </div>
+                      <div className="flex flex-col items-end gap-1">
+                        <div className="flex gap-1">
+                          <div className="w-2 h-2 rounded-full bg-indigo-400 opacity-90 animate-pulse"></div>
+                          <div className="w-2 h-2 rounded-full bg-purple-400 opacity-80"></div>
+                          <div className="w-2 h-2 rounded-full bg-rose-400 opacity-70"></div>
+                        </div>
+                        <span className="text-xs text-green-400 font-medium">High Performance</span>
                       </div>
                     </div>
+                    <div className="mt-4 h-px bg-gradient-to-r from-indigo-400/30 via-white/20 to-transparent"></div>
                   </div>
                 </div>
-                <div className="absolute -bottom-3 left-6 right-6 h-6 bg-gradient-to-b from-white/5 to-transparent rounded-b-3xl blur-lg"></div>
+                
+                {/* Premium shadow effect */}
+                <div className="absolute -bottom-4 left-8 right-8 h-8 bg-gradient-to-b from-indigo-500/20 to-transparent rounded-b-3xl blur-lg"></div>
               </motion.div>
             </div>
 
-            <div className="flex flex-col md:flex-row justify-between items-center mt-10 md:mt-16 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
-              <div className="mb-6 md:mb-0">
-                <h4 className="text-xl font-semibold text-white mb-2">Ready to transform your trade business website?</h4>
-                <p className="text-white/70">See how we can elevate your online presence and turn more visitors into customers.</p>
+            {/* Premium CTA Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="flex flex-col lg:flex-row justify-between items-center mt-16 md:mt-20 relative"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/[0.04] via-white/[0.06] to-white/[0.04] backdrop-blur-md border border-white/20 rounded-3xl shadow-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.03] via-transparent to-rose-500/[0.03] rounded-3xl"></div>
+              
+              <div className="relative z-10 p-8 md:p-10 mb-8 lg:mb-0 lg:mr-8">
+                <h4 className="text-2xl md:text-3xl font-bold text-white mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">
+                  Ready to elevate your trade business website?
+                </h4>
+                <p className="text-white/80 text-lg leading-relaxed max-w-2xl">
+                  Experience our premium transformation process and watch your online presence convert more prospects into profitable customers.
+                </p>
+                <div className="mt-4 flex items-center gap-4 text-sm text-white/60">
+                  <div className="flex items-center gap-2">
+                    <Star className="w-4 h-4 text-yellow-400" />
+                    <span>Premium Quality</span>
+                  </div>
+                  <div className="w-px h-4 bg-white/20"></div>
+                  <div className="flex items-center gap-2">
+                    <Award className="w-4 h-4 text-indigo-400" />
+                    <span>Professional Results</span>
+                  </div>
+                </div>
               </div>
+              
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
+                className="relative z-10"
               >
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
                 <button 
-                  className="whitespace-nowrap gap-2 inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 rounded-full border-0 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40" 
+                  className="relative whitespace-nowrap gap-3 inline-flex items-center px-10 py-5 bg-gradient-to-r from-indigo-500 via-purple-600 to-indigo-600 hover:from-indigo-600 hover:via-purple-700 hover:to-indigo-700 transition-all duration-500 rounded-full border-0 text-white shadow-2xl shadow-indigo-500/30 hover:shadow-indigo-500/50 font-semibold text-lg" 
                   onClick={openCalendly}
                 >
-                  <span>Book a Free Website Consultation</span>
+                  <span>Book Premium Website Consultation</span>
                   <motion.span 
-                    animate={{ x: [0, 4, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                    animate={{ x: [0, 6, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
+                    className="text-white/90"
                   >
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-5 w-5" />
                   </motion.span>
                 </button>
               </motion.div>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

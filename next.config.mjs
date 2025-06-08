@@ -26,7 +26,16 @@ const nextConfig = {
       '@radix-ui/react-toast',
     ],
     forceSwcTransforms: true,
-    allowedDevOrigins: ['192.168.1.162:3000'],
+    allowedDevOrigins: [
+      '192.168.1.162:3000',
+      '192.168.1.162:3001', 
+      '192.168.1.162:3002',
+      '192.168.1.162:3003',
+      'localhost:3000',
+      'localhost:3001',
+      'localhost:3002', 
+      'localhost:3003'
+    ],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

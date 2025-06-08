@@ -291,7 +291,7 @@ Thanks!
 
   // Feature cycling for premium benefits (classic style)
   const cyclingFeatures = [
-    "Get More Emergency Calls",
+    "Get More Quote Requests",
     "Build Local Trust",
     "Enhance Professionalism"
   ];
@@ -335,15 +335,15 @@ Thanks!
         {/* Left: Headline, subheadline, bullets, trust, ratings */}
         <div className="lg:col-span-6 z-10">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-yellow-100 to-rose-200 drop-shadow-xl tracking-tight" style={{letterSpacing: '-0.02em'}}>
-            Premium Locksmith Web Design
+            Websites for UK Trades That Win More Jobs
           </h1>
           <p className={cn("text-2xl text-white/80 mb-8 font-light", poppins.className)}>
-            Get more local calls. Build trust. Grow your locksmith business.
+            Get more quote requests. Build trust. Grow your trade business.
           </p>
           <ul className="mb-8 space-y-3">
             <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Mobile-First, Professional Design</li>
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Built for UK Locksmiths</li>
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Trusted by Local Experts</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Built for Roofers, Driveways & Loft Experts</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Trusted by UK Tradesmen</li>
           </ul>
           <div className="flex items-center space-x-6 mb-8">
             <div className="flex items-center space-x-1">
@@ -398,7 +398,7 @@ Thanks!
               backdropFilter: 'blur(18px)',
             }}
           >
-            <h2 className="text-2xl font-bold text-white mb-2 text-center tracking-tight">Get Your Free Practice Audit</h2>
+            <h2 className="text-2xl font-bold text-white mb-2 text-center tracking-tight">Get More Trade Leads</h2>
             <div className="grid grid-cols-2 gap-4">
               <input
                 name="firstName"
@@ -457,7 +457,7 @@ Thanks!
               name="details"
               value={form.details}
               onChange={handleChange}
-              placeholder="Tell us about your practice"
+              placeholder="Tell us about your business"
               rows={3}
               className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-gradient-to-r focus:from-indigo-500 focus:via-purple-500 focus:to-rose-500 focus:border-transparent text-lg transition-all duration-200 shadow-inner shadow-black/10 hover:bg-white/20 backdrop-blur-md"
               style={{
@@ -467,7 +467,7 @@ Thanks!
               }}
             />
             <button type="submit" className="w-full py-4 rounded-full bg-gradient-to-r from-indigo-500 via-purple-600 to-rose-500 text-white font-semibold text-xl hover:from-indigo-600 hover:to-rose-600 transition-all duration-300 shadow-lg shadow-indigo-500/20 mt-2">
-              Get Free Practice Audit
+              Get More Local Leads Now
             </button>
           </form>
         </div>

@@ -15,9 +15,10 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "Affordable Locksmith Web Design UK | Custom Website Experts",
+  metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://thewebtailors.co.uk' : 'http://localhost:3000'),
+  title: "theWebTailors | Premium Trade Website Design & Lead Generation Systems UK",
   description:
-    "Conversion-focused locksmith web design for UK locksmiths. Get a custom, affordable website that drives emergency calls & local leads. Free redesign audit.",
+    "Transform your UK trade business with premium website design & 24/7 lead capture systems. Specialising in locksmith, plumber & electrician websites that convert visitors into customers. +285% ROI average.",
   generator: 'v0.dev',
   icons: {
     icon: [
@@ -40,7 +41,62 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   applicationName: 'theWebTailors',
-  keywords: ['tradesman website', 'chatbots', 'web design', 'electrician website', 'plumber website', 'gas engineer website', 'builder website'],
+  keywords: [
+    'trade website design UK', 
+    'locksmith website design', 
+    'plumber website design', 
+    'electrician website design',
+    'premium trade websites',
+    'lead generation systems',
+    'UK trade business websites',
+    'emergency service websites',
+    'conversion focused web design',
+    'theWebTailors',
+    'trade chatbot systems',
+    'local trade marketing'
+  ],
+  authors: [{ name: 'theWebTailors' }],
+  creator: 'theWebTailors',
+  publisher: 'theWebTailors',
+  category: 'Web Design & Digital Marketing',
+  classification: 'Business Services',
+  openGraph: {
+    title: 'theWebTailors | Premium Trade Website Design & Lead Generation UK',
+    description: 'Transform your UK trade business with premium website design & 24/7 lead capture systems. +285% ROI average for locksmith, plumber & electrician websites.',
+    url: '/',
+    siteName: 'theWebTailors',
+    locale: 'en_GB',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'theWebTailors - Premium Trade Website Design UK',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'theWebTailors | Premium Trade Website Design UK',
+    description: 'Transform your UK trade business with premium websites & lead generation systems. +285% ROI average.',
+    creator: '@thewebtailors',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: '/',
+  },
 }
 
 export const viewport: Viewport = {

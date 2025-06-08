@@ -60,12 +60,12 @@ Best regards,
   
   // Animated chat messages for the mockup
   const chatMessages = [
-    { sender: "user", text: "Help! I'm locked out of my house!" },
-    { sender: "bot", text: "A locksmith can help right away. What's your location?" },
-    { sender: "user", text: "12 King St, London" },
-    { sender: "bot", text: "Perfect! Our emergency locksmith can be there in 15 minutes. Service fee is £85. Shall I dispatch them now?" },
-    { sender: "user", text: "Yes, please hurry!" },
-    { sender: "bot", text: "Locksmith dispatched! They're on their way. Confirmation sent." },
+    { sender: "user", text: "Looking for someone to install a new driveway" },
+    { sender: "bot", text: "I can connect you with local specialists! What's your name and postcode?" },
+    { sender: "user", text: "Sarah Johnson, B15 3HY" },
+    { sender: "bot", text: "Thanks Sarah! What type of driveway? Block paving, tarmac, or something else?" },
+    { sender: "user", text: "Block paving, about 30m2. When could you start?" },
+    { sender: "bot", text: "Perfect! I've sent your details to 3 local installers. Expect calls within the hour!" },
   ];
 
   const [displayedMessages, setDisplayedMessages] = useState<{ sender: string; text: string }[]>([]);
@@ -75,9 +75,9 @@ Best regards,
   const [currentBulletIndex, setCurrentBulletIndex] = useState(0);
 
   const bulletPoints = [
-    "Capture every emergency lockout—24/7 instant response!",
-    "Boost local visibility—dominate emergency calls!",
-    "Streamline dispatch—get to customers faster!"
+    "Capture every trade enquiry—instant replies keep leads warm!",
+    "Boost local visibility—dominate quote requests in your area!",
+    "Streamline job booking—get to customers faster than competitors!"
   ];
 
   useEffect(() => {
@@ -114,12 +114,12 @@ Best regards,
   return (
     <>
       <Head>
-        <title>Leads System for Locksmiths | 24/7 Emergency Response & Booking | TheWebTailors</title>
+        <title>Leads System for UK Trades | 24/7 Job Enquiry Response & Booking | TheWebTailors</title>
         <meta 
           name="description" 
-          content="Transform your locksmith business with our Leads System. Handle emergency lockouts, schedule security jobs & provide instant quotes 24/7. Perfect for residential, commercial & automotive locksmiths. Book a free demo today."
+          content="Transform your trade business with our Leads System. Handle job enquiries, schedule site visits & provide instant quotes 24/7. Perfect for roofers, driveway installers & loft specialists. Book a free demo today."
         />
-        <meta name="keywords" content="locksmith leads system, AI assistant for locksmiths, 24/7 emergency response, locksmith booking system, emergency lockout leads, residential locksmith leads, commercial locksmith leads, locksmith business automation" />
+        <meta name="keywords" content="trade leads system, AI assistant for trades, 24/7 job enquiry response, trade booking system, roofer leads, driveway installer leads, loft conversion leads, UK trade business automation" />
       </Head>
       <main className="bg-[#030303] text-white overflow-hidden">
         <Navigation />
@@ -139,11 +139,11 @@ Best regards,
                 <div>
                   <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 text-left">
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#e0d7f7] via-[#b6c7ff] to-[#ffe9b6] animate-gradient-x">
-                      Emergency Response System for Locksmiths
+                      Lead Capture System for UK Trades
                     </span>
                   </h1>
                   <p className="mt-6 text-lg md:text-xl text-gray-400 leading-relaxed max-w-xl font-bold text-left">
-                    Respond within 15 minutes. Never miss an emergency call. Our system turns urgent lockouts into satisfied customers—guaranteed.
+                    Reply within 15 minutes. Never miss a job enquiry. Our system turns trade leads into booked jobs—guaranteed results.
                   </p>
                   
                   {/* Animated Bullet Points */}
@@ -189,10 +189,10 @@ Best regards,
                 </div>
               </div>
               {/* Right: AI Mockup */}
-              <div className="flex items-end justify-center h-full">
-                <div className="w-full max-w-md mx-auto aspect-square relative flex flex-col justify-end" style={{ minHeight: 500, maxHeight: 600 }}>
+              <div className="flex items-center justify-center h-full">
+                <div className="w-full max-w-lg mx-auto relative flex flex-col justify-center" style={{ minHeight: 550, maxHeight: 700 }}>
                   {/* Glassmorphism AI mockup */}
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 via-indigo-900/30 to-black/40 backdrop-blur-2xl shadow-2xl min-h-[500px] max-h-[600px] flex flex-col" style={{ boxShadow: '0 8px 40px 0 rgba(99,102,241,0.18), 0 2px 8px 0 rgba(0,0,0,0.10)' }}>
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 via-indigo-900/30 to-black/40 backdrop-blur-2xl shadow-2xl min-h-[550px] max-h-[700px] flex flex-col" style={{ boxShadow: '0 8px 40px 0 rgba(99,102,241,0.18), 0 2px 8px 0 rgba(0,0,0,0.10)' }}>
                     <div className="absolute top-0 left-0 right-0 h-12 bg-black/40 flex items-center px-4">
                       <div className="flex space-x-2">
                         <div className="w-3 h-3 rounded-full bg-red-500"></div>

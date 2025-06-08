@@ -3,7 +3,7 @@
 import { motion, Variants } from "framer-motion"
 import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
-import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart, ChevronRight, ShieldCheck, Star } from "lucide-react"
+import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart, ChevronRight, ShieldCheck, Star, Award, Crown, Sparkles, TrendingUp } from "lucide-react"
 import Image from "next/image"
 import { useState, useRef, useEffect, useMemo } from "react"
 import { Button } from "@/components/ui/button"
@@ -284,31 +284,73 @@ const fadeInUp = {
   },
 }
 const mockupLines = [
-  "PREMIUM LOCKSMITH SERVICE",
-  "LockGuard Elite",
-  "Master Locksmiths | 24/7 Emergency Service | Certified & Trusted",
-  "",
-  ""
+  "FASTEST RESPONSE TIME",
+  "24/7 Emergency", 
+  "Lock & Security Solutions",
+  "Professional Service"
 ];
 
 export default function ServicesSection() {
   const router = useRouter();
+  const sectionRef = useRef(null);
+  const [typingState, setTypingState] = useState<{ current: { typingIndex: number; charIndex: number } }>({
+    current: { typingIndex: 0, charIndex: 0 }
+  });
+  const [typedLines, setTypedLines] = useState<string[]>(['', '', '', '']);
+  
   const isVisible = useSectionVisibility('services', 0.1);
 
-  // Memoize animation variants to prevent recreating them on each render
-  const metricsVariants: Variants = useMemo(() => ({
+  const mockupLines = [
+    "TRUSTED LOCAL EXPERTS",
+    "Get Quality Work Done Right", 
+    "Professional Trade Services You Can Rely On",
+    "Book Your Free Quote Today"
+  ];
+
+  const metricsVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.4, 0.25, 1]
-      }
+      transition: { duration: 0.6, staggerChildren: 0.1 }
     }
-  }), []);
+  };
 
-  const glowVariants: Variants = useMemo(() => ({
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.3 }
+    }
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const cursorBlink = {
+    opacity: [1, 0],
+    transition: {
+      duration: 0.8,
+      repeat: Infinity,
+      repeatType: "reverse" as const
+    }
+  };
+
+  const uiMockupVariants = {
+    hover: {
+      rotateY: [0, 2, 0],
+      rotateX: [0, 1, 0],
+      transition: { duration: 4, repeat: Infinity }
+    }
+  };
+
+  const pulseVariants = {
     initial: { opacity: 0.3, scale: 1 },
     animate: {
       opacity: [0.3, 0.5, 0.3],
@@ -319,69 +361,54 @@ export default function ServicesSection() {
         repeatType: "reverse" as const
       }
     }
-  }), []);
+  };
 
-  // Move hooks here (fix Invalid Hook Call)
-  const [typedLines, setTypedLines] = useState<string[]>([""]);
-  const typingState = useRef({
-    typingIndex: 0,
-    charIndex: 0,
-    isTyping: true
-  });
+  // Optimized typing effect
   useEffect(() => {
-    if (!typingState.current.isTyping) return;
-    const { typingIndex, charIndex } = typingState.current;
-    if (typingIndex < mockupLines.length) {
-      if (charIndex < mockupLines[typingIndex].length) {
-        const timeout = setTimeout(() => {
-          setTypedLines((prev) => {
+    if (!isVisible) return;
+
+    const typeSpeed = 80;
+    let currentLineIndex = 0;
+    let currentCharIndex = 0;
+    let timeoutId: NodeJS.Timeout;
+
+    const typeLines = () => {
+      if (currentLineIndex < mockupLines.length) {
+        const currentLine = mockupLines[currentLineIndex];
+        
+        if (currentCharIndex < currentLine.length) {
+          setTypedLines(prev => {
             const newLines = [...prev];
-            newLines[typingIndex] = (newLines[typingIndex] || "") + mockupLines[typingIndex][charIndex];
+            newLines[currentLineIndex] = currentLine.substring(0, currentCharIndex + 1);
             return newLines;
           });
-          typingState.current.charIndex += 1;
-        }, 40);
-        return () => clearTimeout(timeout);
-      } else {
-        if (typingIndex < mockupLines.length - 1) {
-          const timeout = setTimeout(() => {
-            setTypedLines((prev) => [...prev, ""]);
-            typingState.current.typingIndex += 1;
-            typingState.current.charIndex = 0;
-          }, 500);
-          return () => clearTimeout(timeout);
+          
+          setTypingState({ current: { typingIndex: currentLineIndex, charIndex: currentCharIndex } });
+          currentCharIndex++;
+          timeoutId = setTimeout(typeLines, typeSpeed);
         } else {
-          const timeout = setTimeout(() => {
-            setTypedLines([""]);
-            typingState.current.typingIndex = 0;
-            typingState.current.charIndex = 0;
-          }, 2200);
-          return () => clearTimeout(timeout);
+          currentLineIndex++;
+          currentCharIndex = 0;
+          timeoutId = setTimeout(typeLines, typeSpeed * 3);
         }
+      } else {
+        setTypingState({ current: { typingIndex: -1, charIndex: 0 } });
       }
-    }
-  }, [typedLines, mockupLines]);
+    };
 
-  // Email template for the "Book a Demo" button
+    const startDelay = setTimeout(typeLines, 1000);
+
+    return () => {
+      clearTimeout(startDelay);
+      clearTimeout(timeoutId);
+    };
+  }, [isVisible]);
+
   const handleBookDemo = () => {
-    const emailSubject = "Website Redesign Demo Request";
-    const emailBody = `Hi TheWebTailors Team,
-
-I'd like to book a demo to learn more about your website redesign service. Here are my details:
-
-Name: [Your Full Name]
-Business Name: [Your Business Name]
-Phone Number: [Your Contact Number]
-Current Website URL: [Your Website URL]
-Preferred Date/Time: [Your Preferred Date and Time]
-
-Brief Description of What You're Looking For:
-[Please provide a short description of your goals and requirements]
-
-Thank you,
-[Your Name]`;
-
-    window.location.href = `mailto:info@thewebtailors.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    const calendlyElement = document.querySelector('[data-calendly-link]') as HTMLElement;
+    if (calendlyElement) {
+      calendlyElement.click();
+    }
   };
 
   const navigateToLeadsSystem = () => {
@@ -390,32 +417,201 @@ Thank you,
 
   return (
     <section id="services" className="relative py-24 pt-32 bg-[#030303] overflow-hidden scroll-mt-20">
-      {/* Optimize background gradients by using CSS instead of motion.div */}
+      {/* Enhanced Premium Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.03] to-rose-500/[0.03]" />
-      <div className="absolute top-40 left-20 w-96 h-96 bg-indigo-500/5 rounded-full filter blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-40 right-20 w-96 h-96 bg-rose-500/5 rounded-full filter blur-3xl animate-pulse-slow" />
+      <motion.div 
+        className="absolute top-40 left-20 w-[500px] h-[500px] rounded-full"
+        animate={{ 
+          background: [
+            'radial-gradient(circle, rgba(99,102,241,0.08) 0%, rgba(99,102,241,0.02) 50%, rgba(0,0,0,0) 70%)',
+            'radial-gradient(circle, rgba(139,92,246,0.08) 0%, rgba(139,92,246,0.02) 50%, rgba(0,0,0,0) 70%)',
+            'radial-gradient(circle, rgba(99,102,241,0.08) 0%, rgba(99,102,241,0.02) 50%, rgba(0,0,0,0) 70%)'
+          ],
+          scale: [1, 1.1, 1],
+          filter: ['blur(100px)', 'blur(120px)', 'blur(100px)'],
+        }}
+        transition={{ 
+          duration: 15,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-40 right-20 w-[500px] h-[500px] rounded-full"
+        animate={{ 
+          background: [
+            'radial-gradient(circle, rgba(244,114,182,0.08) 0%, rgba(244,114,182,0.02) 50%, rgba(0,0,0,0) 70%)',
+            'radial-gradient(circle, rgba(236,72,153,0.08) 0%, rgba(236,72,153,0.02) 50%, rgba(0,0,0,0) 70%)',
+            'radial-gradient(circle, rgba(244,114,182,0.08) 0%, rgba(244,114,182,0.02) 50%, rgba(0,0,0,0) 70%)'
+          ],
+          scale: [1, 1.15, 1],
+          filter: ['blur(100px)', 'blur(120px)', 'blur(100px)'],
+        }}
+        transition={{ 
+          duration: 18,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+          delay: 3
+        }}
+      />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
+        {/* Premium Header Section */}
         <motion.div
           initial="hidden"
           animate={isVisible ? "visible" : "hidden"}
           variants={metricsVariants}
-          className="text-center mb-20"
+          className="text-center mb-24"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">Our Premium</span>
-            <span
-              className={cn(
-                " ml-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300",
-                pacifico.className,
-              )}
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative mb-8"
+          >
+            {/* Premium Decorative Elements */}
+            <div className="absolute -top-16 left-1/2 -translate-x-1/2 flex items-center gap-3">
+              <motion.div
+                animate={{ rotate: 360, scale: [1, 1.3, 1] }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                className="w-8 h-8 border-2 border-amber-400/40 rounded-full flex items-center justify-center"
+              >
+                <Crown className="w-4 h-4 text-amber-400/70" />
+              </motion.div>
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  opacity: [0.6, 1, 0.6]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Sparkles className="w-5 h-5 text-amber-400/70" />
+              </motion.div>
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
+              <motion.div
+                animate={{ rotate: -360, scale: [1, 1.3, 1] }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                className="w-8 h-8 border-2 border-amber-400/40 rounded-full flex items-center justify-center"
+              >
+                <Award className="w-4 h-4 text-amber-400/70" />
+              </motion.div>
+            </div>
+
+            <h2 className="text-5xl md:text-6xl font-bold mb-8 relative">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/95 to-white/85">Our Premium</span>
+              <span
+                className={cn(
+                  " ml-3 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-rose-300",
+                  pacifico.className,
+                )}
+              >
+                Services
+              </span>
+              
+              {/* Luxury Accent Lines */}
+              <motion.div 
+                className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2"
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <motion.div 
+                  className="h-[3px] bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent rounded-full"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "120px" }}
+                  transition={{ duration: 1.2, delay: 0.8 }}
+                  viewport={{ once: true }}
+                />
+                <div className="w-2 h-2 rounded-full bg-amber-400/70"></div>
+                <motion.div 
+                  className="h-[3px] bg-gradient-to-r from-transparent via-rose-400/60 to-transparent rounded-full"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "120px" }}
+                  transition={{ duration: 1.2, delay: 1 }}
+                  viewport={{ once: true }}
+                />
+              </motion.div>
+            </h2>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <p className="text-white/85 max-w-4xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
+              Transform outdated trade websites into sophisticated lead-generation powerhouses that command premium positioning and drive exceptional results
+            </p>
+            
+            {/* Premium Credentials Bar */}
+            <motion.div 
+              className="flex items-center justify-center gap-8 mt-8 mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
             >
-              Services
-            </span>
-          </h2>
-          <p className="text-white/70 max-w-3xl mx-auto text-lg leading-relaxed">
-            We turn outdated locksmith websites into lead machines that drive emergency calls and build trust — designed to get real results.
-          </p>
+              <div className="flex items-center gap-3 text-white/70">
+                <div className="relative">
+                  <Star className="w-5 h-5 text-amber-400" />
+                  <motion.div
+                    animate={{ 
+                      scale: [1, 1.3, 1],
+                      opacity: [0.5, 0.8, 0.5]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute inset-0 bg-amber-400/30 rounded-full blur-sm"
+                  />
+                </div>
+                <span className="text-sm font-semibold tracking-wide">Premium Excellence</span>
+              </div>
+              <div className="w-px h-6 bg-white/30"></div>
+              <div className="flex items-center gap-3 text-white/70">
+                <TrendingUp className="w-5 h-5 text-green-400" />
+                <span className="text-sm font-semibold tracking-wide">+285% ROI Average</span>
+              </div>
+              <div className="w-px h-6 bg-white/30"></div>
+              <div className="flex items-center gap-3 text-white/70">
+                <Crown className="w-5 h-5 text-indigo-400" />
+                <span className="text-sm font-semibold tracking-wide">Industry Leaders</span>
+              </div>
+            </motion.div>
+
+            {/* Elegant Subtitle */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <p className="text-white/60 text-lg max-w-3xl mx-auto leading-relaxed italic">
+                "Meticulously crafted for discerning UK trade professionals who demand nothing less than exceptional digital presence"
+              </p>
+              <div className="flex justify-center mt-4">
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.9 + i * 0.1, duration: 0.3 }}
+                      viewport={{ once: true }}
+                    >
+                      <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         {/* Main Feature: Website Redesign */}
@@ -445,7 +641,7 @@ Thank you,
                     <div className="flex-1 mx-4">
                       <div className="bg-slate-700/80 backdrop-blur-sm rounded-full h-6 w-full max-w-md mx-auto flex items-center justify-center group hover:bg-slate-600/80 transition-colors duration-300">
                         <div className="flex items-center text-slate-400 text-xs group-hover:text-slate-300 transition-colors duration-300">
-                          <span>lockguardelite.co.uk</span>
+                          <span>qualitytradeservices.co.uk</span>
                           <motion.span 
                             className="ml-1 w-1 h-3 bg-indigo-400 inline-block"
                             animate={cursorBlink}
@@ -470,7 +666,7 @@ Thank you,
                           whileHover={{ rotate: [0, 5, -5, 0] }}
                           transition={{ duration: 0.5 }}
                         >
-                          <span className="text-sm">L</span>
+                          <span className="text-sm font-bold">Q</span>
                         </motion.div>
                       </motion.div>
                       <motion.div 
@@ -479,7 +675,7 @@ Thank you,
                         initial="hidden"
                         animate="show"
                       >
-                        {["HOME", "SERVICES", "CERTIFICATES", "ABOUT", "CONTACT"].map((item, i) => (
+                        {["HOME", "SERVICES", "GALLERY", "ABOUT", "CONTACT"].map((item, i) => (
                           <motion.div 
                             key={item} 
                             variants={fadeInUp}
@@ -504,7 +700,7 @@ Thank you,
                                 ? "text-4xl font-bold text-white mb-1 leading-tight tracking-tight"
                                 : i === 2
                                 ? "text-lg text-white/80 font-medium tracking-wide"
-                                : "text-3xl font-bold mb-3 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-rose-400"
+                                : "text-xl font-bold mb-3 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-rose-400"
                             }>
                               {typedLines[i] || ""}
                               {typingState.current.typingIndex === i && (
@@ -522,10 +718,10 @@ Thank you,
                             className="flex space-x-3 items-center"
                             whileHover={{ scale: 1.05, x: 3 }}
                           >
-                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-indigo-500/10 backdrop-blur-sm">
-                              <ShieldCheck className="h-4 w-4 text-indigo-400" />
+                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-green-500/20 to-green-500/10 backdrop-blur-sm">
+                              <ShieldCheck className="h-4 w-4 text-green-400" />
                             </div>
-                            <span className="text-white/70 text-sm font-medium">MLA Certified</span>
+                            <span className="text-white/70 text-sm font-medium">Fully Insured & Certified</span>
                           </motion.div>
                           <motion.div 
                             className="flex space-x-3 items-center"
@@ -534,25 +730,25 @@ Thank you,
                             <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-amber-500/20 to-amber-500/10 backdrop-blur-sm">
                               <Star className="h-4 w-4 text-amber-400" />
                             </div>
-                            <span className="text-white/70 text-sm font-medium">5-Star Rated Service</span>
+                            <span className="text-white/70 text-sm font-medium">5-Star Customer Reviews</span>
                           </motion.div>
                         </div>
 
                         <div className="flex space-x-4 mt-8">
                           <motion.button 
-                            className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white text-sm font-medium flex items-center space-x-2 hover:from-indigo-700 hover:to-purple-700 transition-colors shadow-lg shadow-indigo-900/30"
+                            className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white text-sm font-bold flex items-center space-x-2 hover:from-indigo-700 hover:to-purple-700 transition-colors shadow-lg shadow-indigo-900/30"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                            <span>Emergency Service</span>
+                            <span>Get Free Quote</span>
                             <ChevronRight className="h-4 w-4" />
                           </motion.button>
                           <motion.button 
-                            className="px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white text-sm font-medium hover:bg-white/10 transition-colors"
+                            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white text-sm font-medium hover:bg-white/10 transition-colors"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                            Contact Us
+                            View Gallery
                           </motion.button>
                         </div>
                       </div>
@@ -591,15 +787,16 @@ Thank you,
                             whileHover={{ boxShadow: "0 0 40px rgba(99,102,241,0.5)" }}
                           >
                             <div className="absolute inset-1 rounded-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
-                              <div className="absolute inset-0 flex items-end justify-center pb-6">
+                              <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="text-white/90 text-center">
-                                  <p className="text-xs font-medium">Master Locksmith</p>
-                                  <p className="text-[10px] text-white/60">MLA Certified Professional</p>
+                                  <div className="text-2xl font-bold mb-2">⭐⭐⭐⭐⭐</div>
+                                  <p className="text-xs font-medium">Premium Quality</p>
+                                  <p className="text-[10px] text-white/60">Trusted Professionals</p>
                                 </div>
                               </div>
                             </div>
                             <motion.div 
-                              className="absolute top-6 right-6 w-1.5 h-1.5 rounded-full bg-purple-400"
+                              className="absolute top-6 right-6 w-1.5 h-1.5 rounded-full bg-green-400"
                               animate={{
                                 y: [0, -8, 0],
                                 opacity: [0.2, 1, 0.2]
@@ -664,13 +861,13 @@ Thank you,
               viewport={{ once: true }}
             >
               <h3 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300">
-                Locksmith Website Design
+                UK Trade Website Design
               </h3>
               <p className="text-white/70 mb-4 leading-relaxed">
-                Turn your locksmith website into a tool that gets you more emergency calls and builds local trust.
+                Turn your trade business website into a tool that gets you more local job enquiries and builds trust with homeowners.
               </p>
               <p className="text-white/70 mb-8 leading-relaxed">
-                We build sites made just for locksmiths—fast-loading, trusted, and made to get you calls when it matters most.
+                We build websites made for UK trades—fast-loading, mobile-ready, and built to turn visitors into real customers.
               </p>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start">
@@ -679,7 +876,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Show off your emergency services and real customer reviews</span>
+                  <span className="text-white/80">Show off your recent projects and 5-star customer reviews</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -687,7 +884,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Build trust with clear accreditations and badges</span>
+                  <span className="text-white/80">Build trust with accreditations, badges, and trade logos</span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -695,7 +892,7 @@ Thank you,
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Get more bookings with simple forms that work on any phone</span>
+                  <span className="text-white/80">Get more quote requests with forms that work on every phone</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
@@ -729,7 +926,7 @@ Thank you,
                 viewport={{ once: true }}
               >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-300">
-                  Follow-Up System for Locksmiths
+                  Follow-Up System for Trades
                 </span>
               </motion.h3>
               
@@ -740,7 +937,7 @@ Thank you,
                 viewport={{ once: true }}
                 className="text-white/80 text-lg leading-relaxed mb-8"
               >
-                24/7 Follow-Up System built for locksmiths — capture leads, book emergency jobs, and guide customers to the right locksmith service while answering common questions instantly.
+                24/7 Follow-Up System built for UK trades — capture leads, book jobs faster, and guide customers to the right service while handling common questions automatically.
               </motion.p>
               
               <div className="space-y-5 mb-8">
@@ -784,8 +981,8 @@ Thank you,
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Emergency Job Matching</h4>
-                    <p className="text-white/60 text-sm">Directs customers to your locksmith services and books urgent callouts fast.</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Smart Job Matching</h4>
+                    <p className="text-white/60 text-sm">Routes enquiries to your main services and captures job info instantly.</p>
                   </div>
                 </motion.div>
                 
@@ -833,7 +1030,7 @@ Thank you,
                   </div>
                   <div>
                     <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Lead Capture</h4>
-                    <p className="text-white/60 text-sm">Collects caller details and syncs with your CRM to turn visitors into real locksmith leads.</p>
+                    <p className="text-white/60 text-sm">Collects customer details and syncs with your CRM to turn visitors into real trade leads.</p>
                   </div>
                 </motion.div>
                 
@@ -880,8 +1077,8 @@ Thank you,
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Instant Booking System</h4>
-                    <p className="text-white/60 text-sm">Adds jobs directly to your calendar — no missed calls, no lost business.</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Instant Quote Replies</h4>
+                    <p className="text-white/60 text-sm">Sends quotes fast and adds jobs to your calendar — no missed leads, no lost work.</p>
                   </div>
                 </motion.div>
               </div>
@@ -1302,9 +1499,9 @@ Thank you,
                 <div className="relative mb-4 flex justify-center">
                   <motion.div 
                     className="absolute inset-0 rounded-full bg-indigo-500/30 blur-xl"
-                    variants={glowVariants}
+                    variants={pulseVariants}
                     initial="initial"
-                    animate={isVisible ? "animate" : "initial"}
+                    animate="animate"
                   />
                   <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 border border-indigo-500/30 flex items-center justify-center">
                     <motion.div
@@ -1381,9 +1578,9 @@ Thank you,
                 <div className="relative mb-4 flex justify-center">
                   <motion.div 
                     className="absolute inset-0 rounded-full bg-purple-500/30 blur-xl"
-                    variants={glowVariants}
+                    variants={pulseVariants}
                     initial="initial"
-                    animate={isVisible ? "animate" : "initial"}
+                    animate="animate"
                   />
                   <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-700/20 border border-purple-500/30 flex items-center justify-center">
                     <motion.div
@@ -1460,9 +1657,9 @@ Thank you,
                 <div className="relative mb-4 flex justify-center">
                   <motion.div 
                     className="absolute inset-0 rounded-full bg-rose-500/30 blur-xl"
-                    variants={glowVariants}
+                    variants={pulseVariants}
                     initial="initial"
-                    animate={isVisible ? "animate" : "initial"}
+                    animate="animate"
                   />
                   <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-rose-500/20 to-rose-700/20 border border-rose-500/30 flex items-center justify-center">
                     <motion.div

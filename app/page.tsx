@@ -10,7 +10,7 @@ import Navigation from "@/components/navigation"
 
 export default function Home() {
   return (
-    <main className="bg-[#030303]">
+    <main className="min-h-screen bg-[#030303] relative">
       <Navigation />
       <HeroSection />
       <ServicesSection />

@@ -79,33 +79,33 @@ export default function WhyChooseUsSection() {
               </span>
             </h2>
             <p className="text-white/70 max-w-2xl mx-auto text-lg">
-              Expert locksmith website design that converts visitors into emergency calls.
+              Expert trade website design that converts visitors into quality leads.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <FeatureCard
               icon={Trophy}
-              title="Emergency Call Focus"
-              description="Conversion-optimized design that prioritizes emergency call generation."
+              title="Lead Generation Focus"
+              description="Conversion-optimized design that prioritizes quality lead generation."
               delay={0.1}
             />
             <FeatureCard
               icon={Zap}
               title="Lightning Fast"
-              description="Ultra-fast loading websites optimized for emergency situations."
+              description="Ultra-fast loading websites optimized for trade businesses."
               delay={0.2}
             />
             <FeatureCard
               icon={Sparkles}
               title="Local SEO Expert"
-              description="Specialized in getting locksmiths found in local searches."
+              description="Specialized in getting trade businesses found in local searches."
               delay={0.3}
             />
             <FeatureCard
               icon={CheckCircle2}
               title="24/7 Lead Capture"
-              description="Never miss an emergency call with our round-the-clock system."
+              description="Never miss a potential customer with our round-the-clock system."
               delay={0.4}
             />
           </div>

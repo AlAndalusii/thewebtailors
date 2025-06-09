@@ -356,7 +356,7 @@ export default function ContactSection() {
                     </div>
                     <div>
                       <h4 className="text-white/90 font-medium text-sm">Expert Support</h4>
-                      <p className="text-white/60 text-xs mt-1">Master certified locksmiths</p>
+                      <p className="text-white/60 text-xs mt-1">Master certified tradespeople</p>
                     </div>
                   </li>
                   

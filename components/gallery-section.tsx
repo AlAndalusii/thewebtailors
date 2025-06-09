@@ -5,7 +5,7 @@ import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { ArrowRight, Star, Award, TrendingUp } from "lucide-react"
-import { useState, useRef } from "react"
+import { useState, useRef, useCallback } from "react"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { X } from "lucide-react"
 
@@ -25,9 +25,9 @@ export default function GallerySection() {
     setIsCalendlyOpen(true)
   }
 
-  const handleImageLoad = () => {
+  const handleImageLoad = useCallback(() => {
     setImagesLoaded(prev => prev + 1)
-  }
+  }, [])
 
   return (
     <section 
@@ -76,24 +76,15 @@ export default function GallerySection() {
                 </motion.div>
               </div>
 
-              <h3 className="text-4xl md:text-5xl font-bold mb-6 relative">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/80">The</span>
-                <span className={cn(
-                  " ml-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-rose-300",
-                  pacifico.className,
-                )}>
-                  Transformation
+              <h2 className={cn("text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight", pacifico.variable)}>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-300 to-purple-300 font-pacifico">
+                  Premium Website 
                 </span>
-                
-                {/* Premium accent line */}
-                <motion.div 
-                  className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent rounded-full"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "280px" }}
-                  transition={{ duration: 1.2, delay: 0.5 }}
-                  viewport={{ once: true }}
-                />
-              </h3>
+                <br />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-rose-400 font-pacifico text-4xl md:text-6xl">
+                  Transformations
+                </span>
+              </h2>
             </motion.div>
             
             <motion.div
@@ -200,18 +191,12 @@ export default function GallerySection() {
                     <Image
                       src="/before 4.png"
                       alt="Before Redesign - UK Trade Business Website"
-                      width={900}
-                      height={600}
-                      className="object-contain w-full h-full transition-transform duration-700 group-hover:scale-105"
-                      priority={true}
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      fill
+                      className="object-contain transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 45vw"
                       onLoad={handleImageLoad}
-                      style={{
-                        maxHeight: '100%',
-                        width: 'auto',
-                        margin: '0 auto',
-                        display: 'block'
-                      }}
+                      quality={85}
                     />
                   </div>
                   
@@ -272,18 +257,12 @@ export default function GallerySection() {
                     <Image
                       src="/after 4.png"
                       alt="After Redesign - Premium UK Trade Website"
-                      width={900}
-                      height={600}
-                      className="object-contain w-full h-full transition-transform duration-700 group-hover:scale-105"
-                      priority={true}
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      fill
+                      className="object-contain transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 45vw"
                       onLoad={handleImageLoad}
-                      style={{
-                        maxHeight: '100%',
-                        width: 'auto',
-                        margin: '0 auto',
-                        display: 'block'
-                      }}
+                      quality={85}
                     />
                   </div>
                   
@@ -380,7 +359,6 @@ export default function GallerySection() {
               <X className="w-4 h-4" />
             </button>
             <div className="calendly-inline-widget" data-url="https://calendly.com/zak-thewebtailors?primary_color=67169e" style={{ minWidth: 320, height: 700 }}></div>
-            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
           </div>
         </DialogContent>
       </Dialog>

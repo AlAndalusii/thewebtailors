@@ -76,7 +76,7 @@ Best regards,
 
   const bulletPoints = [
     "Capture every trade enquiry—instant replies keep leads warm!",
-    "Boost local visibility—dominate quote requests in your area!",
+    "Boost local visibility—dominate quotes in your area!",
     "Streamline job booking—get to customers faster than competitors!"
   ];
 

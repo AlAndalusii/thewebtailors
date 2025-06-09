@@ -291,9 +291,9 @@ Thanks!
 
   // Feature cycling for premium benefits (classic style)
   const cyclingFeatures = [
-    "Get More Quote Requests",
+    "Get More Quotes Fast",
     "Build Local Trust",
-    "Enhance Professionalism"
+    "Win More Jobs"
   ];
   useEffect(() => {
     const interval = setInterval(() => {
@@ -335,24 +335,24 @@ Thanks!
         {/* Left: Headline, subheadline, bullets, trust, ratings */}
         <div className="lg:col-span-6 z-10">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-yellow-100 to-rose-200 drop-shadow-xl tracking-tight" style={{letterSpacing: '-0.02em'}}>
-            Websites for UK Trades That Win More Jobs
+            Websites & Systems That Win More Jobs for UK Trades
           </h1>
           <p className={cn("text-2xl text-white/80 mb-8 font-light", poppins.className)}>
-            Get more quote requests. Build trust. Grow your trade business.
+            Get more quotes. Build trust. Grow your trade business.
           </p>
           <ul className="mb-8 space-y-3">
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Mobile-First, Professional Design</li>
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Built for Roofers, Driveways & Loft Experts</li>
-            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Trusted by UK Tradesmen</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Mobile-First, Expertly Built</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> For Roofers, Driveways & Loft Pros</li>
+            <li className="flex items-center text-white/90 text-lg"><Check className="w-6 h-6 text-green-400 mr-3" /> Trusted by Local UK Trades</li>
           </ul>
           <div className="flex items-center space-x-6 mb-8">
             <div className="flex items-center space-x-1">
               {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 text-amber-400" />)}
-              <span className="text-white/70 ml-2 text-base">5-Star Client Reviews</span>
+              <span className="text-white/70 ml-2 text-base">Rated 5 Stars by Real Customers</span>
             </div>
             <div className="flex items-center space-x-1">
               {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 text-amber-400" />)}
-              <span className="text-white/70 ml-2 text-base">Award-Winning Service</span>
+              <span className="text-white/70 ml-2 text-base">Award-Winning Designs That Book Jobs</span>
                     </div>
                   </div>
           {/* Classic cycling feature box (Framer Motion AnimatePresence) */}
@@ -398,7 +398,7 @@ Thanks!
               backdropFilter: 'blur(18px)',
             }}
           >
-            <h2 className="text-2xl font-bold text-white mb-2 text-center tracking-tight">Get More Trade Leads</h2>
+            <h2 className="text-2xl font-bold text-white mb-2 text-center tracking-tight">Get More Quotes and Grow Your Leads</h2>
             <div className="grid grid-cols-2 gap-4">
               <input
                 name="firstName"
@@ -467,7 +467,7 @@ Thanks!
               }}
             />
             <button type="submit" className="w-full py-4 rounded-full bg-gradient-to-r from-indigo-500 via-purple-600 to-rose-500 text-white font-semibold text-xl hover:from-indigo-600 hover:to-rose-600 transition-all duration-300 shadow-lg shadow-indigo-500/20 mt-2">
-              Get More Local Leads Now
+              Get More Quotes and Grow Your Leads
             </button>
           </form>
         </div>

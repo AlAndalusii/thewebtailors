@@ -1,12 +1,27 @@
-"use client"
-
-import HeroSection from "@/components/hero-section"
-import ServicesSection from "@/components/services-section"
-import GallerySection from "@/components/gallery-section"
-import FAQSection from "@/components/faq-section"
-import ContactSection from "@/components/contact-section"
-import Footer from "@/components/footer"
+import dynamic from "next/dynamic"
 import Navigation from "@/components/navigation"
+import HeroSection from "@/components/hero-section"
+
+// Lazy load components that are not immediately visible
+const ServicesSection = dynamic(() => import("@/components/services-section"), {
+  loading: () => <div className="min-h-screen bg-[#030303] animate-pulse" />,
+})
+
+const GallerySection = dynamic(() => import("@/components/gallery-section"), {
+  loading: () => <div className="min-h-screen bg-[#030303] animate-pulse" />,
+})
+
+const FAQSection = dynamic(() => import("@/components/faq-section"), {
+  loading: () => <div className="min-h-[50vh] bg-[#030303] animate-pulse" />,
+})
+
+const ContactSection = dynamic(() => import("@/components/contact-section"), {
+  loading: () => <div className="min-h-[50vh] bg-[#030303] animate-pulse" />,
+})
+
+const Footer = dynamic(() => import("@/components/footer"), {
+  loading: () => <div className="h-20 bg-[#030303] animate-pulse" />,
+})
 
 export default function Home() {
   return (

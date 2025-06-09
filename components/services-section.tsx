@@ -547,7 +547,7 @@ export default function ServicesSection() {
             className="space-y-6"
           >
             <p className="text-white/85 max-w-4xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
-              Transform outdated trade websites into sophisticated lead-generation powerhouses that command premium positioning and drive exceptional results
+              Build trade websites that work as hard as you do — turning every visitor into a potential customer.
             </p>
             
             {/* Premium Credentials Bar */}
@@ -892,7 +892,7 @@ export default function ServicesSection() {
                       <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <span className="text-white/80">Get more quote requests with forms that work on every phone</span>
+                  <span className="text-white/80">Get more quotes with forms that work on every phone</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
@@ -900,7 +900,7 @@ export default function ServicesSection() {
                   className="gap-2 bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 transition-all duration-300 border-0 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40" 
                   onClick={handleBookDemo}
                 >
-                  Book a Demo
+                  Book a Free Demo
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
@@ -937,7 +937,7 @@ export default function ServicesSection() {
                 viewport={{ once: true }}
                 className="text-white/80 text-lg leading-relaxed mb-8"
               >
-                24/7 Follow-Up System built for UK trades — capture leads, book jobs faster, and guide customers to the right service while handling common questions automatically.
+                Our 24/7 Follow-Up System keeps leads engaged and books jobs faster — automatically answers common questions and matches jobs to your services.
               </motion.p>
               
               <div className="space-y-5 mb-8">
@@ -982,7 +982,7 @@ export default function ServicesSection() {
                   </div>
                   <div>
                     <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Smart Job Matching</h4>
-                    <p className="text-white/60 text-sm">Routes enquiries to your main services and captures job info instantly.</p>
+                    <p className="text-white/60 text-sm">Instantly routes enquiries to the right service and captures details.</p>
                   </div>
                 </motion.div>
                 
@@ -1030,7 +1030,7 @@ export default function ServicesSection() {
                   </div>
                   <div>
                     <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Lead Capture</h4>
-                    <p className="text-white/60 text-sm">Collects customer details and syncs with your CRM to turn visitors into real trade leads.</p>
+                    <p className="text-white/60 text-sm">Grabs customer info and syncs with your CRM to turn visitors into leads.</p>
                   </div>
                 </motion.div>
                 
@@ -1077,8 +1077,8 @@ export default function ServicesSection() {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Instant Quote Replies</h4>
-                    <p className="text-white/60 text-sm">Sends quotes fast and adds jobs to your calendar — no missed leads, no lost work.</p>
+                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Instant Quotes</h4>
+                    <p className="text-white/60 text-sm">Sends fast quotes and adds jobs to your calendar — never miss a lead.</p>
                   </div>
                 </motion.div>
               </div>
@@ -1108,7 +1108,7 @@ export default function ServicesSection() {
                       }}
                     />
                     <span className="relative z-10 flex items-center">
-                      Book a Demo
+                      Book a Free Demo
                       <motion.span
                         animate={{ x: [0, 4, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
@@ -1292,7 +1292,7 @@ export default function ServicesSection() {
                           transition={{ duration: 0.5, delay: 0.5 }}
                           className="bg-slate-700/60 rounded-lg p-2 text-white text-xs ml-auto max-w-[90%]"
                         >
-                          I'm locked out of my house. How soon can you help?
+                          We can have a tradesperson at your location within 30 minutes. Would you like me to dispatch one now?
                         </motion.div>
                       </div>
                       <div className="chat-msg mb-3">
@@ -1302,7 +1302,7 @@ export default function ServicesSection() {
                           transition={{ duration: 0.5, delay: 1 }}
                           className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
                         >
-                          We can have a locksmith at your location within 30 minutes. Would you like me to dispatch one now?
+                          We can have a tradesperson at your location within 30 minutes. Would you like me to dispatch one now?
                         </motion.div>
                       </div>
                     </div>
@@ -1374,7 +1374,7 @@ export default function ServicesSection() {
           <div className="space-y-0">
             <ProcessStep 
               number="1" 
-              title="Discover" 
+              title="Talk Goals & Understand Your Business" 
               description="We learn your goals and plan a smart strategy."
               delay={0.2}
               icon={Compass}
@@ -1382,7 +1382,7 @@ export default function ServicesSection() {
             
             <ProcessStep 
               number="2" 
-              title="Design" 
+              title="Design a Simple, Fast Website That Converts" 
               description="We create clean, branded layouts that drive action."
               delay={0.4}
               icon={Palette}
@@ -1390,7 +1390,7 @@ export default function ServicesSection() {
             
             <ProcessStep 
               number="3" 
-              title="Build" 
+              title="Build Your Site & Set Up Quote & Follow-Up Systems" 
               description="We develop fast, responsive sites that work everywhere."
               delay={0.6}
               icon={Code}
@@ -1398,7 +1398,7 @@ export default function ServicesSection() {
             
             <ProcessStep 
               number="4" 
-              title="Optimize" 
+              title="Launch & Help You Get More Jobs — We Keep Improving It" 
               description="We launch, track, and refine for ongoing results."
               delay={0.8}
               icon={BarChart}
@@ -1744,9 +1744,9 @@ export default function ServicesSection() {
           viewport={{ once: true }}
           className="bg-gradient-to-br from-indigo-500/10 to-rose-500/10 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12 text-center"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Transform Your Locksmith Website?</h3>
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Get More Jobs?</h3>
           <p className="text-white/70 max-w-2xl mx-auto mb-8">
-            Let's discuss how our premium services can elevate your digital presence and drive more emergency calls to your business.
+            Book a Free Demo and See How Your Website Can Work for You
           </p>
           <motion.button 
             onClick={handleBookDemo}
@@ -1754,7 +1754,7 @@ export default function ServicesSection() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span className="text-lg">Book a Demo</span>
+            <span className="text-lg">Book a Free Demo</span>
             <motion.span 
               animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}

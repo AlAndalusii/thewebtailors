@@ -5,6 +5,7 @@ import "./globals.css"
 import { cn } from "@/lib/utils"
 import { Toaster } from "sonner"
 import Script from "next/script"
+import MobileOptimizationProvider from "@/components/MobileOptimizationProvider"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -12,15 +13,13 @@ const poppins = Poppins({
   variable: "--font-poppins",
   display: "swap",
   preload: true,
-  fallback: ['system-ui', 'arial'],
-  adjustFontFallback: false,
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://thewebtailors.co.uk' : 'http://localhost:3000'),
-  title: "theWebTailors | Premium Trade Website Design & Lead Generation Systems UK",
+  title: "TheWebTailors | Done-for-You Websites & Booking Systems for Coaches",
   description:
-    "Transform your UK trade business with premium website design & 24/7 lead capture systems. Specialising in roofing, driveway & loft conversion websites that convert visitors into customers. +285% ROI average.",
+    "TheWebTailors builds high-converting websites and automated booking systems for coaches. Launch fast, look professional, and get booked — no tech skills needed.",
   generator: 'v0.dev',
   icons: {
     icon: [
@@ -44,27 +43,27 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   applicationName: 'theWebTailors',
   keywords: [
-    'trade website design UK', 
-    'roofing website design', 
-    'driveway website design', 
-    'loft conversion website design',
-    'premium trade websites',
-    'lead generation systems',
-    'UK trade business websites',
-    'professional service websites',
-    'conversion focused web design',
+    'coach website design', 
+    'tutor website design', 
+    'life coach websites', 
+    'business coach websites',
+    'coaching website design',
+    'client booking systems',
+    'coaching business websites',
+    'discovery call booking',
+    'coach client acquisition',
     'theWebTailors',
-    'trade chatbot systems',
-    'local trade marketing'
+    'coaching follow-up systems',
+    'coach marketing websites'
   ],
   authors: [{ name: 'theWebTailors' }],
   creator: 'theWebTailors',
   publisher: 'theWebTailors',
-  category: 'Web Design & Digital Marketing',
+  category: 'Web Design & Coaching Business',
   classification: 'Business Services',
   openGraph: {
-    title: 'theWebTailors | Premium Trade Website Design & Lead Generation UK',
-    description: 'Transform your UK trade business with premium website design & 24/7 lead capture systems. +285% ROI average for roofing, driveway & loft conversion websites.',
+    title: 'TheWebTailors | Done-for-You Websites & Booking Systems for Coaches',
+    description: 'TheWebTailors builds high-converting websites and automated booking systems for coaches. Launch fast, look professional, and get booked — no tech skills needed.',
     url: '/',
     siteName: 'theWebTailors',
     locale: 'en_GB',
@@ -80,8 +79,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'theWebTailors | Premium Trade Website Design UK',
-    description: 'Transform your UK trade business with premium websites & lead generation systems. +285% ROI average.',
+          title: 'TheWebTailors | Done-for-You Websites & Booking Systems for Coaches',
+    description: 'TheWebTailors builds high-converting websites and automated booking systems for coaches. Launch fast, look professional, and get booked — no tech skills needed.',
     creator: '@thewebtailors',
     images: ['/og-image.jpg'],
   },
@@ -104,7 +103,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
   themeColor: '#030303',
 }
 
@@ -116,98 +117,136 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        {/* Preload critical resources */}
-        <link rel="preload" href="/before 4.png" as="image" type="image/png" />
-        <link rel="preload" href="/after 4.png" as="image" type="image/png" />
-        <link rel="preconnect" href="https://assets.calendly.com" />
-        <link rel="dns-prefetch" href="https://assets.calendly.com" />
+        {/* Enhanced mobile meta tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
         
-        {/* Resource hints for better loading */}
-        <link rel="modulepreload" href="/_next/static/chunks/webpack.js" />
-        <link rel="modulepreload" href="/_next/static/chunks/main.js" />
+        {/* Preload critical fonts */}
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          as="style"
+        />
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+          as="style"
+        />
         
-        {/* Critical CSS inlined would go here if needed */}
+        {/* Critical resource hints */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//assets.calendly.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       </head>
-      <body className={cn("min-h-screen bg-[#030303] font-sans antialiased [--scroll-mt:80px] [scroll-margin-top:80px]", poppins.variable)}>
-        {children}
-        <Toaster position="top-center" theme="dark" richColors />
+      <body className={cn(
+        "min-h-screen bg-[#030303] font-sans antialiased safe-area-insets performance-optimized", 
+        poppins.variable
+      )}>
+        <MobileOptimizationProvider>
+          {children}
+        </MobileOptimizationProvider>
         
-        {/* Optimized Scripts */}
+        <Toaster 
+          position="top-center" 
+          theme="dark" 
+          richColors 
+          toastOptions={{
+            style: {
+              background: 'rgba(0, 0, 0, 0.9)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+            }
+          }}
+        />
+        
+        {/* Optimized Calendly loading */}
         <Script 
           src="https://assets.calendly.com/assets/external/widget.js" 
           strategy="lazyOnload"
           id="calendly-widget"
         />
         
-        <Script id="performance-optimization" strategy="afterInteractive">
+        {/* Enhanced performance tracking */}
+        <Script id="performance-optimizations" strategy="afterInteractive">
           {`
-            (function() {
-              if (typeof window === 'undefined') return;
-              
-              // Enhanced performance monitoring
-              const observer = new PerformanceObserver((list) => {
-                for (const entry of list.getEntries()) {
-                  if (entry.entryType === 'largest-contentful-paint') {
-                    console.log('LCP:', entry.startTime);
+            if (typeof window !== 'undefined') {
+              // Performance marking
+              window.addEventListener('load', () => {
+                window.performance.mark('app-interactive');
+                
+                // Visibility change optimizations
+                document.addEventListener('visibilitychange', () => {
+                  if (document.hidden) {
+                    document.body.classList.add('reduce-animations');
+                    // Pause heavy operations when tab is hidden
+                    window.dispatchEvent(new CustomEvent('tab-hidden'));
+                  } else {
+                    document.body.classList.remove('reduce-animations');
+                    // Resume operations when tab is visible
+                    window.dispatchEvent(new CustomEvent('tab-visible'));
                   }
-                  if (entry.entryType === 'first-input') {
-                    console.log('FID:', entry.processingStart - entry.startTime);
-                  }
-                  if (entry.entryType === 'layout-shift') {
-                    if (!entry.hadRecentInput) {
-                      console.log('CLS:', entry.value);
+                });
+                
+                // Enhanced image loading
+                if ('loading' in HTMLImageElement.prototype) {
+                  const images = document.querySelectorAll('img[loading="lazy"]');
+                  images.forEach(img => {
+                    if (img.dataset.src) {
+                      img.src = img.dataset.src;
                     }
+                  });
+                }
+                
+                // Service worker registration for better caching
+                if ('serviceWorker' in navigator) {
+                  navigator.serviceWorker.register('/sw.js').catch(() => {
+                    // Silently fail if service worker is not available
+                  });
+                }
+                
+                // Connection-aware optimizations
+                if ('connection' in navigator) {
+                  const connection = navigator.connection;
+                  if (connection && connection.effectiveType && connection.effectiveType.includes('2g')) {
+                    document.body.classList.add('reduce-animations');
                   }
+                }
+                
+                // Battery-aware optimizations
+                if ('getBattery' in navigator) {
+                  navigator.getBattery().then(battery => {
+                    if (battery.level < 0.2 || !battery.charging) {
+                      document.body.classList.add('reduce-animations');
+                    }
+                  }).catch(() => {
+                    // Silently fail if battery API is not available
+                  });
                 }
               });
               
-              observer.observe({entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift']});
-              
-              // Optimized visibility change handler
-              let rafId;
-              document.addEventListener('visibilitychange', () => {
-                if (rafId) cancelAnimationFrame(rafId);
-                rafId = requestAnimationFrame(() => {
-                  if (document.hidden) {
-                    document.body.classList.add('reduce-animations');
-                  } else {
-                    document.body.classList.remove('reduce-animations');
-                  }
-                });
-              });
-              
-              // Optimized image loading
-              if ('loading' in HTMLImageElement.prototype) {
-                const images = document.querySelectorAll('img[loading="lazy"]');
-                images.forEach(img => {
-                  if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                  }
-                });
+              // iOS Safari specific optimizations
+              if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                // Prevent zoom on form focus
+                const viewportMeta = document.querySelector('meta[name=viewport]');
+                if (viewportMeta) {
+                  viewportMeta.setAttribute('content', 
+                    'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover'
+                  );
+                }
+                
+                // Better iOS viewport handling
+                const setVH = () => {
+                  const vh = window.innerHeight * 0.01;
+                  document.documentElement.style.setProperty('--vh', vh + 'px');
+                };
+                setVH();
+                window.addEventListener('resize', setVH);
+                window.addEventListener('orientationchange', setVH);
               }
-              
-              // Resource cleanup on page unload
-              window.addEventListener('beforeunload', () => {
-                if (rafId) cancelAnimationFrame(rafId);
-                observer.disconnect();
-              });
-              
-              // Mark app as interactive
-              window.addEventListener('load', () => {
-                window.performance.mark('app-interactive');
-              });
-            })();
-          `}
-        </Script>
-        
-        {/* Service Worker Registration for caching */}
-        <Script id="sw-registration" strategy="afterInteractive">
-          {`
-            if ('serviceWorker' in navigator && 'production' === '${process.env.NODE_ENV}') {
-              window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                  .catch(() => console.log('SW registration failed'));
-              });
             }
           `}
         </Script>

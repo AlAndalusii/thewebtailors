@@ -75,23 +75,23 @@ export default function FAQSection() {
   const faqItems = [
     {
       question: "Who Are The Web Tailors?",
-      answer: "We build simple, effective websites for UK tradespeople — roofers, locksmiths, driveway experts — who want to book more local jobs and spend less time on admin."
+      answer: "We help independent coaches and solo tutors go from invisible to fully booked. We're not your typical web design agency - we focus on real results, not fancy features that don't actually get you clients."
     },
     {
-      question: "How does it work?",
-      answer: "It's simple - share details about your trade business, your services, and your goals. Our expert team will create a website that authentically represents your business, prioritizes lead generation, and connects with customers who need your trade services."
+      question: "How does this actually work?",
+      answer: "Super simple. We'll have a quick chat about where you are now and where you want to be. Then we redesign your website, set up smart follow-up systems, and show you what your competitors are doing. No tech headaches for you."
     },
     {
-      question: "How long does it take?",
-      answer: "We work efficiently while maintaining quality - you'll have your first trade website concept within 72 hours of starting the project. We understand that every day without a professional website means missed business opportunities."
+      question: "How long before I see more bookings?",
+      answer: "Most coaches start seeing more discovery calls within 2-3 weeks. But honestly, it depends on your current situation. Some see results in days, others take a month. We work fast, but we also make sure it's done right."
     },
     {
-      question: "Is there any risk?",
-      answer: "None at all! We offer a 100% satisfaction guarantee. If you're not completely satisfied with your new trade website, we'll refund your investment. We're confident in our ability to deliver a website that generates quality leads."
+      question: "What if this doesn't work for me?",
+      answer: "We're so confident you'll get more clients that we offer a 100% money-back guarantee. If you're not seeing more bookings after we're done, we'll refund every penny. No questions asked."
     },
     {
-      question: "What's included in the redesign?",
-      answer: "You'll get a complete visual refresh, lead optimization, mobile-first design, local SEO setup, and performance enhancements - all customized to your trade services. We focus on making it easy for customers to contact you and request your services."
+      question: "What exactly do I get?",
+      answer: "Three things that actually matter: a website redesign that turns visitors into clients, follow-up systems that stop leads from slipping away, and competitor research so you know exactly how to stand out. Plus ongoing support to keep you fully booked."
     }
   ]
   
@@ -128,7 +128,7 @@ export default function FAQSection() {
               </span>
             </h2>
             <p className="text-white/70 mb-12 text-lg max-w-2xl">
-              Get answers to common questions about our web design services and process.
+              Real answers to questions coaches ask us all the time.
             </p>
           </motion.div>
 

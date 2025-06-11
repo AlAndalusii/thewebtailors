@@ -139,20 +139,20 @@ export default function ContactSection() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
-              Get Your Website
+              Ready to Get
             </span>{" "}
             <span className={cn(
               "bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-rose-400",
               pacifico.className
             )}>
-              Tailored Today
+              Fully Booked?
             </span>
           </h2>
           <p className={cn(
             "text-lg text-white/70 max-w-2xl mx-auto",
             poppins.className
           )}>
-            Ready to transform your online presence? Let's start crafting your perfect website.
+            Let's have a quick chat about turning your website into a client magnet. No pressure, just real talk about getting you more bookings.
           </p>
         </motion.div>
 

@@ -11,15 +11,15 @@ export default function Footer() {
     
     const emailBody = `Hi TheWebTailors Team,
 
-Free website audit request:
+Let's chat about getting me fully booked:
 
 Email: ${email}
-Trade: [Your Trade Type]
+Coaching Type: [Life Coach/Business Coach/Tutor/Other]
 Website: [Current URL or "None"]
 
 Thanks!`
 
-    window.location.href = `mailto:info@thewebtailors.com?subject=Free Website Audit&body=${encodeURIComponent(emailBody)}`
+    window.location.href = `mailto:info@thewebtailors.com?subject=Let's Get Me Fully Booked&body=${encodeURIComponent(emailBody)}`
   }
 
   return (
@@ -36,7 +36,7 @@ Thanks!`
           <div className="lg:col-span-4">
             <Logo className="mb-6" />
             <p className="text-white/70 max-w-md leading-relaxed text-lg mb-6">
-              Professional web design for UK trades. Turn visitors into customers.
+              We help independent coaches and solo tutors go from invisible to fully booked.
             </p>
             
             {/* Trust Indicators */}
@@ -51,7 +51,7 @@ Thanks!`
               </div>
               <div className="flex items-center gap-2 text-white/60">
                 <Users className="w-5 h-5 text-green-400" />
-                <span className="text-sm font-medium">500+ Trades</span>
+                <span className="text-sm font-medium">200+ Coaches</span>
               </div>
               <div className="flex items-center gap-2 text-white/60">
                 <Zap className="w-5 h-5 text-purple-400" />
@@ -62,9 +62,9 @@ Thanks!`
             {/* Social Proof */}
             <div className="bg-white/5 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
               <p className="text-white/90 text-sm italic mb-2">
-                "240% more quotes in 3 months!"
+                "From 2 clients to fully booked in 6 weeks!"
               </p>
-              <p className="text-white/60 text-xs">— Mike, Birmingham Roofing</p>
+              <p className="text-white/60 text-xs">— Mark, Business Coach</p>
             </div>
           </div>
 
@@ -93,7 +93,7 @@ Thanks!`
               </li>
               <li className="flex items-center gap-2 hover:text-white transition-colors group">
                 <ArrowRight className="w-4 h-4 text-indigo-400 group-hover:translate-x-1 transition-transform" />
-                <span>Quote Forms</span>
+                <span>Follow-up Systems</span>
               </li>
             </ul>
           </div>
@@ -102,28 +102,28 @@ Thanks!`
           <div className="lg:col-span-2">
             <h4 className="text-white font-bold mb-6 text-lg flex items-center gap-2">
               <Wrench className="w-5 h-5 text-rose-400" />
-              Trades
+              Who We Help
             </h4>
             <ul className="space-y-3 text-white/60">
               <li className="flex items-center gap-2 hover:text-white transition-colors group">
                 <Home className="w-4 h-4 text-rose-400" />
-                <span>Roofers</span>
+                <span>Life Coaches</span>
               </li>
               <li className="flex items-center gap-2 hover:text-white transition-colors group">
                 <Home className="w-4 h-4 text-rose-400" />
-                <span>Driveways</span>
+                <span>Business Coaches</span>
               </li>
               <li className="flex items-center gap-2 hover:text-white transition-colors group">
                 <Home className="w-4 h-4 text-rose-400" />
-                <span>Loft Conversion</span>
+                <span>Solo Tutors</span>
               </li>
               <li className="flex items-center gap-2 hover:text-white transition-colors group">
                 <Home className="w-4 h-4 text-rose-400" />
-                <span>Kitchens</span>
+                <span>Career Coaches</span>
               </li>
               <li className="flex items-center gap-2 hover:text-white transition-colors group">
                 <Home className="w-4 h-4 text-rose-400" />
-                <span>Bathrooms</span>
+                <span>Wellness Coaches</span>
               </li>
             </ul>
           </div>

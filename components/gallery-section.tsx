@@ -78,11 +78,11 @@ export default function GallerySection() {
 
               <h2 className={cn("text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight", pacifico.variable)}>
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-300 to-purple-300 font-pacifico">
-                  Premium Website 
+                  Coaches We've Helped 
                 </span>
                 <br />
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-rose-400 font-pacifico text-4xl md:text-6xl">
-                  Transformations
+                  Get Booked
                 </span>
               </h2>
             </motion.div>
@@ -95,22 +95,22 @@ export default function GallerySection() {
               className="space-y-4"
             >
               <p className="text-white/80 max-w-4xl mx-auto text-xl font-light leading-relaxed">
-                Witness the remarkable evolution of UK trade business websites through our premium design methodology
+                Real examples of how we help coaches go from invisible to fully booked
               </p>
               <div className="flex items-center justify-center gap-6 mt-6">
                 <div className="flex items-center gap-2 text-white/60">
                   <TrendingUp className="w-4 h-4 text-green-400" />
-                  <span className="text-sm font-medium">+340% Lead Generation</span>
+                  <span className="text-sm font-medium">+200% More Discovery Calls</span>
                 </div>
                 <div className="w-px h-4 bg-white/20"></div>
                 <div className="flex items-center gap-2 text-white/60">
                   <Award className="w-4 h-4 text-yellow-400" />
-                  <span className="text-sm font-medium">Premium Standards</span>
+                  <span className="text-sm font-medium">Fully Booked Results</span>
                 </div>
                 <div className="w-px h-4 bg-white/20"></div>
                 <div className="flex items-center gap-2 text-white/60">
                   <Star className="w-4 h-4 text-indigo-400" />
-                  <span className="text-sm font-medium">Professional Excellence</span>
+                  <span className="text-sm font-medium">Coach Specialists</span>
                 </div>
               </div>
             </motion.div>
@@ -190,7 +190,7 @@ export default function GallerySection() {
                   <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
                       src="/before 4.png"
-                      alt="Before Redesign - UK Trade Business Website"
+                      alt="Before Redesign - Coach Website"
                       fill
                       className="object-contain transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
@@ -204,8 +204,8 @@ export default function GallerySection() {
                   <div className="absolute bottom-0 left-0 right-0 px-8 py-6 text-white z-20">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-xs text-white/70 font-medium tracking-wide uppercase">Original Design</p>
-                        <p className="text-sm text-white/90 mt-1">Limited functionality & outdated aesthetics</p>
+                        <p className="text-xs text-white/70 font-medium tracking-wide uppercase">Before Our Help</p>
+                        <p className="text-sm text-white/90 mt-1">Invisible online & struggling to get clients</p>
                       </div>
                       <div className="flex flex-col items-end gap-1">
                         <div className="flex gap-1">
@@ -256,7 +256,7 @@ export default function GallerySection() {
                   <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
                       src="/after 4.png"
-                      alt="After Redesign - Premium UK Trade Website"
+                      alt="After Redesign - Coach Website That Gets Clients"
                       fill
                       className="object-contain transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
@@ -270,8 +270,8 @@ export default function GallerySection() {
                   <div className="absolute bottom-0 left-0 right-0 px-8 py-6 text-white z-20">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-xs text-white/70 font-medium tracking-wide uppercase">Premium Transformation</p>
-                        <p className="text-sm text-white/90 mt-1">Advanced features & professional excellence</p>
+                        <p className="text-xs text-white/70 font-medium tracking-wide uppercase">After Working With Us</p>
+                        <p className="text-sm text-white/90 mt-1">Fully booked & attracting dream clients</p>
                       </div>
                       <div className="flex flex-col items-end gap-1">
                         <div className="flex gap-1">
@@ -304,20 +304,20 @@ export default function GallerySection() {
               
               <div className="relative z-10 p-8 md:p-10 mb-8 lg:mb-0 lg:mr-8">
                 <h4 className="text-2xl md:text-3xl font-bold text-white mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">
-                  Ready to elevate your trade business website?
+                  Ready to go from invisible to fully booked?
                 </h4>
                 <p className="text-white/80 text-lg leading-relaxed max-w-2xl">
-                  Experience our premium transformation process and watch your online presence convert more prospects into profitable customers.
+                  Let's chat about turning your website into a client magnet that gets you more bookings without the tech headaches.
                 </p>
                 <div className="mt-4 flex items-center gap-4 text-sm text-white/60">
                   <div className="flex items-center gap-2">
                     <Star className="w-4 h-4 text-yellow-400" />
-                    <span>Premium Quality</span>
+                    <span>Simple & Effective</span>
                   </div>
                   <div className="w-px h-4 bg-white/20"></div>
                   <div className="flex items-center gap-2">
                     <Award className="w-4 h-4 text-indigo-400" />
-                    <span>Professional Results</span>
+                    <span>Fully Booked Results</span>
                   </div>
                 </div>
               </div>
@@ -332,7 +332,7 @@ export default function GallerySection() {
                   className="relative whitespace-nowrap gap-3 inline-flex items-center px-10 py-5 bg-gradient-to-r from-indigo-500 via-purple-600 to-indigo-600 hover:from-indigo-600 hover:via-purple-700 hover:to-indigo-700 transition-all duration-500 rounded-full border-0 text-white shadow-2xl shadow-indigo-500/30 hover:shadow-indigo-500/50 font-semibold text-lg" 
                   onClick={openCalendly}
                 >
-                  <span>Book Premium Website Consultation</span>
+                  <span>Let's Chat About Getting You Booked</span>
                   <motion.span 
                     animate={{ x: [0, 6, 0] }}
                     transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}

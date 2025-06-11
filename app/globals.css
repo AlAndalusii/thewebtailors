@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap');
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -362,4 +364,319 @@
 [data-loading="lazy"].loaded {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Mobile-First Performance Optimizations */
+html {
+  /* Improve iOS Safari performance */
+  -webkit-overflow-scrolling: touch;
+  /* Prevent bounce scrolling on iOS */
+  overscroll-behavior: none;
+  /* Optimize text rendering */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  /* Improve font rendering on mobile */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent iOS zoom on form inputs */
+  -webkit-text-size-adjust: 100%;
+  /* Better touch responsiveness */
+  touch-action: manipulation;
+}
+
+/* Apple-Level Touch Interactions */
+.touch-manipulation {
+  touch-action: manipulation;
+  /* Better touch targets */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Enhanced button interactions for mobile */
+button, 
+[role="button"],
+input[type="submit"],
+input[type="button"] {
+  /* Remove iOS button styling */
+  -webkit-appearance: none;
+  appearance: none;
+  /* Better touch feedback */
+  touch-action: manipulation;
+  /* Prevent text selection on touch */
+  -webkit-user-select: none;
+  user-select: none;
+  /* iOS Safari tap highlight */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Improve mobile input experience */
+input, 
+textarea, 
+select {
+  /* Remove iOS input styling */
+  -webkit-appearance: none;
+  appearance: none;
+  /* Better mobile keyboard handling */
+  border-radius: 0;
+}
+
+/* Performance optimizations for animations */
+.reduce-animations * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* Mobile-optimized scrolling */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Apple-style focus states for accessibility */
+button:focus-visible,
+[role="button"]:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.6);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Mobile-optimized text selection */
+::selection {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: inherit;
+}
+
+::-moz-selection {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: inherit;
+}
+
+/* Better mobile image loading */
+img {
+  /* Prevent layout shift during loading */
+  height: auto;
+  /* Better image rendering on mobile */
+  image-rendering: optimizeQuality;
+}
+
+/* Mobile-first responsive utilities */
+@media (max-width: 768px) {
+  /* Larger touch targets on mobile */
+  .mobile-touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Better mobile typography */
+  .mobile-text {
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+  
+  /* Optimized spacing for mobile */
+  .mobile-spacing {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+}
+
+/* iOS Safari specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari bounce prevention */
+  body {
+    position: fixed;
+    overflow: hidden;
+  }
+  
+  body.scroll-enabled {
+    position: static;
+    overflow: auto;
+  }
+  
+  /* Better iOS input handling */
+  input, textarea {
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+/* Android Chrome specific optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  /* Better Chrome mobile performance */
+  .chrome-mobile-optimized {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+}
+
+/* Prefers reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  /* Enhance contrast for better accessibility */
+  .high-contrast {
+    filter: contrast(1.5);
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  /* Better dark mode performance */
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* Custom scrollbar for better mobile experience */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Loading states for better perceived performance */
+.loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer 2s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Apple-style glass morphism effects */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced mobile animations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .mobile-animation-simple {
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+  }
+  
+  /* Better mobile transforms */
+  .mobile-transform {
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+/* Critical CSS for above-the-fold content */
+.critical-section {
+  /* Prioritize rendering */
+  contain: layout style paint;
+  /* Better performance */
+  will-change: transform;
+}
+
+/* Intersection observer optimizations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile-optimized hero section */
+@media (max-width: 768px) {
+  .hero-mobile {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile browsers */
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Better mobile form interactions */
+.mobile-form-field {
+  /* Larger touch targets */
+  min-height: 48px;
+  /* Better visual feedback */
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.mobile-form-field:focus {
+  border-color: rgba(99, 102, 241, 0.6);
+  outline: none;
+}
+
+/* Mobile-optimized CTA buttons */
+.mobile-cta {
+  /* Full width on mobile */
+  width: 100%;
+  /* Better touch feedback */
+  padding: 1rem 2rem;
+  /* Enhanced tap area */
+  min-height: 56px;
+  /* Smooth transitions */
+  transition: all 0.2s ease;
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .safe-area-insets {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Performance hints for the browser */
+.performance-optimized {
+  /* GPU acceleration */
+  transform: translateZ(0);
+  /* Better repainting */
+  will-change: transform;
+  /* Prevent layout thrashing */
+  contain: layout;
 }

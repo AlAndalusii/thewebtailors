@@ -3,13 +3,13 @@
 import { motion, Variants } from "framer-motion"
 import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
-import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart, ChevronRight, ShieldCheck, Star, Award, Crown, Sparkles, TrendingUp } from "lucide-react"
+import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart, ChevronRight, ShieldCheck, Star, Award, Crown, Sparkles, TrendingUp, Mail, CheckCircle, Lightbulb, Wrench, MessageSquare } from "lucide-react"
 import Image from "next/image"
 import { useState, useRef, useEffect, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useSectionVisibility } from '@/hooks/useScrollManager';
+
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -198,211 +198,128 @@ const ResultCard = ({
               transition={{ 
                 duration: 5, 
                 repeat: Infinity, 
-                ease: "easeInOut" 
+                repeatType: "reverse" 
               }}
             >
-              <Icon className="w-8 h-8 text-white" />
+              <Icon className="h-8 w-8 text-white" />
             </motion.div>
           </div>
         </div>
         
-        {/* Text content */}
-        <div className="text-center">
-          <motion.h4 
-            className="text-lg font-medium mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90 group-hover:from-indigo-200 group-hover:to-white transition-colors duration-300"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: delay + 0.2 }}
-            viewport={{ once: true }}
-          >
+        <div className="text-center flex-1 flex flex-col justify-center">
+          <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-300 group-hover:to-rose-300 transition-all duration-300">
             {title}
-          </motion.h4>
-          <motion.p 
-            className="text-white/60 text-sm"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: delay + 0.4 }}
-            viewport={{ once: true }}
-          >
+          </h3>
+          <p className="text-white/60 leading-relaxed text-sm">
             {description}
-          </motion.p>
+          </p>
         </div>
-        
-        {/* Animated underline */}
-        <motion.div 
-          className="h-0.5 bg-gradient-to-r from-indigo-500/60 to-rose-500/60 rounded-full mx-auto mt-5"
-          initial={{ width: 0 }}
-          whileInView={{ width: "30%" }}
-          whileHover={{ width: "60%" }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        />
       </div>
     </motion.div>
   )
 }
 
-// Animation variants and typing effect state for dashboard mockup (from hero-section)
-const uiMockupVariants = {
-  hover: {
-    rotateY: [0, 2, 0, -2, 0],
-    rotateX: [0, 1, 0, -1, 0],
-    transition: {
-      duration: 10,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }
-  }
-}
-const cursorBlink = {
-  opacity: [0, 1, 1, 0],
-  transition: {
-    duration: 1.5,
-    repeat: Infinity,
-    repeatType: "loop" as const,
-    times: [0, 0.4, 0.8, 1]
-  }
-}
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-}
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: {
-    opacity: 1,
+// Animation variants for performance optimization
+const metricsVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
     y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.25, 0.4, 0.25, 1],
-    },
-  },
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
 }
-const mockupLines = [
-  "FASTEST RESPONSE TIME",
-  "24/7 Emergency", 
-  "Lock & Security Solutions",
-  "Professional Service"
-];
 
-export default function ServicesSection() {
-  const router = useRouter();
-  const sectionRef = useRef(null);
-  const [typingState, setTypingState] = useState<{ current: { typingIndex: number; charIndex: number } }>({
-    current: { typingIndex: 0, charIndex: 0 }
-  });
-  const [typedLines, setTypedLines] = useState<string[]>(['', '', '', '']);
-  
-  const isVisible = useSectionVisibility('services', 0.1);
-
-  const mockupLines = [
-    "TRUSTED LOCAL EXPERTS",
-    "Get Quality Work Done Right", 
-    "Professional Trade Services You Can Rely On",
-    "Book Your Free Quote Today"
-  ];
-
-  const metricsVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6, staggerChildren: 0.1 }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.3 }
-    }
-  };
-
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    show: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5 }
-    }
-  };
-
-  const cursorBlink = {
-    opacity: [1, 0],
+const pulseVariants = {
+  initial: { scale: 1, opacity: 0.8 },
+  animate: {
+    scale: [1, 1.2, 1],
+    opacity: [0.8, 1, 0.8],
     transition: {
-      duration: 0.8,
+      duration: 2,
       repeat: Infinity,
       repeatType: "reverse" as const
     }
-  };
+  }
+}
 
-  const uiMockupVariants = {
-    hover: {
-      rotateY: [0, 2, 0],
-      rotateX: [0, 1, 0],
-      transition: { duration: 4, repeat: Infinity }
+export default function ServicesSection() {
+  const router = useRouter()
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  // Updated for coaches - force reload
+  
+  // --- Dashboard typing animation (optimized) ---
+  const [dashboardText, setDashboardText] = useState("")
+  const dashboardLines = [
+    "✓ Smart Follow-ups Running",
+    "✓ 12 Discovery Calls This Week",
+    "✓ Competitor Analysis Complete"
+  ]
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
-  };
 
-  const pulseVariants = {
-    initial: { opacity: 0.3, scale: 1 },
-    animate: {
-      opacity: [0.3, 0.5, 0.3],
-      scale: [1, 1.1, 1],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        repeatType: "reverse" as const
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
       }
-    }
-  };
-
-  // Optimized typing effect
+    };
+  }, []);
+  
   useEffect(() => {
     if (!isVisible) return;
 
-    const typeSpeed = 80;
     let currentLineIndex = 0;
     let currentCharIndex = 0;
+    let isDeleting = false;
     let timeoutId: NodeJS.Timeout;
-
+    
     const typeLines = () => {
-      if (currentLineIndex < mockupLines.length) {
-        const currentLine = mockupLines[currentLineIndex];
+      if (currentLineIndex >= dashboardLines.length) {
+        currentLineIndex = 0;
+      }
+      
+      const currentLine = dashboardLines[currentLineIndex];
+      
+      if (!isDeleting && currentCharIndex <= currentLine.length) {
+        setDashboardText(currentLine.substring(0, currentCharIndex));
+        currentCharIndex++;
+      } else if (isDeleting && currentCharIndex >= 0) {
+        setDashboardText(currentLine.substring(0, currentCharIndex));
+        currentCharIndex--;
         
-        if (currentCharIndex < currentLine.length) {
-          setTypedLines(prev => {
-            const newLines = [...prev];
-            newLines[currentLineIndex] = currentLine.substring(0, currentCharIndex + 1);
-            return newLines;
-          });
-          
-          setTypingState({ current: { typingIndex: currentLineIndex, charIndex: currentCharIndex } });
-          currentCharIndex++;
-          timeoutId = setTimeout(typeLines, typeSpeed);
-        } else {
+        if (currentCharIndex < 0) {
+          isDeleting = false;
           currentLineIndex++;
           currentCharIndex = 0;
-          timeoutId = setTimeout(typeLines, typeSpeed * 3);
         }
       } else {
-        setTypingState({ current: { typingIndex: -1, charIndex: 0 } });
+        setTimeout(() => {
+          isDeleting = true;
+        }, 2000);
       }
     };
 
-    const startDelay = setTimeout(typeLines, 1000);
+    const startDelay = setTimeout(() => {
+      timeoutId = setInterval(typeLines, isDeleting ? 50 : 100);
+    }, 1000);
 
     return () => {
       clearTimeout(startDelay);
-      clearTimeout(timeoutId);
+      if (timeoutId) {
+        clearInterval(timeoutId);
+      }
     };
-  }, [isVisible]);
+  }, [isVisible, dashboardLines]);
 
   const handleBookDemo = () => {
     const calendlyElement = document.querySelector('[data-calendly-link]') as HTMLElement;
@@ -416,7 +333,7 @@ export default function ServicesSection() {
   }
 
   return (
-    <section id="services" className="relative py-24 pt-32 bg-[#030303] overflow-hidden scroll-mt-20">
+    <section ref={sectionRef} id="services" className="relative py-24 pt-32 bg-[#030303] overflow-hidden scroll-mt-20">
       {/* Enhanced Premium Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.03] to-rose-500/[0.03]" />
       <motion.div 
@@ -502,14 +419,14 @@ export default function ServicesSection() {
             </div>
 
             <h2 className="text-5xl md:text-6xl font-bold mb-8 relative">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/95 to-white/85">Our Premium</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/95 to-white/85">How We Help You</span>
               <span
                 className={cn(
                   " ml-3 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-rose-300",
                   pacifico.className,
                 )}
               >
-                Services
+                Get Booked
               </span>
               
               {/* Luxury Accent Lines */}
@@ -547,7 +464,7 @@ export default function ServicesSection() {
             className="space-y-6"
           >
             <p className="text-white/85 max-w-4xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
-              Build trade websites that work as hard as you do — turning every visitor into a potential customer.
+              Three simple ways we turn invisible coaches into fully booked ones.
             </p>
             
             {/* Premium Credentials Bar */}
@@ -570,17 +487,17 @@ export default function ServicesSection() {
                     className="absolute inset-0 bg-amber-400/30 rounded-full blur-sm"
                   />
                 </div>
-                <span className="text-sm font-semibold tracking-wide">Premium Excellence</span>
+                <span className="text-sm font-semibold tracking-wide">Premium Results</span>
               </div>
               <div className="w-px h-6 bg-white/30"></div>
               <div className="flex items-center gap-3 text-white/70">
                 <TrendingUp className="w-5 h-5 text-green-400" />
-                <span className="text-sm font-semibold tracking-wide">+285% ROI Average</span>
+                <span className="text-sm font-semibold tracking-wide">+200% More Bookings</span>
               </div>
               <div className="w-px h-6 bg-white/30"></div>
               <div className="flex items-center gap-3 text-white/70">
                 <Crown className="w-5 h-5 text-indigo-400" />
-                <span className="text-sm font-semibold tracking-wide">Industry Leaders</span>
+                <span className="text-sm font-semibold tracking-wide">Coach Specialists</span>
               </div>
             </motion.div>
 
@@ -593,7 +510,7 @@ export default function ServicesSection() {
               className="relative"
             >
               <p className="text-white/60 text-lg max-w-3xl mx-auto leading-relaxed italic">
-                "Meticulously crafted for discerning UK trade professionals who demand nothing less than exceptional digital presence"
+                "Simple, effective strategies that work for independent coaches who want more clients without the tech headaches"
               </p>
               <div className="flex justify-center mt-4">
                 <div className="flex gap-1">
@@ -614,736 +531,339 @@ export default function ServicesSection() {
           </motion.div>
         </motion.div>
 
-        {/* Main Feature: Website Redesign */}
-        <div className="mb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-900/60 via-blue-950/70 to-purple-900/70 shadow-2xl shadow-indigo-900/30">
-                {/* --- Begin Dashboard Mockup (moved from hero) --- */}
-                {/* Browser window mockup with 3D perspective */}
-                <motion.div 
-                  className="bg-slate-900/80 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-700/50 shadow-2xl transform perspective-1200"
-                  animate="hover"
-                  variants={uiMockupVariants}
-                >
-                  {/* Browser header */}
-                  <div className="bg-slate-800/80 backdrop-blur-md p-3 border-b border-slate-700/50 flex items-center justify-between">
-                    <div className="flex items-center space-x-1.5">
-                      <div className="w-3 h-3 rounded-full bg-rose-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-amber-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
-                    <div className="flex-1 mx-4">
-                      <div className="bg-slate-700/80 backdrop-blur-sm rounded-full h-6 w-full max-w-md mx-auto flex items-center justify-center group hover:bg-slate-600/80 transition-colors duration-300">
-                        <div className="flex items-center text-slate-400 text-xs group-hover:text-slate-300 transition-colors duration-300">
-                          <span>qualitytradeservices.co.uk</span>
-                          <motion.span 
-                            className="ml-1 w-1 h-3 bg-indigo-400 inline-block"
-                            animate={cursorBlink}
-                          ></motion.span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Browser content - Modern premium design */}
-                  <div className="h-[450px] relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-slate-900/20 to-rose-900/30 backdrop-blur-sm"></div>
-                    {/* Top navigation bar */}
-                    <div className="relative z-10 h-14 backdrop-blur-md bg-black/10 border-b border-white/10 flex items-center justify-between px-6">
+        {/* Three Main Services - Premium A-Grade Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
+          {/* Website Redesign - Visual Mockup */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="relative group h-full"
+          >
+            <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-all duration-500 overflow-hidden shadow-2xl shadow-black/20 h-full flex flex-col group-hover:shadow-indigo-500/10">
+              {/* Premium Background Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.02] via-purple-500/[0.01] to-rose-500/[0.02] rounded-3xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/[0.01] to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* Animated Browser Mockup - Premium Version */}
+              <div className="relative mb-8 flex-shrink-0">
+                <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl p-4 border border-gray-700/40 shadow-2xl shadow-black/30">
+                  {/* Premium Browser Header */}
+                  <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-700/30">
+                    <div className="flex gap-2">
                       <motion.div 
-                        className="text-white font-bold text-lg tracking-wide flex items-center space-x-2"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.8, duration: 0.5 }}
-                      >
-                        <motion.div 
-                          className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-md flex items-center justify-center mr-2"
-                          whileHover={{ rotate: [0, 5, -5, 0] }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <span className="text-sm font-bold">Q</span>
-                        </motion.div>
-                      </motion.div>
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                        className="w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-red-600 shadow-lg shadow-red-500/30"
+                      />
                       <motion.div 
-                        className="flex space-x-8"
-                        variants={staggerContainer}
-                        initial="hidden"
-                        animate="show"
-                      >
-                        {["HOME", "SERVICES", "GALLERY", "ABOUT", "CONTACT"].map((item, i) => (
-                          <motion.div 
-                            key={item} 
-                            variants={fadeInUp}
-                            className={`text-sm font-medium transition-colors duration-300 ${i === 0 ? 'text-white' : 'text-white/60 hover:text-white'}`}
-                            whileHover={{ y: -2 }}
-                          >
-                            {item}
-                          </motion.div>
-                        ))}
-                      </motion.div>
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                        className="w-3 h-3 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 shadow-lg shadow-yellow-500/30"
+                      />
+                      <motion.div 
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+                        className="w-3 h-3 rounded-full bg-gradient-to-br from-green-400 to-green-600 shadow-lg shadow-green-500/30"
+                      />
                     </div>
-                    {/* Main content area */}
-                    <div className="relative z-10 grid grid-cols-12 gap-6 p-6 h-[calc(100%-56px)]">
-                      <div className="col-span-8 flex flex-col justify-center">
-                        {/* Typing effect for all lines */}
-                        <div className="min-h-[140px] flex flex-col justify-center space-y-3">
-                          {mockupLines.map((line, i) => (
-                            <div key={i} className={
-                              i === 0
-                                ? "text-xs text-indigo-400 font-semibold mb-2 tracking-wider uppercase"
-                                : i === 1
-                                ? "text-4xl font-bold text-white mb-1 leading-tight tracking-tight"
-                                : i === 2
-                                ? "text-lg text-white/80 font-medium tracking-wide"
-                                : "text-xl font-bold mb-3 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-500 to-rose-400"
-                            }>
-                              {typedLines[i] || ""}
-                              {typingState.current.typingIndex === i && (
-                                <motion.span
-                                  className="inline-block w-1 h-4 align-middle bg-indigo-400 ml-0.5"
-                                  animate={cursorBlink}
-                                />
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                        
-                        <div className="flex flex-col gap-4 mt-8">
-                          <motion.div 
-                            className="flex space-x-3 items-center"
-                            whileHover={{ scale: 1.05, x: 3 }}
-                          >
-                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-green-500/20 to-green-500/10 backdrop-blur-sm">
-                              <ShieldCheck className="h-4 w-4 text-green-400" />
-                            </div>
-                            <span className="text-white/70 text-sm font-medium">Fully Insured & Certified</span>
-                          </motion.div>
-                          <motion.div 
-                            className="flex space-x-3 items-center"
-                            whileHover={{ scale: 1.05, x: 3 }}
-                          >
-                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-amber-500/20 to-amber-500/10 backdrop-blur-sm">
-                              <Star className="h-4 w-4 text-amber-400" />
-                            </div>
-                            <span className="text-white/70 text-sm font-medium">5-Star Customer Reviews</span>
-                          </motion.div>
-                        </div>
-
-                        <div className="flex space-x-4 mt-8">
-                          <motion.button 
-                            className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white text-sm font-bold flex items-center space-x-2 hover:from-indigo-700 hover:to-purple-700 transition-colors shadow-lg shadow-indigo-900/30"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <span>Get Free Quote</span>
-                            <ChevronRight className="h-4 w-4" />
-                          </motion.button>
-                          <motion.button 
-                            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white text-sm font-medium hover:bg-white/10 transition-colors"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            View Gallery
-                          </motion.button>
-                        </div>
+                    <div className="flex-1 bg-gray-800/60 rounded-lg text-sm text-gray-300 px-4 py-2 font-mono">
+                      https://yourcoaching.com
+                    </div>
+                  </div>
+                  
+                  <div className="h-32 relative overflow-hidden">
+                    {/* Before Website - Outdated */}
+                    <motion.div
+                      animate={{ opacity: [1, 0, 1] }}
+                      transition={{ duration: 6, repeat: Infinity }}
+                      className="space-y-3 absolute inset-0"
+                    >
+                      <div className="h-3 bg-gray-600/40 rounded-lg w-4/5 animate-pulse"></div>
+                      <div className="h-2 bg-gray-600/30 rounded w-3/5"></div>
+                      <div className="h-2 bg-gray-600/25 rounded w-2/3"></div>
+                      <div className="h-8 bg-gray-600/20 rounded-lg mt-4 flex items-center justify-center">
+                        <span className="text-xs text-gray-500">Contact Us</span>
                       </div>
-                      <div className="col-span-4 relative">
-                        <div className="relative h-full w-full flex items-center justify-center">
-                          <motion.div
-                            animate={{ 
-                              y: [0, -10, 0],
-                              rotate: [0, 5, 0]
-                            }}
-                            transition={{ 
-                              duration: 6, 
-                              repeat: Infinity,
-                              repeatType: "loop" as const, 
-                            }}
-                            className="absolute h-32 w-32 bg-gradient-to-br from-indigo-500/20 to-transparent backdrop-blur-md border border-indigo-500/30 rounded-xl shadow-[0_0_15px_rgba(99,102,241,0.3)] transform rotate-12"
-                          />
-                          <motion.div
-                            animate={{ 
-                              y: [0, 10, 0],
-                              rotate: [0, -5, 0]
-                            }}
-                            transition={{ 
-                              duration: 7, 
-                              repeat: Infinity,
-                              repeatType: "loop" as const,
-                              delay: 0.5
-                            }}
-                            className="absolute h-32 w-32 bg-gradient-to-br from-purple-500/20 to-transparent backdrop-blur-md border border-purple-500/30 rounded-xl shadow-[0_0_15px_rgba(168,85,247,0.3)] transform -rotate-6"
-                          />
-                          <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 1.5, duration: 0.8 }}
-                            className="relative z-10 w-48 h-48 rounded-full bg-gradient-to-br from-indigo-800/80 to-purple-800/80 backdrop-blur-md border border-indigo-500/30 shadow-[0_0_30px_rgba(99,102,241,0.3)] overflow-hidden"
-                            whileHover={{ boxShadow: "0 0 40px rgba(99,102,241,0.5)" }}
-                          >
-                            <div className="absolute inset-1 rounded-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-white/90 text-center">
-                                  <div className="text-2xl font-bold mb-2">⭐⭐⭐⭐⭐</div>
-                                  <p className="text-xs font-medium">Premium Quality</p>
-                                  <p className="text-[10px] text-white/60">Trusted Professionals</p>
-                                </div>
-                              </div>
-                            </div>
-                            <motion.div 
-                              className="absolute top-6 right-6 w-1.5 h-1.5 rounded-full bg-green-400"
-                              animate={{
-                                y: [0, -8, 0],
-                                opacity: [0.2, 1, 0.2]
-                              }}
-                              transition={{
-                                duration: 3,
-                                repeat: Infinity,
-                                repeatType: "loop" as const
-                              }}
-                            />
-                            <motion.div 
-                              className="absolute bottom-10 left-4 w-1 h-1 rounded-full bg-indigo-400"
-                              animate={{
-                                y: [0, 6, 0],
-                                opacity: [0.2, 1, 0.2]
-                              }}
-                              transition={{
-                                duration: 2.5,
-                                repeat: Infinity,
-                                repeatType: "loop" as const,
-                                delay: 0.5
-                              }}
-                            />
-                            <motion.div 
-                              className="absolute top-14 left-6 w-1 h-1 rounded-full bg-rose-400"
-                              animate={{
-                                y: [0, -5, 0],
-                                opacity: [0.2, 1, 0.2]
-                              }}
-                              transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                repeatType: "loop" as const,
-                                delay: 1
-                              }}
-                            />
-                          </motion.div>
-                        </div>
-                      </div>
-                    </div>
-                    <motion.div 
-                      className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-indigo-500/10 to-transparent"
-                      animate={{ 
-                        opacity: [0.1, 0.3, 0.1],
-                      }}
-                      transition={{ 
-                        duration: 4, 
-                        repeat: Infinity,
-                        repeatType: "loop" as const
-                      }}
-                    />
-                  </div>
-                </motion.div>
-                {/* --- End Dashboard Mockup --- */}
-              </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300">
-                UK Trade Website Design
-              </h3>
-              <p className="text-white/70 mb-4 leading-relaxed">
-                Turn your trade business website into a tool that gets you more local job enquiries and builds trust with homeowners.
-              </p>
-              <p className="text-white/70 mb-8 leading-relaxed">
-                We build websites made for UK trades—fast-loading, mobile-ready, and built to turn visitors into real customers.
-              </p>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <span className="text-white/80">Show off your recent projects and 5-star customer reviews</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <span className="text-white/80">Build trust with accreditations, badges, and trade logos</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500/20 to-rose-500/20 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 1L3.5 8.5L1 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <span className="text-white/80">Get more quotes with forms that work on every phone</span>
-                </li>
-              </ul>
-              <div className="flex flex-wrap gap-4">
-                <Button 
-                  className="gap-2 bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 transition-all duration-300 border-0 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40" 
-                  onClick={handleBookDemo}
-                >
-                  Book a Free Demo
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Follow-Up System for Accountants Feature */}
-        <div className="mb-24" id="follow-up-system-section">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="order-2 lg:order-1"
-            >
-              <motion.h3 
-                className="text-3xl font-bold mb-6"
-                initial={{ opacity: 0, y: -10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-indigo-300">
-                  Follow-Up System for Trades
-                </span>
-              </motion.h3>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-                className="text-white/80 text-lg leading-relaxed mb-8"
-              >
-                Our 24/7 Follow-Up System keeps leads engaged and books jobs faster — automatically answers common questions and matches jobs to your services.
-              </motion.p>
-              
-              <div className="space-y-5 mb-8">
-                <motion.div 
-                  className="flex gap-3 items-start"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
-                >
-                  <div className="relative w-10 h-10 flex-shrink-0">
+                    </motion.div>
+                    
+                    {/* After Website - Modern */}
                     <motion.div
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/50 to-purple-500/50 blur-md"
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        opacity: [0.5, 0.8, 0.5],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        repeatType: "reverse"
-                      }}
-                    />
-                    <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center flex-shrink-0">
-                      <motion.div
-                        animate={{ rotate: [0, 360] }}
-                        transition={{ 
-                          duration: 15,
-                          repeat: Infinity,
-                          ease: "linear" 
-                        }}
-                        className="absolute inset-0 rounded-full overflow-hidden"
+                      animate={{ opacity: [0, 1, 0] }}
+                      transition={{ duration: 6, repeat: Infinity, delay: 3 }}
+                      className="space-y-3 absolute inset-0"
+                    >
+                      <div className="h-4 bg-gradient-to-r from-indigo-400/80 to-purple-500/80 rounded-lg w-4/5 shadow-lg shadow-indigo-500/20"></div>
+                      <div className="h-2.5 bg-white/60 rounded w-3/5"></div>
+                      <div className="h-2.5 bg-white/50 rounded w-2/3"></div>
+                      <motion.div 
+                        animate={{ scale: [1, 1.02, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="h-10 bg-gradient-to-r from-indigo-600/90 to-rose-600/90 rounded-xl mt-4 flex items-center justify-center shadow-xl shadow-indigo-500/30"
                       >
-                        <div className="w-full h-full bg-gradient-to-r from-indigo-500/10 to-purple-500/0" />
+                        <span className="text-sm text-white font-semibold">Book Discovery Call</span>
                       </motion.div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-300">
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                      </svg>
-                    </div>
+                    </motion.div>
                   </div>
-                  <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Smart Job Matching</h4>
-                    <p className="text-white/60 text-sm">Instantly routes enquiries to the right service and captures details.</p>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="flex gap-3 items-start"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  viewport={{ once: true }}
-                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
-                >
-                  <div className="relative w-10 h-10 flex-shrink-0">
-                    <motion.div
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/50 to-pink-500/50 blur-md"
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        opacity: [0.5, 0.8, 0.5],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        delay: 0.5
-                      }}
-                    />
-                    <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-purple-500/30 to-pink-500/30 flex items-center justify-center flex-shrink-0">
-                      <motion.div
-                        animate={{ rotate: [0, 360] }}
-                        transition={{ 
-                          duration: 15,
-                          repeat: Infinity,
-                          ease: "linear" 
-                        }}
-                        className="absolute inset-0 rounded-full overflow-hidden"
-                      >
-                        <div className="w-full h-full bg-gradient-to-r from-purple-500/10 to-pink-500/0" />
-                      </motion.div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-300">
-                        <path d="M17 10h.01"></path>
-                        <path d="M7 10h.01"></path>
-                        <path d="M13 14h.01"></path>
-                        <rect width="20" height="14" x="2" y="5" rx="2"></rect>
-                      </svg>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Lead Capture</h4>
-                    <p className="text-white/60 text-sm">Grabs customer info and syncs with your CRM to turn visitors into leads.</p>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="flex gap-3 items-start"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  viewport={{ once: true }}
-                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
-                >
-                  <div className="relative w-10 h-10 flex-shrink-0">
-                    <motion.div
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500/50 to-rose-500/50 blur-md"
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        opacity: [0.5, 0.8, 0.5],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        delay: 1
-                      }}
-                    />
-                    <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-pink-500/30 to-rose-500/30 flex items-center justify-center flex-shrink-0">
-                      <motion.div
-                        animate={{ rotate: [0, 360] }}
-                        transition={{ 
-                          duration: 15,
-                          repeat: Infinity,
-                          ease: "linear" 
-                        }}
-                        className="absolute inset-0 rounded-full overflow-hidden"
-                      >
-                        <div className="w-full h-full bg-gradient-to-r from-pink-500/10 to-rose-500/0" />
-                      </motion.div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-pink-300">
-                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                        <line x1="16" x2="16" y1="2" y2="6"></line>
-                        <line x1="8" x2="8" y1="2" y2="6"></line>
-                        <line x1="3" x2="21" y1="10" y2="10"></line>
-                      </svg>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-white font-medium mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">Instant Quotes</h4>
-                    <p className="text-white/60 text-sm">Sends fast quotes and adds jobs to your calendar — never miss a lead.</p>
-                  </div>
-                </motion.div>
+                </div>
               </div>
               
-              <motion.div 
-                className="flex flex-wrap gap-4"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                viewport={{ once: true }}
-              >
-                <motion.div
-                  whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Button 
-                    className="gap-2 relative overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 border-0 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 px-6 py-3" 
-                    onClick={handleBookDemo}
+              <div className="text-center flex-grow flex flex-col justify-between relative z-10">
+                <div>
+                  <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-400/30 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-indigo-500/20"
                   >
-                    <motion.span 
-                      className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-                      animate={{ x: ['-100%', '100%'] }}
-                      transition={{ 
-                        duration: 1.5, 
-                        repeat: Infinity, 
-                        repeatDelay: 3 
-                      }}
-                    />
-                    <span className="relative z-10 flex items-center">
-                      Book a Free Demo
-                      <motion.span
-                        animate={{ x: [0, 4, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
-                      >
-                        <ArrowRight className="h-4 w-4 ml-2" />
-                      </motion.span>
-                    </span>
-                  </Button>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="order-1 lg:order-2 relative z-50 lg:ml-6"
-            >
-              <div className="relative">
-                <motion.div 
-                  className="absolute -top-6 -right-6 w-64 h-64 rounded-full"
-                  animate={{ 
-                    background: [
-                      'radial-gradient(circle, rgba(99,102,241,0.3) 0%, rgba(147,51,234,0.1) 70%, rgba(0,0,0,0) 100%)',
-                      'radial-gradient(circle, rgba(139,92,246,0.3) 0%, rgba(168,85,247,0.1) 70%, rgba(0,0,0,0) 100%)',
-                      'radial-gradient(circle, rgba(99,102,241,0.3) 0%, rgba(147,51,234,0.1) 70%, rgba(0,0,0,0) 100%)'
-                    ],
-                    filter: ['blur(60px)', 'blur(80px)', 'blur(60px)'],
-                  }}
-                  transition={{ 
-                    duration: 5, 
-                    repeat: Infinity, 
-                    repeatType: "reverse" 
-                  }}
-                />
+                    <Palette className="w-8 h-8 text-indigo-400" />
+                  </motion.div>
+                  <h3 className="text-2xl font-bold text-white mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">
+                    Website That Converts
+                  </h3>
+                  <p className="text-white/70 text-base leading-relaxed mb-6">
+                    Transform your outdated site into a client magnet
+                  </p>
+                </div>
                 
-                {/* Dashboard Preview with enhanced animations */}
-                <motion.div
-                  initial={{ y: 0 }}
-                  animate={{ 
-                    y: [0, -10, 0],
-                    boxShadow: [
-                      "0 0 0 rgba(99, 102, 241, 0.3)",
-                      "0 0 30px rgba(99, 102, 241, 0.6)",
-                      "0 0 0 rgba(99, 102, 241, 0.3)"
-                    ]
-                  }}
-                  transition={{ 
-                    repeat: Infinity, 
-                    duration: 4,
-                    ease: "easeInOut"
-                  }}
-                  className="relative z-10 w-full max-w-md mx-auto"
-                >
-                  {/* Animated glow effect */}
-                  <motion.div
-                    animate={{
-                      opacity: [0.4, 0.8, 0.4],
-                      scale: [1, 1.03, 1]
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 3,
-                      ease: "easeInOut"
-                    }}
-                    className="absolute -inset-2 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 rounded-xl blur-xl z-0"
-                  />
-                  
-                  <div className="relative rounded-xl overflow-hidden border border-white/20 shadow-xl shadow-indigo-500/30">
-                    <Image
-                      src="/hotel-bot-dashboard.svg"
-                      alt="Accounting Chatbot Dashboard"
-                      width={800}
-                      height={500}
-                      className="w-full"
-                      priority
-                    />
-                    <div className="absolute top-0 left-0 right-0 px-4 py-2 bg-gradient-to-r from-indigo-500/90 to-purple-700/90 backdrop-blur-sm">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-white text-sm font-medium">Emergency Response System</h4>
-                        <div className="flex space-x-1">
-                          <div className="w-2 h-2 rounded-full bg-red-400"></div>
-                          <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
-                          <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Animated pulse indicators */}
-                    <motion.div
-                      animate={{
-                        opacity: [0, 1, 0],
-                        scale: [0.8, 1.2, 0.8]
-                      }}
-                      transition={{
-                        repeat: Infinity,
-                        duration: 2,
-                        ease: "easeInOut",
-                        delay: 1
-                      }}
-                      className="absolute top-1/4 left-1/4 w-3 h-3 bg-green-500 rounded-full"
-                    >
-                      <motion.div
-                        animate={{ scale: [1, 2, 1] }}
-                        transition={{
-                          repeat: Infinity,
-                          duration: 2
-                        }}
-                        className="absolute inset-0 bg-green-500 rounded-full opacity-50"
-                      />
-                    </motion.div>
-                    
-                    <motion.div
-                      animate={{
-                        opacity: [0, 1, 0],
-                        scale: [0.8, 1.2, 0.8]
-                      }}
-                      transition={{
-                        repeat: Infinity,
-                        duration: 2,
-                        ease: "easeInOut",
-                        delay: 0.5
-                      }}
-                      className="absolute top-2/3 right-1/3 w-3 h-3 bg-indigo-500 rounded-full"
-                    >
-                      <motion.div
-                        animate={{ scale: [1, 2, 1] }}
-                        transition={{
-                          repeat: Infinity,
-                          duration: 2,
-                          delay: 0.5
-                        }}
-                        className="absolute inset-0 bg-indigo-500 rounded-full opacity-50"
-                      />
-                    </motion.div>
-                  </div>
-                </motion.div>
-                
-                {/* Conversation Preview with better animations */}
-                <motion.div
-                  initial={{ opacity: 1, x: 0, y: 0 }}
-                  animate={{ opacity: 1 }}
-                  whileHover={{ 
-                    scale: 1.05,
-                    transition: { duration: 0.3 }
-                  }}
-                  className="absolute -bottom-8 -right-8 z-20 w-48 lg:w-60"
-                >
-                  <div className="rounded-xl overflow-hidden border border-white/20 shadow-xl shadow-purple-500/30">
-                    <div className="bg-slate-900/90 p-3 border-b border-white/10 flex items-center space-x-2">
-                      <motion.div 
-                        animate={{ 
-                          scale: [1, 1.3, 1],
-                          backgroundColor: ["rgb(34, 197, 94)", "rgb(52, 211, 153)", "rgb(34, 197, 94)"]
-                        }}
-                        transition={{
-                          repeat: Infinity,
-                          duration: 2,
-                          ease: "easeInOut"
-                        }}
-                        className="w-2 h-2 rounded-full bg-green-500"
-                      />
-                      <p className="text-white text-xs">Emergency Response System</p>
-                    </div>
-                    <div className="bg-slate-800/90 p-4 max-h-60">
-                      <div className="chat-msg mb-3">
-                        <motion.div 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5 }}
-                          className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
-                        >
-                          Hi! How can I help?
-                        </motion.div>
-                      </div>
-                      <div className="chat-msg mb-3">
-                        <motion.div 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: 0.5 }}
-                          className="bg-slate-700/60 rounded-lg p-2 text-white text-xs ml-auto max-w-[90%]"
-                        >
-                          We can have a tradesperson at your location within 30 minutes. Would you like me to dispatch one now?
-                        </motion.div>
-                      </div>
-                      <div className="chat-msg mb-3">
-                        <motion.div 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: 1 }}
-                          className="bg-indigo-600/40 rounded-lg p-2 text-white text-xs"
-                        >
-                          We can have a tradesperson at your location within 30 minutes. Would you like me to dispatch one now?
-                        </motion.div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Enhanced animated particles */}
-                  <motion.div
-                    animate={{ 
-                      scale: [1, 1.5, 1],
-                      opacity: [0.2, 0.6, 0.2],
-                      rotate: [0, 15, 0]
-                    }}
-                    transition={{ 
-                      repeat: Infinity, 
-                      duration: 3,
-                      ease: "easeInOut"
-                    }}
-                    className="absolute -top-4 -left-4 w-10 h-10 bg-indigo-500 rounded-full filter blur-md opacity-20"
-                  />
-                  
-                  <motion.div
-                    animate={{ 
-                      scale: [1, 1.5, 1],
-                      opacity: [0.2, 0.6, 0.2],
-                      rotate: [0, -15, 0]
-                    }}
-                    transition={{ 
-                      repeat: Infinity, 
-                      duration: 4,
-                      ease: "easeInOut",
-                      delay: 1
-                    }}
-                    className="absolute -bottom-6 -right-6 w-8 h-8 bg-purple-500 rounded-full filter blur-md opacity-30"
-                  />
-                </motion.div>
+                                 {/* Premium Benefits */}
+                 <div className="space-y-3 max-w-xs mx-auto">
+                   <div className="flex items-center text-sm text-white/60">
+                     <div className="w-2 h-2 rounded-full bg-emerald-400/80 mr-3 shadow-lg shadow-emerald-400/40 flex-shrink-0"></div>
+                     <span>Mobile-friendly & lightning fast</span>
+                   </div>
+                   <div className="flex items-center text-sm text-white/60">
+                     <div className="w-2 h-2 rounded-full bg-emerald-400/80 mr-3 shadow-lg shadow-emerald-400/40 flex-shrink-0"></div>
+                     <span>Frictionless booking process</span>
+                   </div>
+                   <div className="flex items-center text-sm text-white/60">
+                     <div className="w-2 h-2 rounded-full bg-emerald-400/80 mr-3 shadow-lg shadow-emerald-400/40 flex-shrink-0"></div>
+                     <span>Premium trust signals</span>
+                   </div>
+                 </div>
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
+
+          {/* Follow-up Systems - Chat Mockup */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="relative group h-full"
+          >
+            <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-all duration-500 overflow-hidden shadow-2xl shadow-black/20 h-full flex flex-col group-hover:shadow-purple-500/10">
+              {/* Premium Background Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/[0.02] via-rose-500/[0.01] to-orange-500/[0.02] rounded-3xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/[0.01] to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* Premium Communication Flow Mockup */}
+              <div className="relative mb-8 flex-shrink-0">
+                <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl p-4 border border-gray-700/40 shadow-2xl shadow-black/30 h-32">
+                  <div className="space-y-3 h-full flex flex-col justify-center">
+                    {/* Email Notification */}
+                    <motion.div
+                      initial={{ opacity: 0, x: -30, scale: 0.8 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      transition={{ duration: 1, repeat: Infinity, repeatDelay: 4 }}
+                      className="bg-gradient-to-r from-purple-500/30 to-rose-500/30 rounded-xl p-3 border border-purple-400/30 shadow-lg shadow-purple-500/20"
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <Mail className="w-4 h-4 text-purple-300" />
+                        <span className="text-xs text-white/80 font-medium">Follow-up Email</span>
+                      </div>
+                      <div className="text-xs text-white/60">
+                        "Hi Sarah, still interested in coaching..."
+                      </div>
+                    </motion.div>
+
+                    {/* SMS Reminder */}
+                    <motion.div
+                      initial={{ opacity: 0, x: 30, scale: 0.8 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      transition={{ duration: 1, delay: 2, repeat: Infinity, repeatDelay: 4 }}
+                      className="bg-gradient-to-r from-emerald-500/30 to-blue-500/30 rounded-xl p-3 border border-emerald-400/30 shadow-lg shadow-emerald-500/20 ml-6"
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <MessageSquare className="w-4 h-4 text-emerald-300" />
+                        <span className="text-xs text-white/80 font-medium">SMS Reminder</span>
+                      </div>
+                      <div className="text-xs text-white/60">
+                        "Your discovery call is tomorrow at 3pm"
+                      </div>
+                    </motion.div>
+
+                    {/* Success Confirmation */}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.8, delay: 4, repeat: Infinity, repeatDelay: 4 }}
+                      className="bg-gradient-to-r from-amber-500/30 to-orange-500/30 rounded-xl p-3 border border-amber-400/30 text-center shadow-lg shadow-amber-500/20 mx-3"
+                    >
+                      <CheckCircle className="w-5 h-5 text-amber-300 mx-auto mb-1" />
+                      <div className="text-xs text-white/80 font-medium">Client Booked!</div>
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-center flex-grow flex flex-col justify-between relative z-10">
+                <div>
+                  <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-rose-600/20 border border-purple-400/30 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-purple-500/20"
+                  >
+                    <Bot className="w-8 h-8 text-purple-400" />
+                  </motion.div>
+                  <h3 className="text-2xl font-bold text-white mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">
+                    Smart Follow-ups
+                  </h3>
+                  <p className="text-white/70 text-base leading-relaxed mb-6">
+                    Never lose a lead again with automated nurturing
+                  </p>
+                </div>
+                
+                                 {/* Premium Benefits */}
+                 <div className="space-y-3 max-w-xs mx-auto">
+                   <div className="flex items-center text-sm text-white/60">
+                     <div className="w-2 h-2 rounded-full bg-emerald-400/80 mr-3 shadow-lg shadow-emerald-400/40 flex-shrink-0"></div>
+                     <span>Intelligent lead nurturing</span>
+                   </div>
+                   <div className="flex items-center text-sm text-white/60">
+                     <div className="w-2 h-2 rounded-full bg-emerald-400/80 mr-3 shadow-lg shadow-emerald-400/40 flex-shrink-0"></div>
+                     <span>Smart booking reminders</span>
+                   </div>
+                   <div className="flex items-center text-sm text-white/60">
+                     <div className="w-2 h-2 rounded-full bg-emerald-400/80 mr-3 shadow-lg shadow-emerald-400/40 flex-shrink-0"></div>
+                     <span>Personal touch at scale</span>
+                   </div>
+                 </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Market Intelligence - Analytics Mockup */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="relative group h-full"
+          >
+            <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-all duration-500 overflow-hidden shadow-2xl shadow-black/20 h-full flex flex-col group-hover:shadow-amber-500/10">
+              {/* Premium Background Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/[0.02] via-orange-500/[0.01] to-rose-500/[0.02] rounded-3xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/[0.01] to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* Premium Analytics Dashboard */}
+              <div className="relative mb-8 flex-shrink-0">
+                <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl p-4 border border-gray-700/40 shadow-2xl shadow-black/30">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm text-white/80 font-medium">Market Analysis</span>
+                    <div className="flex items-center gap-2">
+                      <motion.div
+                        animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="w-2 h-2 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50"
+                      />
+                      <span className="text-xs text-emerald-400 font-medium">Live Data</span>
+                    </div>
+                  </div>
+                  
+                  {/* Premium Animated Chart */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-white/60 font-medium">Your Position</span>
+                      <div className="flex-1 mx-3 bg-gray-800/50 rounded-full h-3 overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: "65%" }}
+                          transition={{ duration: 2, delay: 0.5, repeat: Infinity, repeatDelay: 2 }}
+                          className="h-full bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full shadow-lg shadow-indigo-500/30"
+                        />
+                      </div>
         </div>
 
-        {/* Our Process */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-white/60">Competitor A</span>
+                      <div className="flex-1 mx-3 bg-gray-800/50 rounded-full h-3 overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: "42%" }}
+                          transition={{ duration: 2, delay: 1, repeat: Infinity, repeatDelay: 2 }}
+                          className="h-full bg-gradient-to-r from-rose-400 to-orange-500 rounded-full shadow-lg shadow-rose-500/30"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-white/60">Competitor B</span>
+                      <div className="flex-1 mx-3 bg-gray-800/50 rounded-full h-3 overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: "78%" }}
+                          transition={{ duration: 2, delay: 1.5, repeat: Infinity, repeatDelay: 2 }}
+                          className="h-full bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full shadow-lg shadow-amber-500/30"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Premium Insight Alert */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 4, repeat: Infinity, repeatDelay: 4 }}
+                    className="mt-4 bg-gradient-to-r from-amber-500/30 to-orange-500/30 rounded-xl p-3 border border-amber-400/40 shadow-lg shadow-amber-500/20"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <Lightbulb className="w-4 h-4 text-amber-300" />
+                      <span className="text-sm text-amber-200 font-medium">Opportunity Detected</span>
+                    </div>
+                    <div className="text-xs text-white/70">
+                      Premium coaching niche wide open
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+              
+              <div className="text-center flex-grow flex flex-col justify-between relative z-10">
+                <div>
+                  <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 border border-amber-400/30 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-amber-500/20"
+                  >
+                    <BarChart className="w-8 h-8 text-amber-400" />
+                  </motion.div>
+                  <h3 className="text-2xl font-bold text-white mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/90">
+                    Market Intelligence
+                  </h3>
+                  <p className="text-white/70 text-base leading-relaxed mb-6">
+                    Know exactly how to position yourself to win
+                  </p>
+                </div>
+                
+                                 {/* Premium Benefits */}
+                 <div className="space-y-3 max-w-xs mx-auto">
+                   <div className="flex items-center text-sm text-white/60">
+                     <div className="w-2 h-2 rounded-full bg-emerald-400/80 mr-3 shadow-lg shadow-emerald-400/40 flex-shrink-0"></div>
+                     <span>Deep competitor analysis</span>
+                   </div>
+                   <div className="flex items-center text-sm text-white/60">
+                     <div className="w-2 h-2 rounded-full bg-emerald-400/80 mr-3 shadow-lg shadow-emerald-400/40 flex-shrink-0"></div>
+                     <span>Market opportunity mapping</span>
+                   </div>
+                   <div className="flex items-center text-sm text-white/60">
+                     <div className="w-2 h-2 rounded-full bg-emerald-400/80 mr-3 shadow-lg shadow-emerald-400/40 flex-shrink-0"></div>
+                     <span>Strategic positioning</span>
+                   </div>
+                 </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Simplified Process - Visual Timeline */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -1351,62 +871,92 @@ export default function ServicesSection() {
           viewport={{ once: true }}
           className="bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12 mb-24"
         >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
-            <div>
-              <h3 className="text-3xl font-bold text-white mb-3">Our Process</h3>
-              <p className="text-white/70 max-w-xl">
-                Clear. Focused. Built to Perform.
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-white mb-3">Simple Process</h3>
+            <p className="text-white/70 max-w-xl mx-auto">
+              From invisible to fully booked in 3 steps
               </p>
             </div>
-            <div className="mt-6 md:mt-0">
-              <a 
-                href="#contact" 
-                className="inline-flex items-center px-6 py-3 rounded-full border border-white/10 hover:border-white/20 text-white font-medium transition-all duration-300 group"
-              >
-                <span>Start Your Project</span>
-                <span className="ml-2 transform group-hover:translate-x-1 transition-transform duration-300">
-                  <ArrowRight className="w-4 h-4" />
-                </span>
-              </a>
-            </div>
-          </div>
           
-          <div className="space-y-0">
-            <ProcessStep 
-              number="1" 
-              title="Talk Goals & Understand Your Business" 
-              description="We learn your goals and plan a smart strategy."
-              delay={0.2}
-              icon={Compass}
-            />
+          {/* Visual Timeline */}
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-gradient-to-b from-indigo-500/50 via-purple-500/50 to-rose-500/50"></div>
             
-            <ProcessStep 
-              number="2" 
-              title="Design a Simple, Fast Website That Converts" 
-              description="We create clean, branded layouts that drive action."
-              delay={0.4}
-              icon={Palette}
-            />
-            
-            <ProcessStep 
-              number="3" 
-              title="Build Your Site & Set Up Quote & Follow-Up Systems" 
-              description="We develop fast, responsive sites that work everywhere."
-              delay={0.6}
-              icon={Code}
-            />
-            
-            <ProcessStep 
-              number="4" 
-              title="Launch & Help You Get More Jobs — We Keep Improving It" 
-              description="We launch, track, and refine for ongoing results."
-              delay={0.8}
-              icon={BarChart}
-            />
+            <div className="space-y-16">
+              {/* Step 1 */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="flex items-center gap-8"
+              >
+                <div className="flex-1 text-right">
+                  <h4 className="text-xl font-bold text-white mb-2">Chat About Goals</h4>
+                  <p className="text-white/60">Quick call to understand your vision</p>
+            </div>
+                <div className="relative z-10 w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 border-2 border-indigo-500/30 flex items-center justify-center">
+                  <Compass className="w-8 h-8 text-indigo-400" />
+                  <motion.div
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute inset-0 rounded-full bg-indigo-500/20"
+                  />
+          </div>
+                <div className="flex-1"></div>
+              </motion.div>
+
+              {/* Step 2 */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+                className="flex items-center gap-8"
+              >
+                <div className="flex-1"></div>
+                <div className="relative z-10 w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-700/20 border-2 border-purple-500/30 flex items-center justify-center">
+                  <Wrench className="w-8 h-8 text-purple-400" />
+                  <motion.div
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                    className="absolute inset-0 rounded-full bg-purple-500/20"
+                  />
+                </div>
+                <div className="flex-1 text-left">
+                  <h4 className="text-xl font-bold text-white mb-2">Build & Optimize</h4>
+                  <p className="text-white/60">We handle the tech, you focus on coaching</p>
+                </div>
+              </motion.div>
+
+              {/* Step 3 */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="flex items-center gap-8"
+              >
+                <div className="flex-1 text-right">
+                  <h4 className="text-xl font-bold text-white mb-2">Get Booked</h4>
+                  <p className="text-white/60">Watch the discovery calls roll in</p>
+                </div>
+                <div className="relative z-10 w-16 h-16 rounded-full bg-gradient-to-br from-rose-500/20 to-rose-700/20 border-2 border-rose-500/30 flex items-center justify-center">
+                  <TrendingUp className="w-8 h-8 text-rose-400" />
+                  <motion.div
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                    className="absolute inset-0 rounded-full bg-rose-500/20"
+                  />
+                </div>
+                <div className="flex-1"></div>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
 
-        {/* Results-Driven Approach */}
+        {/* Results Section */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -1414,43 +964,6 @@ export default function ServicesSection() {
           viewport={{ once: true }}
           className="mb-28 relative"
         >
-          {/* Enhanced background elements */}
-          <motion.div 
-            className="absolute -top-20 left-1/4 w-96 h-96 rounded-full"
-            animate={{ 
-              background: [
-                'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.05) 50%, rgba(0,0,0,0) 70%)',
-                'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.05) 50%, rgba(0,0,0,0) 70%)',
-                'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.05) 50%, rgba(0,0,0,0) 70%)'
-              ],
-              scale: [1, 1.1, 1],
-              filter: ['blur(60px)', 'blur(70px)', 'blur(60px)'],
-            }}
-            transition={{ 
-              duration: 8,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          />
-          <motion.div 
-            className="absolute -bottom-20 right-1/4 w-96 h-96 rounded-full"
-            animate={{ 
-              background: [
-                'radial-gradient(circle, rgba(244,114,182,0.15) 0%, rgba(244,114,182,0.05) 50%, rgba(0,0,0,0) 70%)',
-                'radial-gradient(circle, rgba(236,72,153,0.15) 0%, rgba(236,72,153,0.05) 50%, rgba(0,0,0,0) 70%)',
-                'radial-gradient(circle, rgba(244,114,182,0.15) 0%, rgba(244,114,182,0.05) 50%, rgba(0,0,0,0) 70%)'
-              ],
-              scale: [1, 1.15, 1],
-              filter: ['blur(60px)', 'blur(80px)', 'blur(60px)'],
-            }}
-            transition={{ 
-              duration: 10,
-              repeat: Infinity,
-              repeatType: "reverse",
-              delay: 1
-            }}
-          />
-          
           <motion.div 
             className="text-center mb-10 relative z-10"
             initial={{ opacity: 0, y: 20 }}
@@ -1458,40 +971,22 @@ export default function ServicesSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="mb-3"
-            >
-              <h3 className="text-4xl md:text-5xl font-bold relative inline-block">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-white to-rose-200 relative z-10">
-                  Results That Matter
-                </span>
-                <motion.div 
-                  className="absolute -bottom-2 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-500 rounded-full"
-                  initial={{ width: 0, left: "50%" }}
-                  whileInView={{ width: "100%", left: 0 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                  viewport={{ once: true }}
-                />
-              </h3>
-            </motion.div>
+            <h3 className="text-4xl md:text-5xl font-bold relative inline-block">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-white to-rose-200 relative z-10">
+                Real Results
+              </span>
+            </h3>
           </motion.div>
           
-          {/* Metrics Showcase with Optimized Animations */}
+          {/* Metrics Showcase */}
           <motion.div 
             className="relative"
             initial="hidden"
             animate={isVisible ? "visible" : "hidden"}
             variants={metricsVariants}
           >
-            {/* Use CSS animations for the vertical line instead of motion.div */}
-            <div className="absolute top-0 bottom-0 right-1/3 w-[1px] bg-gradient-to-b from-transparent via-indigo-500 to-transparent animate-gradient-flow" />
-            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
-              {/* Qualified Leads Metric */}
+              {/* More Clients Metric */}
               <motion.div 
                 className="text-center"
                 variants={metricsVariants}
@@ -1504,23 +999,7 @@ export default function ServicesSection() {
                     animate="animate"
                   />
                   <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 border border-indigo-500/30 flex items-center justify-center">
-                    <motion.div
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ 
-                        duration: 20, 
-                        repeat: Infinity,
-                        ease: "linear" 
-                      }}
-                      className="absolute inset-0 rounded-full overflow-hidden opacity-60"
-                    >
-                      <div className="w-full h-full bg-gradient-to-r from-indigo-500/30 to-transparent" />
-                    </motion.div>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-indigo-400 relative z-10">
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="9" cy="7" r="4"></circle>
-                      <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg>
+                    <TrendingUp className="w-7 h-7 text-indigo-400 relative z-10" />
                   </div>
                 </div>
                 
@@ -1536,18 +1015,6 @@ export default function ServicesSection() {
                   viewport={{ once: true }}
                   className="relative"
                 >
-                  <motion.div 
-                    className="absolute inset-0 filter blur-sm opacity-30 bg-indigo-500/30 rounded-xl"
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.3, 0.5, 0.3]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  />
                   <motion.span
                     className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-indigo-500 block"
                     animate={{
@@ -1563,14 +1030,14 @@ export default function ServicesSection() {
                       repeatType: "reverse"
                     }}
                   >
-                    +142%
+                    +180%
                   </motion.span>
                 </motion.div>
-                <h4 className="text-xl text-white mt-2 font-medium">Qualified Leads</h4>
-                <p className="text-white/60 text-sm mt-1">More high-quality prospects</p>
+                <h4 className="text-xl text-white mt-2 font-medium">More Discovery Calls</h4>
+                <p className="text-white/60 text-sm mt-1">Coaches getting more quality leads</p>
               </motion.div>
               
-              {/* Conversion Rate Metric */}
+              {/* Booking Rate Metric */}
               <motion.div 
                 className="text-center"
                 variants={metricsVariants}
@@ -1583,17 +1050,6 @@ export default function ServicesSection() {
                     animate="animate"
                   />
                   <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-700/20 border border-purple-500/30 flex items-center justify-center">
-                    <motion.div
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ 
-                        duration: 20, 
-                        repeat: Infinity,
-                        ease: "linear" 
-                      }}
-                      className="absolute inset-0 rounded-full overflow-hidden opacity-60"
-                    >
-                      <div className="w-full h-full bg-gradient-to-r from-purple-500/30 to-transparent" />
-                    </motion.div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-purple-400 relative z-10">
                       <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
                       <path d="m9 12 2 2 4-4"></path>
@@ -1613,19 +1069,6 @@ export default function ServicesSection() {
                   viewport={{ once: true }}
                   className="relative"
                 >
-                  <motion.div 
-                    className="absolute inset-0 filter blur-sm opacity-30 bg-purple-500/30 rounded-xl"
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.3, 0.5, 0.3]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                      delay: 0.5
-                    }}
-                  />
                   <motion.span
                     className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-purple-500 block"
                     animate={{
@@ -1642,14 +1085,14 @@ export default function ServicesSection() {
                       delay: 0.3
                     }}
                   >
-                    +94%
+                    85%
                   </motion.span>
                 </motion.div>
-                <h4 className="text-xl text-white mt-2 font-medium">Conversion Rate</h4>
-                <p className="text-white/60 text-sm mt-1">Higher visitor-to-client ratio</p>
+                <h4 className="text-xl text-white mt-2 font-medium">Client Conversion</h4>
+                <p className="text-white/60 text-sm mt-1">Discovery calls to paying clients</p>
               </motion.div>
               
-              {/* Search Visibility Metric */}
+              {/* Time Saved Metric */}
               <motion.div 
                 className="text-center"
                 variants={metricsVariants}
@@ -1662,25 +1105,9 @@ export default function ServicesSection() {
                     animate="animate"
                   />
                   <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-rose-500/20 to-rose-700/20 border border-rose-500/30 flex items-center justify-center">
-                    <motion.div
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ 
-                        duration: 20, 
-                        repeat: Infinity,
-                        ease: "linear" 
-                      }}
-                      className="absolute inset-0 rounded-full overflow-hidden opacity-60"
-                    >
-                      <div className="w-full h-full bg-gradient-to-r from-rose-500/30 to-transparent" />
-                    </motion.div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-rose-400 relative z-10">
-                      <path d="m21 21-6-6m6 6v-4.8m0 4.8h-4.8"></path>
-                      <path d="M3 16.2V21m0-4.8H7.8"></path>
-                      <path d="M21 7.8V3m0 4.8h-4.8"></path>
-                      <path d="M3 3v4.8M3 3h4.8"></path>
-                      <path d="M10 21v-4a2 2 0 0 1 4 0v4"></path>
-                      <path d="M10 7V3h4v4"></path>
-                      <path d="M3 12h18"></path>
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12,6 12,12 16,14"></polyline>
                     </svg>
                   </div>
                 </div>
@@ -1697,19 +1124,6 @@ export default function ServicesSection() {
                   viewport={{ once: true }}
                   className="relative"
                 >
-                  <motion.div 
-                    className="absolute inset-0 filter blur-sm opacity-30 bg-rose-500/30 rounded-xl"
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.3, 0.5, 0.3]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                      delay: 1
-                    }}
-                  />
                   <motion.span
                     className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-rose-300 to-rose-500 block"
                     animate={{
@@ -1726,11 +1140,11 @@ export default function ServicesSection() {
                       delay: 0.6
                     }}
                   >
-                    +67%
+                    15hrs
                   </motion.span>
                 </motion.div>
-                <h4 className="text-xl text-white mt-2 font-medium">Search Visibility</h4>
-                <p className="text-white/60 text-sm mt-1">Improved rankings for key terms</p>
+                <h4 className="text-xl text-white mt-2 font-medium">Time Saved Weekly</h4>
+                <p className="text-white/60 text-sm mt-1">Focus on coaching, not chasing leads</p>
               </motion.div>
             </div>
           </motion.div>
@@ -1744,9 +1158,9 @@ export default function ServicesSection() {
           viewport={{ once: true }}
           className="bg-gradient-to-br from-indigo-500/10 to-rose-500/10 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12 text-center"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Get More Jobs?</h3>
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Go from Invisible to Fully Booked?</h3>
           <p className="text-white/70 max-w-2xl mx-auto mb-8">
-            Book a Free Demo and See How Your Website Can Work for You
+            Let's have a quick chat about turning your website into a client magnet
           </p>
           <motion.button 
             onClick={handleBookDemo}
@@ -1754,7 +1168,7 @@ export default function ServicesSection() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span className="text-lg">Book a Free Demo</span>
+            <span className="text-lg">Let's Chat</span>
             <motion.span 
               animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}

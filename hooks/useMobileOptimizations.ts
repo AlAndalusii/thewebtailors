@@ -102,8 +102,8 @@ export function useMobileOptimizations(): MobileOptimizations {
       document.body.style.touchAction = 'manipulation'
       
       // Better font rendering on mobile
-      document.body.style.webkitFontSmoothing = 'antialiased'
-      document.body.style.mozOsxFontSmoothing = 'grayscale'
+      ;(document.body.style as any).webkitFontSmoothing = 'antialiased'
+      ;(document.body.style as any).mozOsxFontSmoothing = 'grayscale'
     }
 
     // Apply reduced motion preferences
@@ -255,8 +255,9 @@ export function usePerformanceOptimizations() {
     if ('loading' in HTMLImageElement.prototype) {
       const images = document.querySelectorAll('img[loading="lazy"]')
       images.forEach(img => {
-        if (img.dataset.src) {
-          img.src = img.dataset.src
+        const imageElement = img as HTMLImageElement
+        if (imageElement.dataset.src) {
+          imageElement.src = imageElement.dataset.src
         }
       })
     }

@@ -1,13 +1,10 @@
 "use client"
 
-import { motion, Variants } from "framer-motion"
+import { motion } from "framer-motion"
 import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
-import { Palette, ArrowRight, BarChart, Compass, Code, Zap, Bot, MessageCircle, LineChart, ChevronRight, ShieldCheck, Star, Award, Crown, Sparkles, TrendingUp, Mail, CheckCircle, Lightbulb, Wrench, MessageSquare } from "lucide-react"
-import Image from "next/image"
-import { useState, useRef, useEffect, useMemo } from "react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { Palette, ArrowRight, BarChart, Compass, Bot, Star, Award, Crown, Sparkles, TrendingUp, Mail, CheckCircle, Lightbulb, Wrench, MessageSquare } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 
 
@@ -548,7 +545,7 @@ export default function ServicesSection() {
               
               {/* Animated Browser Mockup - Premium Version */}
               <div className="relative mb-8 flex-shrink-0">
-                <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl p-4 border border-gray-700/40 shadow-2xl shadow-black/30">
+                <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl p-4 border border-gray-700/40 shadow-2xl shadow-black/30 h-40 flex flex-col">
                   {/* Premium Browser Header */}
                   <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-700/30">
                     <div className="flex gap-2">
@@ -573,7 +570,7 @@ export default function ServicesSection() {
                     </div>
                   </div>
                   
-                  <div className="h-32 relative overflow-hidden">
+                  <div className="flex-1 relative overflow-hidden">
                     {/* Before Website - Outdated */}
                     <motion.div
                       animate={{ opacity: [1, 0, 1] }}
@@ -659,8 +656,8 @@ export default function ServicesSection() {
               
               {/* Premium Communication Flow Mockup */}
               <div className="relative mb-8 flex-shrink-0">
-                <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl p-4 border border-gray-700/40 shadow-2xl shadow-black/30 h-32">
-                  <div className="space-y-3 h-full flex flex-col justify-center">
+                <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl p-4 border border-gray-700/40 shadow-2xl shadow-black/30 h-40">
+                  <div className="space-y-3 h-full flex flex-col justify-center pt-6">
                     {/* Email Notification */}
                     <motion.div
                       initial={{ opacity: 0, x: -30, scale: 0.8 }}
@@ -757,7 +754,7 @@ export default function ServicesSection() {
               
               {/* Premium Analytics Dashboard */}
               <div className="relative mb-8 flex-shrink-0">
-                <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl p-4 border border-gray-700/40 shadow-2xl shadow-black/30">
+                <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl p-4 border border-gray-700/40 shadow-2xl shadow-black/30 h-40 flex flex-col">
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-sm text-white/80 font-medium">Market Analysis</span>
                     <div className="flex items-center gap-2">

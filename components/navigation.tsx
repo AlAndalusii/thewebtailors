@@ -30,12 +30,18 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState("hero")
   const [scrolled, setScrolled] = useState(false)
   const [isAIChatbotVisible, setIsAIChatbotVisible] = useState(false)
+  const [isClient, setIsClient] = useState(false)
   const pathname = usePathname()
   const isHomePage = pathname === "/"
   const { registerCallback } = useScrollManager()
 
+  // Initialize client state
   useEffect(() => {
-    if (!isHomePage) return;
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isHomePage || !isClient || typeof window === 'undefined') return;
 
     const cleanup = registerCallback((scrollY) => {
       // Enhanced section detection - find the section that takes up most of the viewport
@@ -89,7 +95,7 @@ export default function Navigation() {
     return () => {
       if (cleanup) cleanup();
     };
-  }, [isHomePage, registerCallback]);
+  }, [isHomePage, registerCallback, isClient]);
 
   // Helper function to determine if a nav item is active (only one at a time)
   const isNavItemActive = (item: NavItem) => {
@@ -104,6 +110,8 @@ export default function Navigation() {
 
   // Function to handle navigation click
   const handleNavClick = (e: React.MouseEvent, item: NavItem) => {
+    if (!isClient || typeof window === 'undefined') return;
+    
     if (item.isExternal) {
       // For external pages, let the navigation happen naturally
       setIsOpen(false) // Close mobile menu
@@ -123,12 +131,18 @@ export default function Navigation() {
       }
     } else {
       // If we're not on homepage but clicked a section link, go to homepage and then to that section
-      window.location.href = `/${item.href}`
+      try {
+        window.location.href = `/${item.href}`
+      } catch (error) {
+        console.error('Navigation error:', error);
+      }
     }
   }
 
   // Prevent body scrolling when mobile menu is open
   useEffect(() => {
+    if (!isClient || typeof document === 'undefined') return;
+    
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       // Add iOS Safari bounce prevention
@@ -140,14 +154,18 @@ export default function Navigation() {
       document.body.style.width = '';
     }
     return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
+      if (typeof document !== 'undefined') {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+      }
     };
-  }, [isOpen]);
+  }, [isOpen, isClient]);
 
   // Close mobile menu on resize to desktop
   useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+    
     const handleResize = () => {
       if (window.innerWidth >= 768 && isOpen) {
         setIsOpen(false)
@@ -156,7 +174,7 @@ export default function Navigation() {
     
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [isOpen])
+  }, [isOpen, isClient])
 
   return (
     <>
@@ -397,7 +415,13 @@ export default function Navigation() {
                   <motion.button
                     onClick={() => {
                       setIsOpen(false)
-                      window.open('https://calendly.com/thewebtailors/free-strategy-call', '_blank', 'noopener,noreferrer')
+                      if (isClient && typeof window !== 'undefined') {
+                        try {
+                          window.open('https://calendly.com/thewebtailors/free-strategy-call', '_blank', 'noopener,noreferrer')
+                        } catch (error) {
+                          console.error('Error opening Calendly:', error);
+                        }
+                      }
                     }}
                     whileTap={{ scale: 0.98 }}
                     className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-2xl shadow-indigo-500/25 touch-manipulation"
@@ -426,10 +450,16 @@ export default function Navigation() {
                 <motion.button
                   key={section}
                   onClick={() => {
-                    const element = document.getElementById(section)
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth", block: "start" })
-                      setActiveSection(section)
+                    if (!isClient || typeof document === 'undefined') return;
+                    
+                    try {
+                      const element = document.getElementById(section)
+                      if (element) {
+                        element.scrollIntoView({ behavior: "smooth", block: "start" })
+                        setActiveSection(section)
+                      }
+                    } catch (error) {
+                      console.error('Error scrolling to section:', error);
                     }
                   }}
                   className="relative group"

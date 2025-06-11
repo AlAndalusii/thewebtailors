@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
-import { ArrowRight, Phone, Mail, MessageSquare, Clock } from "lucide-react"
+import { Phone, Mail, Clock } from "lucide-react"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -24,7 +24,7 @@ const poppins = Poppins({
 
 export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle")
+
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const contactRef = useRef<HTMLDivElement>(null)
   
@@ -72,14 +72,12 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    setFormStatus("idle")
 
     try {
       // Simulate an API call (replace with actual implementation)
       await new Promise(resolve => setTimeout(resolve, 1500))
       
       // Show success message
-      setFormStatus("success")
       toast.success("Message sent successfully! We'll be in touch soon.")
       
       // Reset form
@@ -91,7 +89,6 @@ export default function ContactSection() {
       })
     } catch (error) {
       console.error("Error submitting form:", error)
-      setFormStatus("error")
       toast.error("Connection error. Please try again later.")
     } finally {
       setIsSubmitting(false)

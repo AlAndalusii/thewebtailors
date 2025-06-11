@@ -6,6 +6,9 @@ import { cn } from "@/lib/utils"
 import { Toaster } from "sonner"
 import Script from "next/script"
 import MobileOptimizationProvider from "@/components/MobileOptimizationProvider"
+import FontLoader from "@/components/FontLoader"
+import PerformanceMonitor from "@/components/PerformanceMonitor"
+import ErrorBoundary from "@/components/ErrorBoundary"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -124,31 +127,27 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
         
-        {/* Preload critical fonts */}
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-          as="style"
-        />
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-          as="style"
-        />
+        {/* Optimized font loading - just preconnect */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        
+        {/* Font Awesome for WhatsApp icon */}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossOrigin="anonymous" />
         
         {/* Critical resource hints */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//assets.calendly.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       </head>
       <body className={cn(
         "min-h-screen bg-[#030303] font-sans antialiased safe-area-insets performance-optimized", 
         poppins.variable
       )}>
-        <MobileOptimizationProvider>
-          {children}
-        </MobileOptimizationProvider>
+        <FontLoader />
+        <PerformanceMonitor />
+        <ErrorBoundary>
+          <MobileOptimizationProvider>
+            {children}
+          </MobileOptimizationProvider>
+        </ErrorBoundary>
         
         <Toaster 
           position="top-center" 
@@ -209,15 +208,15 @@ export default function RootLayout({
                 }
                 
                 // Connection-aware optimizations
-                if ('connection' in navigator) {
-                  const connection = navigator.connection;
+                if (typeof navigator !== 'undefined' && 'connection' in navigator) {
+                  const connection = (navigator as any).connection;
                   if (connection && connection.effectiveType && connection.effectiveType.includes('2g')) {
                     document.body.classList.add('reduce-animations');
                   }
                 }
                 
                 // Battery-aware optimizations
-                if ('getBattery' in navigator) {
+                if (typeof navigator !== 'undefined' && 'getBattery' in navigator) {
                   navigator.getBattery().then(battery => {
                     if (battery.level < 0.2 || !battery.charging) {
                       document.body.classList.add('reduce-animations');

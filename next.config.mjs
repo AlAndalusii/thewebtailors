@@ -58,6 +58,7 @@ const nextConfig = {
       'tailwind-merge',
     ],
     forceSwcTransforms: true,
+    webVitalsAttribution: ['CLS', 'LCP'],
     turbo: {
       rules: {
         '*.svg': {
@@ -79,12 +80,15 @@ const nextConfig = {
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+    emotion: false,
+    styledComponents: false,
   },
   productionBrowserSourceMaps: false,
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
   generateEtags: false,
+  trailingSlash: false,
   onDemandEntries: {
     maxInactiveAge: 25 * 1000,
     pagesBufferLength: 2,

@@ -1,6 +1,5 @@
 import { Logo } from "./logo"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Shield, Clock, Phone, MapPin, Mail, Award, Users, Zap, Building, Wrench, Home } from "lucide-react"
+import { ArrowRight, Shield, Phone, MapPin, Mail, Award, Users, Zap, Building, Wrench, Home } from "lucide-react"
 
 export default function Footer() {
   const handleEmailSubmit = (e: React.FormEvent) => {

@@ -1,17 +1,11 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { Pacifico, Poppins } from "next/font/google"
 import { cn } from "@/lib/utils"
-import { ArrowRight, Check, ChevronRight, ShieldCheck, Star, Calendar, Clock, Users } from "lucide-react"
+import { ArrowRight, Star, Calendar } from "lucide-react"
+import WhatsAppCTA from "./WhatsAppCTA"
 import { useState, useRef, useEffect, useCallback, memo } from "react"
-import Image from "next/image"
-
-const pacifico = Pacifico({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-pacifico",
-})
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -43,8 +37,10 @@ export default function HeroSection() {
   const [activeFeature, setActiveFeature] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [showFloatingCTA, setShowFloatingCTA] = useState(false)
+  const [isClient, setIsClient] = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
   const animationPaused = useRef(false);
+  const shouldReduceMotion = useReducedMotion();
   
   const features = [
     "Smart Follow-up Systems",
@@ -53,6 +49,10 @@ export default function HeroSection() {
     "Discovery Call Forms"
   ]
   
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (!animationPaused.current) {
@@ -65,6 +65,8 @@ export default function HeroSection() {
   
   // Mobile-optimized scroll handler for floating CTA
   useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+    
     const handleScroll = () => {
       if (heroRef.current) {
         const rect = heroRef.current.getBoundingClientRect()
@@ -94,32 +96,37 @@ export default function HeroSection() {
     
     window.addEventListener('scroll', throttledScroll, { passive: true })
     return () => window.removeEventListener('scroll', throttledScroll)
-  }, [])
+  }, [isClient])
   
-  // Throttled mouse move handler
+  // Throttled mouse move handler - disabled on reduced motion
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!heroRef.current || animationPaused.current) return;
+    if (!heroRef.current || animationPaused.current || shouldReduceMotion) return;
     
     const rect = heroRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
     
-    // Only update if there's significant movement
-    if (Math.abs(x - mousePosition.x) > 0.01 || Math.abs(y - mousePosition.y) > 0.01) {
+    // Only update if there's significant movement (increased threshold for performance)
+    if (Math.abs(x - mousePosition.x) > 0.05 || Math.abs(y - mousePosition.y) > 0.05) {
       setMousePosition({ x, y });
     }
-  }, [mousePosition]);
+  }, [mousePosition, shouldReduceMotion]);
 
-  const handleMouseMoveRAF = (e: MouseEvent) => {
+  const handleMouseMoveRAF = useCallback((e: MouseEvent) => {
+    if (shouldReduceMotion) return;
     requestAnimationFrame(() => handleMouseMove(e));
-  };
+  }, [handleMouseMove, shouldReduceMotion]);
 
   // Pause animations when tab is hidden for better performance
   const handleVisibilityChange = () => {
-    animationPaused.current = document.hidden;
+    if (typeof document !== 'undefined') {
+      animationPaused.current = document.hidden;
+    }
   };
 
   useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+    
     const hero = heroRef.current;
     if (hero) {
       hero.addEventListener('mousemove', handleMouseMoveRAF);
@@ -127,13 +134,17 @@ export default function HeroSection() {
       
       return () => {
         hero.removeEventListener('mousemove', handleMouseMoveRAF);
-        document.removeEventListener('visibilitychange', handleVisibilityChange);
+        if (typeof document !== 'undefined') {
+          document.removeEventListener('visibilitychange', handleVisibilityChange);
+        }
       };
     }
-  }, [handleMouseMove]);
+  }, [handleMouseMove, isClient]);
 
   // Performance optimized intersection observer for animations
   useEffect(() => {
+    if (!isClient || typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') return;
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -149,16 +160,22 @@ export default function HeroSection() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [isClient]);
 
   const handleGetAudit = () => {
-    // Enhanced mobile-friendly interaction
-    if (window.innerWidth < 768) {
-      // Mobile: Direct to Calendly with optimized mobile view
-      window.open('https://calendly.com/thewebtailors/free-strategy-call', '_blank', 'noopener,noreferrer')
-    } else {
-      // Desktop: Original behavior
-      window.open('https://calendly.com/thewebtailors/free-strategy-call', '_blank', 'noopener,noreferrer')
+    if (!isClient || typeof window === 'undefined') return;
+    
+    try {
+      // Enhanced mobile-friendly interaction
+      if (window.innerWidth < 768) {
+        // Mobile: Direct to Calendly with optimized mobile view
+        window.open('https://calendly.com/thewebtailors/free-strategy-call', '_blank', 'noopener,noreferrer')
+      } else {
+        // Desktop: Original behavior
+        window.open('https://calendly.com/thewebtailors/free-strategy-call', '_blank', 'noopener,noreferrer')
+      }
+    } catch (error) {
+      console.error('Error opening Calendly:', error);
     }
   }
 
@@ -192,9 +209,15 @@ Looking forward to hearing from you!
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = 'Let\'s Get You Fully Booked';
-    const body = `Hi The Web Tailors Team,%0A%0AI'd love to chat about getting more clients. Here are my details:%0A%0AName: ${form.firstName} ${form.lastName}%0AEmail: ${form.email}%0APhone: ${form.phone}%0AWhat I do: ${form.details}%0A%0AThanks!`;
-    window.location.href = `mailto:info@thewebtailors.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    if (!isClient || typeof window === 'undefined') return;
+    
+    try {
+      const subject = 'Let\'s Get You Fully Booked';
+      const body = `Hi The Web Tailors Team,%0A%0AI'd love to chat about getting more clients. Here are my details:%0A%0AName: ${form.firstName} ${form.lastName}%0AEmail: ${form.email}%0APhone: ${form.phone}%0AWhat I do: ${form.details}%0A%0AThanks!`;
+      window.location.href = `mailto:info@thewebtailors.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    } catch (error) {
+      console.error('Error opening email client:', error);
+    }
   };
 
   const switchMessages = [
@@ -257,21 +280,10 @@ Looking forward to hearing from you!
           {/* Centered Premium Hero Content */}
           <div className="max-w-7xl mx-auto text-center">
             
-            {/* Premium Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 mb-6 md:mb-8 bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-full shadow-2xl shadow-black/20"
-            >
-              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-400/50"></div>
-              <span className="text-white/90 font-medium text-sm md:text-base">Client-Winning Websites & Follow-Up Systems</span>
-              <div className="flex gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3 h-3 md:w-4 md:h-4 text-amber-400 fill-amber-400" />
-                ))}
-              </div>
-            </motion.div>
+            {/* WhatsApp CTA - World Class Apple Style - Moved Above Heading */}
+            <div className="mb-8 md:mb-12">
+              <WhatsAppCTA />
+            </div>
 
             {/* Main Headline - Fortune 500 Style */}
             <motion.h1 
@@ -565,77 +577,154 @@ Looking forward to hearing from you!
               </motion.div>
             </motion.div>
 
-            {/* Social Proof Stats */}
+            {/* World-Class Audit CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-16 mb-12 md:mb-16 px-4"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 mb-12 md:mb-16 px-4"
             >
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 mb-2">
-                  180%
-                </div>
-                <div className="text-white/60 text-xs md:text-sm">More Discovery Calls</div>
-              </div>
-              <div className="hidden md:block w-px h-8 md:h-12 bg-white/20"></div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-rose-400 mb-2">
-                  15hrs
-                </div>
-                <div className="text-white/60 text-xs md:text-sm">Saved Per Week</div>
-              </div>
-              <div className="hidden md:block w-px h-8 md:h-12 bg-white/20"></div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-rose-400 to-amber-400 mb-2">
-                  85%
-                </div>
-                <div className="text-white/60 text-xs md:text-sm">Conversion Rate</div>
-              </div>
-            </motion.div>
-
-            {/* Premium CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.0 }}
-              className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 px-4"
-            >
-              {/* Primary CTA */}
+              {/* Email Audit Button */}
               <motion.button
-                onClick={handleGetAudit}
-                whileHover={{ scale: 1.02 }}
+                onClick={() => {
+                  if (!isClient || typeof window === 'undefined') return; // SSR safety check
+                  
+                  try {
+                    const emailBody = `Hi TheWebTailors Team,
+
+I'd like to request a FREE website audit for my coaching business. Here are my details:
+
+Name: [Your Name]
+Business Name: [Your Business Name]
+Current Website: [Your Website URL]
+Phone: [Your Phone Number]
+Best time to call: [Your Availability]
+
+Looking forward to hearing from you!
+
+Best regards,
+[Your Name]`;
+                    window.location.href = `mailto:info@thewebtailors.com?subject=FREE Website Audit Request&body=${encodeURIComponent(emailBody)}`;
+                  } catch (error) {
+                    console.error('Error opening email client:', error);
+                  }
+                }}
+                whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full md:w-auto group relative overflow-hidden px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 rounded-full text-white font-semibold text-base md:text-lg shadow-2xl shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-300"
+                className="group relative overflow-hidden px-6 md:px-8 py-4 md:py-5 bg-gradient-to-r from-indigo-600 via-purple-600 to-rose-600 rounded-2xl text-white font-semibold text-sm md:text-base shadow-2xl shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:shadow-2xl transition-all duration-500 border border-white/20 backdrop-blur-xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-700 via-purple-700 to-rose-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {/* Sophisticated gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-700/50 via-purple-700/50 to-rose-700/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Apple-style glass morphism */}
+                <div className="absolute inset-0 bg-white/[0.08] opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xl"></div>
+                
+                {/* Subtle inner glow */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/10 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
                 <span className="relative flex items-center justify-center gap-2 md:gap-3">
-                  Get Your Free Strategy Call
-                  <motion.svg 
-                    className="w-4 h-4 md:w-5 md:h-5" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                    animate={{ x: [0, 4, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                  {/* Enhanced email icon with subtle animation */}
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </motion.svg>
+                    <svg className="w-4 h-4 md:w-5 md:h-5 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </motion.div>
+                  
+                  <span className="font-medium tracking-wide">Get FREE Audit via Email</span>
+                  
+                  {/* Sophisticated arrow animation */}
+                  <motion.div
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ 
+                      duration: 2, 
+                      repeat: Infinity, 
+                      repeatDelay: 2,
+                      ease: [0.4, 0, 0.2, 1] // Apple's easing curve
+                    }}
+                    className="ml-1"
+                  >
+                    <svg className="w-4 h-4 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </motion.div>
                 </span>
               </motion.button>
 
-              {/* Secondary CTA */}
+              {/* WhatsApp Audit Button */}
               <motion.button
-                whileHover={{ scale: 1.02 }}
+                onClick={() => {
+                  if (!isClient || typeof window === 'undefined') return; // SSR safety check
+                  
+                  try {
+                    const message = encodeURIComponent("Hi! I'd like to get a FREE website audit for my coaching business. Can we chat?");
+                    const whatsappUrl = `https://wa.me/447591092103?text=${message}`;
+                    window.open(whatsappUrl, '_blank');
+                  } catch (error) {
+                    console.error('Error opening WhatsApp:', error);
+                    // Fallback: try direct navigation
+                    window.location.href = `https://wa.me/447591092103`;
+                  }
+                }}
+                whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full md:w-auto group px-6 md:px-8 py-3 md:py-4 bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-full text-white font-medium hover:bg-white/[0.12] transition-all duration-300 flex items-center justify-center gap-2"
+                className="group relative overflow-hidden px-6 md:px-8 py-4 md:py-5 bg-gradient-to-r from-purple-600 via-rose-600 to-indigo-600 hover:from-purple-700 hover:via-rose-700 hover:to-indigo-700 rounded-2xl text-white font-semibold text-sm md:text-base shadow-2xl shadow-purple-500/30 hover:shadow-purple-500/50 hover:shadow-2xl transition-all duration-500 border border-white/20 backdrop-blur-xl"
               >
-                <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                View Our Work
+                {/* Sophisticated gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-700/50 via-rose-700/50 to-indigo-700/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Apple-style glass morphism */}
+                <div className="absolute inset-0 bg-white/[0.08] opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xl"></div>
+                
+                {/* Subtle inner glow */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/10 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <span className="relative flex items-center justify-center gap-2 md:gap-3">
+                  {/* Enhanced WhatsApp icon with subtle animation */}
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: -5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    className="relative"
+                  >
+                    <svg className="w-4 h-4 md:w-5 md:h-5 drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.787"/>
+                    </svg>
+                    
+                    {/* Subtle pulse effect for WhatsApp */}
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-0 rounded-full bg-white/20"
+                    />
+                  </motion.div>
+                  
+                  <span className="font-medium tracking-wide">Get FREE Audit via WhatsApp</span>
+                  
+                  {/* Sophisticated chat bubble animation */}
+                  <motion.div
+                    animate={{ 
+                      y: [0, -2, 0],
+                      scale: [1, 1.05, 1]
+                    }}
+                    transition={{ 
+                      duration: 2.5, 
+                      repeat: Infinity, 
+                      repeatDelay: 1.5,
+                      ease: [0.4, 0, 0.2, 1] // Apple's easing curve
+                    }}
+                    className="ml-1"
+                  >
+                    <svg className="w-4 h-4 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                  </motion.div>
+                </span>
               </motion.button>
             </motion.div>
+
+
 
           </div>
         </div>

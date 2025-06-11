@@ -5,7 +5,7 @@ import { Pacifico } from "next/font/google"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { ArrowRight, Star, Award, TrendingUp } from "lucide-react"
-import { useState, useRef, useCallback } from "react"
+import { useState, useRef } from "react"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { X } from "lucide-react"
 
@@ -18,16 +18,11 @@ const pacifico = Pacifico({
 
 export default function GallerySection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false)
-  const [imagesLoaded, setImagesLoaded] = useState(0)
   const sectionRef = useRef(null)
   
   const openCalendly = () => {
     setIsCalendlyOpen(true)
   }
-
-  const handleImageLoad = useCallback(() => {
-    setImagesLoaded(prev => prev + 1)
-  }, [])
 
   return (
     <section 
@@ -189,13 +184,12 @@ export default function GallerySection() {
                   
                   <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
-                      src="/before 4.png"
+                      src="/Screenshot 2025-06-11 at 16.45.40.png"
                       alt="Before Redesign - Coach Website"
                       fill
                       className="object-contain transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 45vw"
-                      onLoad={handleImageLoad}
                       quality={85}
                     />
                   </div>
@@ -255,13 +249,12 @@ export default function GallerySection() {
                   
                   <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
-                      src="/after 4.png"
+                      src="/Screenshot 2025-06-11 at 16.44.47.png"
                       alt="After Redesign - Coach Website That Gets Clients"
                       fill
                       className="object-contain transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 45vw"
-                      onLoad={handleImageLoad}
                       quality={85}
                     />
                   </div>
